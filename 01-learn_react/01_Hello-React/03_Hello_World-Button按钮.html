@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>03_Hello_World-Button按钮</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- 引入react相关的依赖 -->
+  <script src="https://unpkg.com/react@16/umd/react.development.js" crossorigin></script>
+  <script src="https://unpkg.com/react-dom@16/umd/react-dom.development.js" crossorigin></script>
+  <script src="https://unpkg.com/babel-standalone@6/babel.min.js"></script>
+
+  <script type="text/babel">
+    let message = 'Hello World';
+
+    function changeText() {
+      message = 'Hello React!'
+      render()
+    }
+
+    function render() {
+      ReactDOM.render(
+      <div>
+        <h2>{message}</h2>
+        <button onClick={changeText}>改变文件</button>
+      </div>
+      , document.getElementById("app"))
+    }
+    render()
+
+  </script>
+</body>
+
+</html>
