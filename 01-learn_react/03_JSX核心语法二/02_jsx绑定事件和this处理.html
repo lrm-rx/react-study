@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- 引入react相关的依赖 -->
+  <script src="../react/react.development.js"></script>
+  <script src="../react/react-dom.development.js"></script>
+  <script src="../react/babel.min.js"></script>
+
+  <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          msg: 'react',
+          count: 200
+        }
+        this.btnClick = this.btnClick.bind(this)
+      }
+      render() {
+        const { count } = this.state
+        return (
+          <div>
+            <h2>{count}</h2>
+            {/* 1. 方案一: bind绑定this(显示绑定) */}
+            <button onClick={this.btnClick}>按钮1</button>
+            <button onClick={this.btnClick}>按钮2</button>
+            <button onClick={this.btnClick}>按钮3</button>
+
+            {/* 2. 方案二: 定义函数时, 使用箭头函数 */}
+            <button onClick={this.increment}>+2</button>
+            <button onClick={this.add('theshy')}>+2(柯里化方式)</button>
+
+            {/* 3. 方案三(推荐): 直接传入一个箭头函数, 在箭头函数中调用需要执行的函数 */}
+            <button onClick={(e) => this.decrement(e, 'xiaohu')}>-2</button>
+          </div>
+        )
+      }
+      btnClick() {
+        console.log(this.state.msg);
+        alert(this.state.msg)
+      }
+      increment = () => {
+        this.setState({
+          count: this.state.count + 2
+        })
+      }
+      add = (name) => {
+        // 在return函数之前的代码都会执行
+        return (e) => {
+          console.log('柯里化方式的name', name);
+          console.log('e', e);
+          this.setState({
+            count: this.state.count + 2
+          })
+        }
+      }
+
+      decrement(e, name) {
+        console.log('ee:', e);
+        console.log('name::', name);
+        this.setState({
+          count: this.state.count - 2
+        })
+      }
+    }
+    ReactDOM.render(<App />, document.getElementById('app'))
+  </script>
+</body>
+
+</html>

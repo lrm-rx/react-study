@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app"></div>
+  <!-- 引入react相关的依赖 -->
+  <script src="../react/react.development.js"></script>
+  <script src="../react/react-dom.development.js"></script>
+  <script src="../react/babel.min.js"></script>
+
+  <script type="text/babel">
+    class App extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          movies: ["大话西游", "海王", "流浪地球", "盗梦空间"]
+        }
+      }
+      render() {
+        return (
+          <div>
+            <button onClick={this.btnClick}>按钮</button>
+            <ul>
+              {
+                this.state.movies.map((item, index) => {
+                  return (
+                    <li className="item"
+                      onClick={e => this.liClick(item, index, e)}
+                      title="li"
+                      key={index}
+                    >
+                      {item}
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </div>
+        )
+      }
+
+      btnClick(event) {
+        console.log('点击了按钮:', event);
+      }
+
+      liClick(item, index, e) {
+        console.log(item);
+        console.log(index);
+        console.log(e);
+      }
+    }
+    ReactDOM.render(<App />, document.getElementById('app'))
+  </script>
+</body>
+
+</html>
