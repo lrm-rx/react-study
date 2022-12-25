@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import App from './03_组件间的通信/04_子传父通信-函数传参';
+import App from './06_跨组件通信/02_跨组件通信-context';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

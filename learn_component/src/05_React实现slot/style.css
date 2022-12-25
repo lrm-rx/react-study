@@ -1,0 +1,25 @@
+body {
+  padding: 0;
+  margin: 0;
+}
+
+.nav-bar {
+  display: flex;
+}
+
+.nav-item {
+  height: 44px;
+  line-height: 44px;
+  text-align: center;
+}
+
+.nav-left,
+.nav-right {
+  width: 70px;
+  background-color: pink;
+}
+
+.nav-conter {
+  flex: 1;
+  background-color: skyblue;
+}
