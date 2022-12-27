@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  
+</body>
+</html>
+<script>
+  // 是否是一个纯函数: 是
+  function sum(num1, num2) {
+    return num1 + num2;
+  }
+
+  sum(20, 30)
+  sum(20, 30)
+  sum(20, 30)
+
+  // add不是纯函数
+  let foo = 10;
+  function add(num) {
+    return foo + num;
+  }
+  add(5);
+  foo = 20;
+  add(5);
+
+  // 改写为纯函数
+  const bar = 10;
+  function add2(num) {
+    return bar + num;
+  }
+
+  bar = 12;
+  add2(18)
+</script>
