@@ -10,7 +10,7 @@ export default class Home extends PureComponent {
     }
   }
   componentDidMount() {
-    this.unsubscribue = store.subscribe(() => {
+    this.unsubscribe = store.subscribe(() => {
       this.setState({
         count: store.getState().count
       })
@@ -18,7 +18,7 @@ export default class Home extends PureComponent {
   }
 
   componentWillUnmount() {
-    this.unsubscribue();
+    this.unsubscribe();
   }
   render() {
     const { count } = this.state;

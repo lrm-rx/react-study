@@ -1,6 +1,7 @@
-import { ADD_NUMBER, SUB_NUMBER, INCREMENT, DECREMENT } from './constants.js'
+import { ADD_NUMBER, SUB_NUMBER, INCREMENT, DECREMENT, CHANGE_NEWSLIST } from './constants.js'
 const defaultState = {
-  count: 0
+  count: 0,
+  newsList: []
 }
 
 function reducer(state = defaultState, action) {
@@ -13,6 +14,8 @@ function reducer(state = defaultState, action) {
       return { ...state, count: state.count + 1 };
     case DECREMENT:
       return { ...state, count: state.count - 1 };
+    case CHANGE_NEWSLIST:
+      return {...state, newsList: action.news}
     default:
       return state;
   }
