@@ -1,28 +1,6 @@
-// export const addAction = (num) => {
-//   return {
-//     type: "ADD_NUMBER",
-//     num
-//   }
-// }
 import axios from 'axios'
-import { ADD_NUMBER, SUB_NUMBER, INCREMENT, DECREMENT, CHANGE_NEWSLIST, FETCH_HOME_MULTIDATA } from './constants.js'
-export const addAction = num => ({
-  type: ADD_NUMBER,
-  num
-})
+import { CHANGE_NEWSLIST, FETCH_HOME_MULTIDATA } from './constants.js'
 
-export const subAction = num => ({
-  type: SUB_NUMBER,
-  num
-})
-
-export const incAction = () => ({
-  type: INCREMENT
-});
-
-export const decAction = () => ({
-  type: DECREMENT
-});
 
 // 新闻列表
 export const changeNewsListAction = (news) => ({

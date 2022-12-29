@@ -3,3 +3,5 @@ export const SUB_NUMBER = "SUB_NUMBER"
 export const INCREMENT = "INCREMENT";
 export const DECREMENT = "DECREMENT";
 export const CHANGE_NEWSLIST = "CHANGE_NEWSLIST"
+
+export const FETCH_HOME_MULTIDATA = "FETCH_HOME_MULTIDATA"
