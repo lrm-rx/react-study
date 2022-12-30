@@ -1,0 +1,12 @@
+/* a.actvie {
+  color: pink;
+} */
+a {
+  margin: 0 10px;
+}
+a.link-active {
+  color: skyblue;
+}
+a.about-active {
+  color: pink;
+}
