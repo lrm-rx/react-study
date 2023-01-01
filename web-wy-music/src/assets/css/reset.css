@@ -48,17 +48,20 @@ body, textarea, select, input, button {
   background-color: #f5f5f5;
 }
 
+/* 文字只显示一行，多出...显示 */
 .text-nowrap {
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
 }
 
+/* 版心1 */
 .wrap-v1 {
   width: 1100px;
   margin: 0 auto;
 }
 
+/* 版心2 */
 .wrap-v2 {
   width: 980px;
   margin: 0 auto;
