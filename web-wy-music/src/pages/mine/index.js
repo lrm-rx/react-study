@@ -1,8 +1,15 @@
 import React, { memo } from 'react'
+import { MineWrapper } from './style'
 
 const Mine = memo(() => {
   return (
-    <div>Mine</div>
+    <MineWrapper>
+      <div className="content wrap-v2">
+        <div className="pic">
+          <a className="login" href="/#">立即登录</a>
+        </div>
+      </div>
+    </MineWrapper>
   )
 })
 
