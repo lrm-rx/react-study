@@ -1,7 +1,9 @@
-import React, { memo, useEffect } from 'react'
-import { useDispatch, useSelector, shallowEqual } from 'react-redux'
-import { getTopBannerAction } from './store/actionCreators'
+import React, { memo } from 'react'
 
+import TopBanner from './c-cpns/top-banner';
+import HotRecommend from './c-cpns/hot-recommend';
+import NewAlbum from './c-cpns/new-album';
+import RankingList from './c-cpns/ranking-list';
 import {
   RecommendWraper,
   Content,
@@ -9,20 +11,20 @@ import {
   RecommendRight
 } from "./style";
 
-const Recommend = memo((props) => {
-  // 组件和redux关联: 获取数据和进行操作
-  const { topBanners } = useSelector(state => ({
-    topBanners: state.recommend.topBanners
-  }), shallowEqual)
-  const dispatch = useDispatch()
-  // 发送网络请求
-  useEffect(() => {
-    dispatch(getTopBannerAction())
-  }, [dispatch])
+const Recommend = memo(() => {
+  
   return (
-    <div>
-      Recommend:{topBanners.length}
-    </div>
+    <RecommendWraper>
+      <TopBanner />
+      <Content className="wrap-v2">
+        <RecommendLeft>
+          <HotRecommend />
+          <NewAlbum />
+          <RankingList />
+        </RecommendLeft>
+        <RecommendRight></RecommendRight>
+      </Content>
+    </RecommendWraper>
   )
 })
 

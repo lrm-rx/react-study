@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+
+</body>
+
+</html>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/immutable/3.8.2/immutable.min.js"></script>
+
+<script>
+  const im = Immutable;
+
+  // Map的使用
+  // const info = {
+  //   name: "kobe",
+  //   age: 30,
+  //   friend: {
+  //     name: "ming",
+  //     age: 23
+  //   }
+  // }
+  // const infoIM = im.Map(info);
+  // const obj = infoIM;
+  // const infoIM2 = infoIM.set("name", "xiaohu")
+  // console.log(obj.get("name"));
+  // console.log(infoIM2.get("name"));
+
+  // list的使用
+  // const names = ["ming", "uzi", "xiaohu"]
+  // // const arr = names;
+  // // names[0] = "letme";
+  // // console.log(arr);
+  // const namesIM = im.List(names);
+  // const arrIM = namesIM.set(0, "letme");
+  // console.log(namesIM.get(0));
+  // console.log(arrIM.get(0));
+
+  const info = {
+    name: "kobe",
+    age: 30,
+    friend: {
+      name: "ming",
+      age: 23
+    }
+  }
+
+  // const infoIM = im.Map(info);
+  const infoIM = im.fromJS(info)
+
+  console.log(infoIM.get("friend"));
+
+</script>
