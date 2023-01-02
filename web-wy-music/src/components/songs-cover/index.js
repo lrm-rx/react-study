@@ -8,7 +8,6 @@ import { SongsCoverWrapper } from './style'
 
 const SongsCover = memo((props) => {
   const { info, right} = props;
-  console.log('info:', info);
   return (
     <SongsCoverWrapper right={right}>
       <div className="cover-top">
