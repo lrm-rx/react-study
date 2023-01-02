@@ -3,7 +3,7 @@ import styled from 'styled-components'
 export const DiscoverWrapper = styled.div`
   .top {
     height: 30px;
-    border-color: #C20C0C;
+    background-color: #C20C0C;
   }
 `
 
@@ -20,11 +20,12 @@ export const TopMenu = styled.div`
       line-height: 20px;
       padding: 0 13px;
       margin: 7px 17px 0;
+      text-decoration: none;
       color: #fff;
 
       &.hover, &.active {
         text-decoration: none;
-        border-color: #9B0909;
+        background-color: #9B0909;
         border-radius: 20px;
       }
     }
