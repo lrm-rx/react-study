@@ -3,7 +3,7 @@ import React, { memo } from 'react'
 import TopBanner from './c-cpns/top-banner';
 import HotRecommend from './c-cpns/hot-recommend';
 import NewAlbum from './c-cpns/new-album';
-import RankingList from './c-cpns/ranking-list';
+import RecommendRanking from './c-cpns/recommend-ranking';
 import {
   RecommendWraper,
   Content,
@@ -20,7 +20,7 @@ const Recommend = memo(() => {
         <RecommendLeft>
           <HotRecommend />
           <NewAlbum />
-          <RankingList />
+          <RecommendRanking />
         </RecommendLeft>
         <RecommendRight></RecommendRight>
       </Content>

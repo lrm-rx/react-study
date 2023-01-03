@@ -29,9 +29,6 @@ const TopBanner = memo((props) => {
   }, [dispatch])
 
   const bannerRef = useRef();
-  useEffect(() => {
-    dispatch(getTopBannerAction());
-  }, [dispatch]);
 
   const bannerChange = useCallback((from, to) => {
     setTimeout(() => {
