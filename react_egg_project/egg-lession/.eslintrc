@@ -1,0 +1,23 @@
+{
+  "extends": "eslint-config-egg",
+  "root": true,
+  "rules": {
+    // 缩进
+    "indent": "off",
+    // 句末分号
+    "semi": "off",
+    // 引号
+    "quotes": "off",
+    // 严格模式
+    "strict": "off",
+    // 数组和对象键值对最后一个逗号
+    "comma-dangle": "off",
+    "eggache/no-override-exports": "off",
+    "space-before-blocks": "off",
+    "no-unused-vars": "off",
+    "arrow-parens": 0,
+    "newline-per-chained-call": 0,
+    "eggache/no-only-tests": 0,
+    "array-bracket-spacing": 0
+  }
+}
