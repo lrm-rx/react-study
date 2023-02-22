@@ -62,6 +62,36 @@ module.exports = (appInfo) => {
     },
   };
 
+  config.auth = {
+    exclude: ["/home", "/user", "/user/login", "/user/logout"],
+  };
+
+  config.mysql = {
+    app: true,
+    agent: false,
+    client: {
+      host: "127.0.0.1",
+      port: "3306",
+      user: "root",
+      password: "756131502",
+      database: "egg",
+    },
+  };
+
+  exports.sequelize = {
+    dialect: "mysql", // support: mysql, mariadb, postgres, mssql
+    database: "egg",
+    host: "127.0.0.1",
+    port: 3306,
+    username: "root",
+    password: "756131502",
+    define: {
+      timestamps: false, // false时, 不需要sequelize生成相关时间字段
+      freezeTableName: true, // true时, 使用自定义的表名
+      underscored: true, // 将字段命名以驼峰修改为 _
+    },
+  };
+
   return {
     ...config,
     ...userConfig,

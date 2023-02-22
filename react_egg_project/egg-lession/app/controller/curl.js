@@ -6,7 +6,6 @@ class CurlController extends Controller {
     const res = await ctx.curl("http://localhost:7001/", {
       dataType: "json",
     });
-    console.log("res:", res);
     ctx.body = res.data;
   }
 

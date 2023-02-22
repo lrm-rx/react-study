@@ -13,10 +13,10 @@ class UserController extends Controller {
     const { ctx } = this;
     // 获取session
     const session = ctx.session.user;
-    console.log("session:", session);
+    // console.log("session:", session);
     // session可以直接设置为中文
     const zhSession = ctx.session.zh;
-    console.log("zhSession:", zhSession);
+    // console.log("zhSession:", zhSession);
     // cookies不能直接设置为中文, 需要加密 await 保证后面可以获取到
     await ctx.cookies.set("zh", "测试", {
       encrypt: true,
@@ -79,18 +79,31 @@ class UserController extends Controller {
   }
 
   async lists() {
-    const { ctx } = this;
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve();
-      }, 2000);
+    const { ctx, app, service } = this;
+    // console.log("app.mysql", app.mysql);
+    // await new Promise((resolve) => {
+    //   setTimeout(() => {
+    //     resolve();
+    //   }, 2000);
+    // });
+    // 使用 egg-mysql
+    // const result = await service.user.lists();
+
+    // 使用egg-sequelize
+    const result = await ctx.model.User.findAll({
+      // where: {
+      //   id: 6,
+      // },
+      // limit: 1,
+      // offset: 0,
     });
-    ctx.body = [{ id: 123 }];
+    ctx.body = result;
   }
 
   async detail() {
     const { ctx, service } = this;
-    const result = await service.user.detail(ctx.params.id);
+    // const result = await service.user.detail(ctx.params.id);
+    const result = await ctx.model.User.findByPk(ctx.params.id);
     ctx.body = result;
     // ctx.body = ctx.params.id;
   }
@@ -101,26 +114,55 @@ class UserController extends Controller {
   }
 
   async add() {
-    const { ctx } = this;
-    const rule = {
-      id: { type: "number" },
-      username: { type: "string" },
-    };
-    ctx.validate(rule);
+    const { ctx, service } = this;
+    // const rule = {
+    //   username: { type: "string" },
+    //   pwd: { type: "string" },
+    // };
+    // ctx.validate(rule);
+    // const result = await service.user.add(ctx.request.body);
+    const result = await ctx.model.User.create(ctx.request.body);
     ctx.body = {
       status: 200,
-      data: ctx.request.body,
+      data: result,
     };
   }
 
   async edit() {
-    const { ctx } = this;
-    ctx.body = ctx.request.body;
+    const { ctx, service } = this;
+    // const result = await service.user.edit(ctx.request.body);
+    const user = await ctx.model.User.findByPk(ctx.request.body.id);
+    if (!user) {
+      ctx.body = {
+        status: 404,
+        errorMsg: "id不存在!",
+      };
+      return;
+    }
+    const result = await user.update(ctx.request.body);
+    console.log("result:", result);
+    ctx.body = {
+      status: 200,
+      data: result,
+    };
   }
 
   async del() {
     const { ctx } = this;
-    ctx.body = ctx.request.body;
+    // const result = await ctx.service.user.delete(ctx.request.body.id);
+    const user = await ctx.model.User.findByPk(ctx.request.body.id);
+    if (!user) {
+      ctx.body = {
+        status: 404,
+        errorMsg: "id不存在!",
+      };
+      return;
+    }
+    const result = await user.destroy(ctx.request.body.id);
+    ctx.body = {
+      status: 200,
+      data: result,
+    };
   }
 }
 module.exports = UserController;
