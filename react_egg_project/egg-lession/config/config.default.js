@@ -38,6 +38,19 @@ module.exports = (appInfo) => {
     delimiter: "%", // 默认为%(不配置)
   };
 
+  config.static = {
+    prefix: "/assets/",
+    dir: path.join(appInfo.baseDir, "app/assets"),
+  };
+
+  config.session = {
+    key: "RM-SESS",
+    maxAge: 24 * 3600 * 1000, // 1 天
+    httpOnly: true,
+    // encrypt: true,
+    renew: true, // maxAge / 2时会刷新
+  };
+
   // 关闭csrf
   config.security = {
     csrf: {

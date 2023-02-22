@@ -18,6 +18,8 @@
     "arrow-parens": 0,
     "newline-per-chained-call": 0,
     "eggache/no-only-tests": 0,
-    "array-bracket-spacing": 0
+    "array-bracket-spacing": 0,
+    "no-alert": 0,
+    "no-undef": 0
   }
 }
