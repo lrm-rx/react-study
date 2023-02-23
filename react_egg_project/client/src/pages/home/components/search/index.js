@@ -34,21 +34,33 @@ export default function (props) {
     if (!startTime.trim()) {
       Toast.show({
         icon: "fail",
-        content: "请选择开始日期",
+        content: "请选择开始日期!",
       });
-    } else if (!endTime.trim()) {
+      return;
+    }
+    if (!endTime.trim()) {
       Toast.show({
         icon: "fail",
-        content: "请选择开始日期",
+        content: "请选择截止日期!",
       });
-    } else {
-      history.push({
-        pathname: "/search",
-        search: selectedCity[0]?.trim()
-          ? `?code=${selectedCity}&startTime=${startTime}&endTime=${endTime}`
-          : `?startTime=${startTime}&endTime=${endTime}`,
-      });
+      return;
     }
+    if (
+      new Date(`${endTime.trim()} 23:59:59`).getTime() >
+      new Date(`${startTime.trim()} 00:00:00`).getTime()
+    ) {
+      Toast.show({
+        icon: "fail",
+        content: "截止日期不能小于开始日期!",
+      });
+      return;
+    }
+    history.push({
+      pathname: "/search",
+      search: selectedCity[0]?.trim()
+        ? `?code=${selectedCity}&startTime=${startTime}&endTime=${endTime}`
+        : `?startTime=${startTime}&endTime=${endTime}`,
+    });
   };
 
   useEffect(() => {

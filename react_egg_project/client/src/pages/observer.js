@@ -11,7 +11,7 @@ export default function (props) {
     history.push("/");
   };
 
-  useObserverHook("#loading", (entries) => {
+  useObserverHook(`#${CommonEnum.LOADING_ID}`, (entries) => {
     console.log("entries:", entries);
   });
 

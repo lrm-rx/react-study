@@ -4,8 +4,8 @@
     "paths": {
       "@/hooks": ["hooks/index"],
       "@/components": ["components/index"],
-      "@/utils": ["utils/index"]
-      // "@/enums": ["enums/index"],
+      "@/utils": ["utils/index"],
+      "@/enums": ["enums/index"]
       // "@/skeletons": ["skeletons/index"]
     }
   }
