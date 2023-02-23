@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { SearchBar, SpinLoading } from "antd-mobile";
-import { useHttpHook } from "@/hooks";
+import { useHttpHook, useObserverHook } from "@/hooks";
 
 import "./index.less";
 
@@ -13,6 +13,20 @@ export default function (props) {
       pageNum: 1,
     },
   });
+
+  /**
+   * 1. 监听loading是否展示出来
+   * 2. 修改分页数据
+   * 3. 监听分页数据的修改,发送接口, 请求下一页的数据
+   * 4. 监听loading变化,拼装数据
+   */
+  useObserverHook(
+    "#loading",
+    (entries) => {
+      console.log("entries:", entries);
+    },
+    null
+  );
 
   useEffect(() => {}, []);
 
@@ -55,6 +69,7 @@ export default function (props) {
               </div>
             </div>
           ))}
+          <div id="loading">loading</div>
         </div>
       )}
     </div>
