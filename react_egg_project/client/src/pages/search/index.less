@@ -1,0 +1,58 @@
+@import "../../assets/mixin.less";
+
+.search-page {
+  .search-page-top {
+    padding: 6px;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    box-sizing: border-box;
+
+    .adm-search-bar {
+      width: 100%;
+    }
+  }
+
+  .houses-loading {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+  .result {
+    width: 100%;
+    margin-top: 30px;
+    padding: 10px;
+    box-sizing: border-box;
+    .item {
+      .flex(row, flex-start);
+      height: 100px;
+      padding: 6px;
+      background: #fff;
+      margin-bottom: 6px;
+      img {
+        width: 120px;
+        height: 86px;
+        object-fit: cover;
+      }
+      &-right {
+        .flex(column, space-between);
+        flex: 1;
+        height: 90px;
+        margin-left: 16px;
+        .title,
+        .price {
+          width: 100%;
+        }
+        .title {
+          font-size: 20px;
+        }
+        .price {
+          color: #ff4d6a;
+          font-size: 16px;
+        }
+      }
+    }
+  }
+}

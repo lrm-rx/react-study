@@ -1,0 +1,43 @@
+.menu-bar {
+  z-index: 99999;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  height: fit-content;
+  background-color: white;
+  border-top: solid 1px var(--adm-color-border);
+  .tabbar {
+    padding: 10px 0;
+    font-size: 24px;
+    height: 110px;
+    .tabbarItem {
+      height: 110px;
+      justify-content: space-around;
+    }
+  }
+  .adm-tab-bar {
+    position: relative;
+    overflow: visible !important;
+  }
+  .adm-tabs {
+    width: 100%;
+    overflow: visible !important;
+  }
+  .adm-tabs-pane-wrap {
+    overflow-y: visible !important;
+  }
+  .adm-tab-bar-item {
+    height: auto !important;
+  }
+
+  .adm-tabs-tab-bar-wrap {
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    position: fixed;
+    width: 100%;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    z-index: 10;
+  }
+}

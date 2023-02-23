@@ -1,0 +1,25 @@
+{
+  "private": true,
+  "author": "lrm <756131502@qq.com>",
+  "scripts": {
+    "dev": "umi dev",
+    "build": "umi build",
+    "postinstall": "umi setup",
+    "setup": "umi setup",
+    "start": "npm run dev"
+  },
+  "dependencies": {
+    "antd-mobile": "^5.28.0",
+    "antd-mobile-icons": "^0.3.0",
+    "dayjs": "^1.11.7",
+    "lib-flexible": "^0.3.2",
+    "normalize.css": "^8.0.1",
+    "postcss-pxtorem": "^6.0.0",
+    "prop-types": "^15.8.1",
+    "think-react-store": "^1.6.71",
+    "umi": "^4.0.52"
+  },
+  "devDependencies": {
+    "@umijs/plugins": "^4.0.52"
+  }
+}
