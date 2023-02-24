@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import CreatePortal from "../CreatePortal";
-import { Icon } from "antd-mobile";
+import { CloseOutline } from "antd-mobile-icons";
 
 const Styles = {
   modal: {
@@ -21,16 +21,30 @@ const Styles = {
     justifyContent: "center",
   },
   close: {
-    position: "fixed",
+    position: "absolute",
     top: "10px",
-    right: "10px",
+    right: "20px",
   },
 };
 
 export default class Modal extends Component {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      showModal: false,
+    };
+  }
+
+  static getDerivedStateFromProps(nextProps, prevState) {
+    //该方法内禁止访问this
+    if (nextProps.show !== prevState.show) {
+      //通过对比nextProps和prevState，返回一个用于更新状态(state)的对象
+      return {
+        showModal: nextProps.show,
+      };
+    }
+    //不需要更新状态(state)，返回null
+    return null;
   }
 
   handleClose = () => {
@@ -38,19 +52,25 @@ export default class Modal extends Component {
     onClose && onClose();
   };
   render() {
-    const { show } = this.props;
+    const { show, styleBody, styleClose, children } = this.props;
+    const { showModal } = this.state;
+    const _styleBody = {
+      ...Styles.body,
+      ...styleBody,
+    };
+    const _sytleClose = {
+      ...Styles.close,
+      ...styleClose,
+    };
     return (
       <>
-        {show ? (
+        {showModal ? (
           <CreatePortal style={Styles.modal}>
-            <div style={Styles.body}>
-              {this.props.children}
-              <Icon
-                type="cross"
-                size="lg"
-                style={Styles.close}
-                onClick={this.handleClose}
-              />
+            <div style={_styleBody}>
+              {children}
+              <div style={_sytleClose}>
+                <CloseOutline fontSize={24} onClick={this.handleClose} />
+              </div>
             </div>
           </CreatePortal>
         ) : null}

@@ -63,10 +63,7 @@ export default function (props) {
     });
   };
 
-  useEffect(() => {
-    console.log("startTime", Boolean(startTime));
-    console.log("endTime", endTime);
-  }, []);
+  useEffect(() => {}, []);
 
   const labelRenderer = useCallback((type, data) => {
     switch (type) {

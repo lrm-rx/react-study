@@ -6,24 +6,31 @@
 }
 
 .house-page {
-  .banner {
-    .banner_info;
-    img {
-      .banner_info;
-      object-fit: cover;
-    }
+  .ak-swiper-img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
   }
 
   .info {
     margin: 12px;
     padding: 12px;
     background: #fff;
+    font-size: 14px;
     &-title {
       font-size: 20px;
       font-weight: 500;
     }
     &-msg {
-      padding: 5px 0;
+      padding: 6px 0;
+    }
+    &-price,
+    &-time {
+      margin-top: 6px;
+    }
+    .adm-button {
+      margin-top: 6px;
+      width: 100%;
     }
   }
 
@@ -51,6 +58,9 @@
           padding-left: 16px;
           &-top {
             .flex(row, space-between);
+            p {
+              font-size: 16px;
+            }
           }
           &-bottom {
             color: rgba(0, 0, 0, 0.4);
@@ -62,27 +72,38 @@
   }
 
   .footer {
-    .flex(row, flex-start, center);
+    padding: 0 10px 10px;
+    width: 100%;
     position: fixed;
     bottom: 0;
     left: 0;
-    width: 100%;
-    background: #fff;
-    height: 40px;
-    padding: 10px;
-    border: 1px solid rgba(0, 0, 0, 0.08);
-    border-radius: 20px;
-    color: rgba(0, 0, 0, 0.4);
+    box-sizing: border-box;
+
+    .footer-content {
+      .flex(row, flex-start, center);
+      width: 100%;
+      background: #fff;
+      height: 40px;
+      padding: 10px;
+      border: 1px solid rgba(0, 0, 0, 0.08);
+      border-radius: 20px;
+      color: rgba(0, 0, 0, 0.4);
+      box-sizing: border-box;
+    }
   }
 }
 
 .modal-comment {
   width: 90%;
-  .adm-textarea-item {
+  .adm-text-area {
     margin-top: 25px;
+    padding: 6px;
+    border-radius: 4px;
     border: 1px solid rgba(0, 0, 0, 0.08);
+    box-sizing: border-box;
   }
   .comment-btn {
+    width: 100%;
     margin-top: 15px;
   }
 }
