@@ -11,9 +11,7 @@ export default function (props) {
     history.push("/");
   };
 
-  useObserverHook(`#${CommonEnum.LOADING_ID}`, (entries) => {
-    console.log("entries:", entries);
-  });
+  useObserverHook(`#${CommonEnum.LOADING_ID}`, (entries) => {});
 
   // useEffect(() => {
   //   console.log("进入页面");

@@ -46,7 +46,7 @@ export default function (props) {
       return;
     }
     if (
-      new Date(`${endTime.trim()} 23:59:59`).getTime() >
+      new Date(`${endTime.trim()} 23:59:59`).getTime() <
       new Date(`${startTime.trim()} 00:00:00`).getTime()
     ) {
       Toast.show({

@@ -9,7 +9,6 @@ export default function (props) {
   const handleSubmit = () => {
     if (commentsValue.trim()) {
       handleClose();
-      console.log("评论内容为:", commentsValue);
     } else {
       Toast.show({
         icon: "fail",

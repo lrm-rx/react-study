@@ -55,6 +55,10 @@
         }
         .right {
           flex: 1;
+          min-height: 50px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
           padding-left: 16px;
           &-top {
             .flex(row, space-between);
@@ -77,6 +81,7 @@
     position: fixed;
     bottom: 0;
     left: 0;
+    background-color: #fff;
     box-sizing: border-box;
 
     .footer-content {

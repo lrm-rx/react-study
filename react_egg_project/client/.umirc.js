@@ -1,5 +1,5 @@
 import { defineConfig } from "umi";
-const pxtorem = require("postcss-pxtorem");
+// const pxtorem = require("postcss-pxtorem");
 
 export default defineConfig({
   // extraPostCSSPlugins: [

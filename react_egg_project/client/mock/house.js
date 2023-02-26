@@ -99,15 +99,16 @@ export default {
           {
             id: 1,
             avatar:
-              "https://imagepphcloud.thepaper.cn/pph/image/145/779/939.jpg",
-            username: "user",
+              "https://sghimages.shobserver.com/img/catch/2021/10/01/6242601f-0c60-4bd8-8e02-c6330fe59a29.jpg",
+            username: "ming",
             createTime: 1595238771000,
             info: "房屋很满意",
           },
           {
             id: 2,
-            avatar: "",
-            username: "user",
+            avatar:
+              "https://sghimages.shobserver.com/img/catch/2021/10/01/6242601f-0c60-4bd8-8e02-c6330fe59a29.jpg",
+            username: "xiaohu",
             createTime: 1595238771000,
             info: "空气清新",
           },
@@ -115,7 +116,7 @@ export default {
             id: 3,
             avatar:
               "https://5b0988e595225.cdn.sohucs.com/images/20190129/2f5d7f56928148e7b7f07598921e3fa6.jpeg",
-            username: "user",
+            username: "letme",
             createTime: 1595238771000,
             info: "态度温和",
           },
@@ -123,7 +124,7 @@ export default {
             id: 4,
             avatar:
               "https://5b0988e595225.cdn.sohucs.com/images/20200419/fb58b8e841cd4d3d82097a03315828e2.jpeg",
-            username: "user",
+            username: "uzi",
             createTime: 1595238771000,
             info: "早餐味道美",
           },
@@ -131,7 +132,7 @@ export default {
             id: 5,
             avatar:
               "https://sghimages.shobserver.com/img/catch/2021/10/01/6242601f-0c60-4bd8-8e02-c6330fe59a29.jpg",
-            username: "user",
+            username: "gala",
             createTime: 1595238771000,
             info: "态度温和",
           },
@@ -139,7 +140,7 @@ export default {
             id: 6,
             avatar:
               "https://n.sinaimg.cn/sinacn20190716s/133/w1041h692/20190716/7ee1-hzxsvnn5375025.jpg",
-            username: "user",
+            username: "lwx",
             createTime: 1595238771000,
             info: "早餐味道美",
           },
@@ -147,7 +148,7 @@ export default {
             id: 7,
             avatar:
               "https://p8.itc.cn/q_70/images03/20210922/00e3d3ac96f8434ba5758bd4e3ffa0f4.jpeg",
-            username: "user",
+            username: "lpl",
             createTime: 1595238771000,
             info: "态度温和",
           },
@@ -155,7 +156,7 @@ export default {
             id: 8,
             avatar:
               "https://pic1.zhimg.com/v2-c979315e4cf3011a9965a375cb07e8ac_r.jpg",
-            username: "user",
+            username: "lrm",
             createTime: 1595238771000,
             info: "早餐味道美",
           },

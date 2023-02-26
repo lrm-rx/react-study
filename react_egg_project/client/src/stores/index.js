@@ -1,3 +1,12 @@
-import house from "./house";
+import { configureStore } from "@reduxjs/toolkit";
+import { houseReducer } from "./modules/house";
 
-export { house };
+export const store = configureStore({
+  reducer: {
+    house: houseReducer,
+  },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware({
+      serializableCheck: false,
+    }),
+});
