@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
 import { TextArea, Button, Toast } from "antd-mobile";
+import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "@/components";
+import { getAddCommentAction } from "@/stores/modules/house";
 
 export default function (props) {
+  const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [commentsValue, setCommentsValue] = useState();
 
   const handleSubmit = () => {
     if (commentsValue.trim()) {
+      dispatch(
+        getAddCommentAction({
+          comment: commentsValue,
+        })
+      );
       handleClose();
     } else {
       Toast.show({

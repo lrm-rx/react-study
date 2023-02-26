@@ -14,11 +14,10 @@ export const getHouseDetailAction = createAsyncThunk(
   }
 );
 
-// 评论
+// 评论列表
 export const getHouseCommentAction = createAsyncThunk(
   "/house/commnet",
   async (payload, { dispatch, getState }) => {
-    console.log("/comments/lists被调用了");
     const { comments, page } = getState().house;
     const lists = await Http({
       url: "/comments/lists",
@@ -38,6 +37,25 @@ export const getHouseCommentAction = createAsyncThunk(
     });
 
     return [...comments, ...lists];
+  }
+);
+
+// 添加评论
+export const getAddCommentAction = createAsyncThunk(
+  "/house/addcommnet",
+  async (payload, { dispatch, getState }) => {
+    const result = await Http({
+      url: "/comments/add",
+      body: payload,
+    });
+    if (result) {
+      dispatch({
+        type: "house/resetData",
+        payload: {},
+      });
+      // 手动触发刷新(todo: 为什么下拉可以自动触发getHouseCommentAction刷新?)
+      dispatch(getHouseCommentAction());
+    }
   }
 );
 
@@ -79,6 +97,16 @@ const houseSlice = createSlice({
         },
       };
     },
+    resetData(state, action) {
+      return {
+        ...state,
+        comments: [],
+        page: CommonEnum.PAGE,
+        showLoading: true,
+        reloadCommentsNum: 0,
+        ...action.payload,
+      };
+    },
   },
   // 异步操作
   extraReducers: (builder) => {
@@ -95,5 +123,5 @@ const houseSlice = createSlice({
   },
 });
 
-export const { refreshData, reloadComments } = houseSlice.actions;
+export const { refreshData, reloadComments, resetData } = houseSlice.actions;
 export const houseReducer = houseSlice.reducer;

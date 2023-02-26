@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { useLocation } from "umi";
 import {
   getHouseDetailAction,
   getHouseCommentAction,
   reloadComments,
+  resetData,
 } from "@/stores/modules/house";
 import "./index.less";
 import Banner from "./components/Banner";
@@ -12,8 +14,13 @@ import Lists from "./components/Lists";
 import Footer from "./components/Footer";
 import { useObserverHook } from "@/hooks";
 import { CommonEnum } from "@/enums";
+import { urlStrToObj } from "@/utils";
 
 export default function (props) {
+  // 获取url参数
+  const { search } = useLocation();
+  const query = urlStrToObj(search);
+
   const detail = useSelector((state) => state.house.detail);
   const comments = useSelector((state) => state.house.comments);
   const relaodCommentsNum = useSelector(
@@ -44,12 +51,30 @@ export default function (props) {
   );
 
   useEffect(() => {
-    dispatch(getHouseDetailAction({}));
+    dispatch(
+      getHouseDetailAction({
+        id: query?.id,
+      })
+    );
   }, []);
 
   useEffect(() => {
-    dispatch(getHouseCommentAction({}));
+    dispatch(
+      getHouseCommentAction({
+        id: query?.id,
+      })
+    );
   }, [relaodCommentsNum]);
+
+  useEffect(() => {
+    return () => {
+      dispatch(
+        resetData({
+          detail: {},
+        })
+      );
+    };
+  }, []);
 
   return (
     <div className="house-page">

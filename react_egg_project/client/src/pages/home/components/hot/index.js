@@ -7,9 +7,7 @@ export default function (props) {
   const handleClick = (id) => {
     history.push({
       pathname: "/house",
-      query: {
-        id,
-      },
+      search: `?id=${id}`,
     });
   };
 
