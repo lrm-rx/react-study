@@ -3,6 +3,8 @@
   "root": true,
   "rules": {
     "quotes": 0,
-    "arrow-parens": 0
+    "arrow-parens": 0,
+    "array-bracket-spacing": 0,
+    "no-unused-vars": 0
   }
 }
