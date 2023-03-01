@@ -10,6 +10,7 @@ module.exports = (app) => {
         type: String,
         min: 3,
         max: 20,
+        format: /^[\u4E00-\u9FA5A-Za-z0-9_.]{3,20}$/,
       },
       password: {
         type: String,
@@ -30,11 +31,9 @@ module.exports = (app) => {
   };
 
   helper.genSaltPassword(adminUser.password).then(async (hash) => {
-    console.log("调用了");
     adminUser.password = hash;
     const user = await AdminModel.find({ username: adminUser.username });
     if (user.length === 0) {
-      console.log("好了", adminUser);
       AdminModel.create(adminUser);
     }
   });

@@ -1,5 +1,3 @@
-"use strict";
-
 const { Service } = require("egg");
 
 class BaseService extends Service {
@@ -23,16 +21,16 @@ class BaseService extends Service {
     }
   }
 
-  // 根据ID查询数据
+  // 根据ID查询数据 该方法没有找到数据时会抛出异常
   async _findById(modelName, id) {
     const { ctx, app } = this;
     try {
       return await ctx.model[modelName].findById(id);
     } catch (error) {
-      return app.config.SERVER_ERROR;
+      return app.config.NO_DATA;
     }
   }
-
+  // 查询数据
   async _findOne(modelName, json) {
     const { ctx, app } = this;
     try {
@@ -43,9 +41,15 @@ class BaseService extends Service {
   }
 
   // 添加数据
-  async _add(modelName, json) {
+  async _add(modelName, json, isCheck = false, checkData) {
     const { ctx, app } = this;
     try {
+      if (isCheck) {
+        const result = await ctx.model[modelName].findOne({ ...checkData });
+        if (result) {
+          return "该数据已经存在!";
+        }
+      }
       await ctx.model[modelName].create(json);
       return "操作成功!";
     } catch (error) {

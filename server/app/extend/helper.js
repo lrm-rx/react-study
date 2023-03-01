@@ -1,8 +1,8 @@
 const bcrypt = require("bcryptjs");
-const moment = require("moment");
+const dayjs = require("dayjs");
 
 module.exports = {
-  moment,
+  dayjs,
   // password  用户输入的密码
   // return  加密后的密码
   async genSaltPasswordSync(password) {

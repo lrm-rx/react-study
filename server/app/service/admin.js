@@ -1,5 +1,3 @@
-"use strict";
-
 const { Service } = require("egg");
 const BaseService = require("./base");
 
@@ -39,20 +37,27 @@ class AdminService extends BaseService {
 
       app.config.jwt.secret,
       {
-        expiresIn: "1h",
+        expiresIn: "2h",
       }
     );
 
     // 登录成功后设置cookie
     ctx.cookies.set("token", token, {
-      maxAge: "1d", // 一天过期时间
+      maxAge: 86400000, // 一天过期时间
       httpOnly: true, // 是否只是服务器可访问 cookie, 默认是 true
     });
 
     return {
-      userInfo,
+      username: userInfo.username,
       token,
     };
+  }
+  async logout() {
+    const { ctx } = this;
+    ctx.cookies.set("token", "", {
+      maxAge: 0, // 清除cookie
+    });
+    return "退出登录成功";
   }
   async del(id) {
     try {

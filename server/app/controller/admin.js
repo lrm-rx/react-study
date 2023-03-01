@@ -1,5 +1,3 @@
-"use strict";
-
 const { Controller } = require("egg");
 const BaseController = require("./base");
 
@@ -25,19 +23,35 @@ class AdminController extends BaseController {
   async login() {
     const { ctx, app, service } = this;
     const { body } = ctx.request;
+    const params = {
+      username: ctx.helper.escape(body.username),
+      password: ctx.helper.escape(body.password),
+    };
     try {
-      this._validate(
-        [{ username: "admin-username" }, { password: "admin-password" }],
-        ctx.request.body
+      ctx.validate(
+        {
+          username: {
+            type: "admin-username",
+          },
+          password: {
+            type: "admin-password",
+          },
+        },
+        params
       );
     } catch (error) {
       return this.error(error?.errors);
     }
-    const result = await service.admin.login(ctx.request.body);
+    const result = await service.admin.login(params);
     if (result === app.config.SERVER_ERROR) {
       return this.error(app.config.SERVER_ERROR, 500);
     }
     return this.success(result, "登录成功!");
+  }
+  async logout() {
+    const { ctx, service } = this;
+    const result = await service.admin.logout();
+    return this.success("", result);
   }
 }
 

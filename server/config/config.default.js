@@ -1,6 +1,3 @@
-/* eslint valid-jsdoc: "off" */
-
-"use strict";
 const userConfig = require("./config.user");
 
 module.exports = (appInfo) => {
