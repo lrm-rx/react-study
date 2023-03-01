@@ -2,13 +2,29 @@ const { Service } = require("egg");
 
 class BaseService extends Service {
   // 查询数据
-  async _find(modelName) {
+  async _findAll(modelName) {
     const { ctx, app } = this;
     try {
       return await ctx.model[modelName].find();
     } catch (error) {
       return app.config.SERVER_ERROR;
     }
+  }
+
+  // 查询数据(分页)
+  async _findByPaging(modelName, params, { page, pageSize }) {
+    const { ctx } = this;
+    page = page * 1;
+    pageSize = pageSize * 1;
+    const totalCount = await ctx.model[modelName].find(params).countDocuments();
+    const data = await ctx.model[modelName]
+      .find(params)
+      .sort({
+        createTime: -1,
+      })
+      .skip((page - 1) * pageSize)
+      .limit(pageSize);
+    return { page, pageSize, totalCount, list: data };
   }
 
   // 查询数据总数
@@ -58,15 +74,33 @@ class BaseService extends Service {
   }
 
   // 编辑数据
-  async _update(modelName, json) {
+  async _update(modelName, id, data, isCheckRepeat = false) {
     const { ctx, app } = this;
     try {
-      const result = await ctx.model[modelName].findById(json.id);
-      if (!result) {
-        return false;
+      const result = await this._findById(modelName, id);
+      if (result && result !== app.config.NO_DATA) {
+        if (isCheckRepeat) {
+          const oldName = await this._findOne(modelName, data);
+          if (oldName) {
+            return app.config.DATA_EXIST;
+          }
+        }
+        const updateData = {
+          updateTime: ctx.helper
+            .dayjs(new Date())
+            .format("YYYY-MM-DD HH:mm:ss"),
+          ...data,
+        };
+        const res = await ctx.model[modelName].updateOne(
+          {
+            _id: id,
+          },
+          updateData
+        );
+        // 返回修改的数据
+        return await this._findById(modelName, id);
       }
-      const res = await result.updateOne({ _id: json.id }, { ...json });
-      return true;
+      return app.config.DATA_NO_EXIST;
     } catch (error) {
       return app.config.SERVER_ERROR;
     }

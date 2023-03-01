@@ -3,6 +3,17 @@ const dayjs = require("dayjs");
 
 module.exports = {
   dayjs,
+  filterEmptyField(trans) {
+    const pam = {};
+    for (const i in trans) {
+      if (trans[i]) {
+        if (i !== "page" && i !== "pageSize") {
+          pam[i] = trans[i];
+        }
+      }
+    }
+    return pam;
+  },
   // password  用户输入的密码
   // return  加密后的密码
   async genSaltPasswordSync(password) {

@@ -3,7 +3,7 @@ const BaseService = require("./base");
 
 class AdminService extends BaseService {
   async list() {
-    const result = await this._find("Admin");
+    const result = await this._findAll("Admin");
     const total = await this._count("Admin");
     return { data: result, total };
   }

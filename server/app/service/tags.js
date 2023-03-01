@@ -2,10 +2,20 @@ const { Service } = require("egg");
 const BaseService = require("./base");
 
 class TagsService extends BaseService {
-  async list() {
-    const result = await this._find("AdmiTagsn");
-    const total = await this._count("Tags");
-    return { data: result, total };
+  async list(params) {
+    const { ctx } = this;
+    const data = ctx.helper.filterEmptyField(params);
+    const queryParam = data.tagName
+      ? {
+          tagName: {
+            $regex: new RegExp(data.tagName, "i"),
+          },
+        }
+      : {};
+    return this._findByPaging("Tags", queryParam, {
+      page: params.page,
+      pageSize: params.pageSize,
+    });
   }
   async create(data) {
     const { ctx } = this;
@@ -19,36 +29,31 @@ class TagsService extends BaseService {
     return await this._add("Tags", params, true, checkData);
   }
   async edit(id, data) {
-    const { ctx, app } = this;
-    const result = await this._findById("Tags", { _id: id });
-    if (result && result !== app.config.NO_DATA) {
-      const oldTagName = await this._findOne("Tags", data);
-      if (oldTagName) {
-        return app.config.DATA_EXIST;
-      }
-      const updateData = {
-        updateTime: ctx.helper.dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss"),
-        tagName: data.tagName,
-      };
-      const res = await ctx.model.Tags.updateOne(
-        {
-          _id: id,
-        },
-        updateData
-      );
-      return await this._findById("Tags", { _id: id });
-    }
-    return app.config.DATA_NO_EXIST;
+    const updateData = {
+      tagName: data.tagName,
+    };
+    return await this._update("Tags", id, updateData, true);
   }
   async del(id) {
     const { ctx, app } = this;
-    const result = await this._findById("Tags", { _id: id });
+    const result = await this._findById("Tags", id);
     if (result === app.config.NO_DATA) {
       return app.config.DATA_NO_EXIST;
     }
     await ctx.model.Tags.deleteOne({
       _id: id,
     });
+  }
+  async updateStatus({ id, status }) {
+    const { ctx, app } = this;
+    const result = await this._findById("Tags", id);
+    if (result === app.config.NO_DATA) {
+      return app.config.DATA_NO_EXIST;
+    }
+    const updateData = {
+      status,
+    };
+    return await this._update("Tags", id, updateData);
   }
 }
 

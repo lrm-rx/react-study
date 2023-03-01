@@ -34,7 +34,7 @@ class BaseController extends Controller {
   //       tagName: [
   //         { type: "tags-create-name" },
   //         { allowEmpty: false },
-  //         { max: 2 },
+  //         { required: true },
   //       ],
   //     },
   //   ],

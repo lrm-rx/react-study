@@ -28,15 +28,21 @@ class AdminController extends BaseController {
       password: ctx.helper.escape(body.password),
     };
     try {
-      ctx.validate(
-        {
-          username: {
-            type: "admin-username",
+      this._validate(
+        [
+          {
+            username: [
+              { type: "admin-username" },
+              { allowEmpty: false },
+              { max: 2 },
+            ],
+            password: [
+              { type: "admin-password" },
+              { allowEmpty: false },
+              { max: 2 },
+            ],
           },
-          password: {
-            type: "admin-password",
-          },
-        },
+        ],
         params
       );
     } catch (error) {
