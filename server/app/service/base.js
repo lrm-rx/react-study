@@ -63,11 +63,11 @@ class BaseService extends Service {
       if (isCheck) {
         const result = await ctx.model[modelName].findOne({ ...checkData });
         if (result) {
-          return "该数据已经存在!";
+          return app.config.DATA_EXIST;
         }
       }
       await ctx.model[modelName].create(json);
-      return "操作成功!";
+      return app.config.ADD_OK;
     } catch (error) {
       return app.config.SERVER_ERROR;
     }

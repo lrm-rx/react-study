@@ -7,7 +7,7 @@ module.exports = (appInfo) => {
   config.keys = appInfo.name + "31249a23-36dd-45a9-aee0-66c75b093cac";
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = ["errorHandler", "auth"];
 
   // add your user config here
   // const userConfig = {
@@ -38,6 +38,11 @@ module.exports = (appInfo) => {
 
   config.jwt = {
     secret: userConfig.uuid,
+  };
+
+  // 设置只允许admin访问
+  config.auth = {
+    whiteList: [userConfig.username],
   };
 
   return {

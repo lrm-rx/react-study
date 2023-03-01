@@ -66,7 +66,19 @@ class TagsController extends BaseController {
       return this.error(error?.errors);
     }
     const result = await service.tags.create(params);
-    this.success("", result);
+    switch (result) {
+      case app.config.DATA_EXIST:
+        this.error("该标签已存在");
+        break;
+      case app.config.SERVER_ERROR:
+        this.error(app.config.SERVER_ERROR, 500);
+        break;
+      case app.config.ADD_OK:
+        this.success("", "添加标签成功!");
+        break;
+      default:
+        break;
+    }
   }
 
   async edit() {
