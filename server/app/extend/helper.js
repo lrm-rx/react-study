@@ -14,6 +14,19 @@ module.exports = {
     }
     return pam;
   },
+  // 统一返回客户端数据
+  success({ ctx, result = null }) {
+    ctx.status = result.status ? result.status : 200;
+    if (result.status) {
+      delete result.status;
+    }
+    ctx.body = {
+      ...result,
+      code: result.code ? result.code : 200, // 200代表成功 ，其他代表失败
+      data: result.data ? result.data : null,
+      msg: result.msg ? result.msg : "请求成功",
+    };
+  },
   // password  用户输入的密码
   // return  加密后的密码
   async genSaltPasswordSync(password) {

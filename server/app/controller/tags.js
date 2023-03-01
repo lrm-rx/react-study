@@ -36,7 +36,7 @@ class TagsController extends BaseController {
             ],
           },
         ],
-        data
+        ctx.request.query
       );
     } catch (error) {
       return this.error(error?.errors);
@@ -60,7 +60,7 @@ class TagsController extends BaseController {
             tagName: [{ type: "tags-name" }],
           },
         ],
-        params
+        ctx.request.body
       );
     } catch (error) {
       return this.error(error?.errors);
@@ -96,7 +96,7 @@ class TagsController extends BaseController {
             tagName: [{ type: "tags-name" }],
           },
         ],
-        params
+        ctx.request.body
       );
     } catch (error) {
       return this.error(error?.errors);

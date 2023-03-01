@@ -43,7 +43,7 @@ class AdminController extends BaseController {
             ],
           },
         ],
-        params
+        ctx.request.body
       );
     } catch (error) {
       return this.error(error?.errors);
