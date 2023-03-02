@@ -1,4 +1,4 @@
-const Controller = require("egg").Controller;
+const { Controller } = require("egg");
 
 class AboutController extends Controller {
   constructor(ctx) {
@@ -43,6 +43,8 @@ class AboutController extends Controller {
     const { ctx, service } = this;
     const data = ctx.request.body;
     const id = ctx.params.id;
+    // 保存数据的准确性, 但如果这样做会需要前端把所有校验的值都传给接口
+    ctx.validate(this.rule, data);
     const result = await service.about.update({
       id,
       ...data,

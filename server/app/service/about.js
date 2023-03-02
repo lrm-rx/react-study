@@ -34,7 +34,6 @@ class AboutService extends Service {
     const oldData = await ctx.model.About.findOne({
       _id: params.id,
     });
-    console.log("object:", oldData);
     if (oldData) {
       const updateData = {
         ...params,

@@ -90,6 +90,8 @@ class CategoriesController extends Controller {
     const { ctx, service } = this;
     const name = ctx.helper.escape(ctx.request.body?.name);
     const id = ctx.helper.escape(ctx.params?.id);
+    // 保存数据的准确性, 但如果这样做会需要前端把所有校验的值都传给接口
+    ctx.validate(this.createRule, ctx.request.body);
     const result = await service.categories.update({
       id,
       name,

@@ -90,6 +90,8 @@ class PageConfigController extends Controller {
     const { ctx, service } = this;
     const data = ctx.request.body;
     const id = ctx.params.id;
+    // 保存数据的准确性, 但如果这样做会需要前端把所有校验的值都传给接口
+    ctx.validate(this.createRule, ctx.request.body);
     const result = await service.pageconfig.update({
       id,
       ...data,
