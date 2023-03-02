@@ -1,1 +1,1 @@
-web: 前台, admin: 后台
+web: 前台(react), admin: 后台(vue3)
