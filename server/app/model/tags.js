@@ -14,7 +14,7 @@ module.exports = (app) => {
         default: true,
       },
       createTime: {
-        type: "string",
+        type: "number",
         default: 0,
       },
       updateTime: {

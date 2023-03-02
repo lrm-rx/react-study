@@ -46,7 +46,7 @@ class CategoriesService extends Service {
     }
     const data = {
       ...params,
-      createTime: ctx.helper.dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+      createTime: ctx.helper.dayjs().unix(),
     };
     const res = await ctx.model.Categories.create(data);
     return {
@@ -100,7 +100,7 @@ class CategoriesService extends Service {
     }
 
     const updateData = {
-      updateTime: ctx.helper.dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+      updateTime: ctx.helper.dayjs().unix(),
       name: params.name,
     };
     await ctx.model.Categories.updateOne(

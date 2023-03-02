@@ -90,7 +90,6 @@ class CategoriesController extends Controller {
     const { ctx, service } = this;
     const name = ctx.helper.escape(ctx.request.body?.name);
     const id = ctx.helper.escape(ctx.params?.id);
-    ctx.validate(this.createRule, ctx.request.body);
     const result = await service.categories.update({
       id,
       name,

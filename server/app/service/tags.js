@@ -24,7 +24,7 @@ class TagsService extends BaseService {
     };
     const params = {
       ...checkData,
-      createTime: ctx.helper.dayjs(new Date()).format("YYYY-MM-DD HH:mm:ss"),
+      createTime: ctx.helper.dayjs().unix(),
     };
     return await this._add("Tags", params, true, checkData);
   }
