@@ -1,3 +1,6 @@
+/**
+注掉的表示没有使用到
+*/
 {
   "compilerOptions": {
     "target": "esnext",
@@ -19,10 +22,10 @@
     "lib": ["esnext", "dom"],
     "skipLibCheck": true,
     "types": [
-      // "node",
-      "vite/client"
+      "node",
+      "vite/client",
       /** Element Plus 的 Volar 插件支持 */
-      // "element-plus/global",
+      "element-plus/global"
       // "vitest",
       // "vitest/globals",
       // "unplugin-vue-define-options/macros-global"
