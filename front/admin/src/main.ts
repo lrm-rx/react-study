@@ -1,4 +1,16 @@
 import { createApp } from "vue";
 import App from "./App.vue";
+import router from "@/router";
+import { loadPlugins } from "@/plugins";
 
-createApp(App).mount("#app");
+// css
+import "normalize.css";
+import "element-plus/dist/index.css";
+import "element-plus/theme-chalk/dark/css-vars.css";
+import "@/styles/index.scss";
+
+const app = createApp(App);
+// 加载插件
+loadPlugins(app);
+
+app.use(router).mount("#app");
