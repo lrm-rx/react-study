@@ -9,7 +9,6 @@ export default function Http({
   setResult,
 }) {
   setLoading && setLoading(true);
-
   const token = localStorage.getItem("token");
   let defaultHeader = {
     "Content-type": "application/json",
@@ -36,33 +35,37 @@ export default function Http({
   }
 
   return new Promise((resolve, reject) => {
-    fetch("/api" + url, params)
-      .then((res) => res.json())
-      .then((res) => {
-        if (res.status === 200) {
-          resolve(res.data);
-          setResult && setResult(res.data);
-        } else {
-          if (res.status === 1001) {
-            location.href = "/login?from=" + location.pathname;
-            localStorage.clear();
+    try {
+      fetch("/api" + url, params)
+        .then((res) => res.json())
+        .then((res) => {
+          if (res.status === 200) {
+            resolve(res.data);
+            setResult && setResult(res.data);
+          } else {
+            if (res.status === 1001) {
+              location.href = "/login?from=" + location.pathname;
+              localStorage.clear();
+            }
+            Toast.show({
+              icon: "fail",
+              content: res.errMsg,
+            });
+            reject(res.errMsg);
           }
+        })
+        .catch((err) => {
           Toast.show({
             icon: "fail",
-            content: res.errMsg,
+            content: err,
           });
-          reject(res.errMsg);
-        }
-      })
-      .catch((err) => {
-        Toast.show({
-          icon: "fail",
-          content: err,
+          reject(err);
+        })
+        .finally(() => {
+          setLoading && setLoading(false);
         });
-        reject(err);
-      })
-      .finally(() => {
-        setLoading && setLoading(false);
-      });
+    } catch (error) {
+      return reject(error);
+    }
   });
 }

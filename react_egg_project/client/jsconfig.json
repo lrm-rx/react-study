@@ -6,8 +6,8 @@
       "@/components": ["components/index"],
       "@/utils": ["utils/index"],
       "@/enums": ["enums/index"],
-      "@/stores": ["stores"]
-      // "@/skeletons": ["skeletons/index"]
+      "@/stores": ["stores"],
+      "@/skeletons": ["skeletons/index"]
     }
   }
 }
