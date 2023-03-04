@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { List, Form, Input, Button, Toast } from "antd-mobile";
 import { useDispatch } from "react-redux";
 import { history } from "umi";
-import { registerAction, logoutAction } from "@/stores/modules/user";
+import { loginAction } from "@/stores/modules/user";
 import "./index.less";
 export default function (props) {
   let timer = null;
@@ -10,13 +10,7 @@ export default function (props) {
   const [state, setState] = useState();
 
   const onFinish = (data) => {
-    if (data.repassword !== data.password) {
-      return Toast.show({
-        icon: "fail",
-        content: "两次输入的密码不一致!",
-      });
-    }
-    dispatch(registerAction(data));
+    dispatch(loginAction(data));
     timer = setTimeout(() => {
       history.push("/");
     }, 1000);
@@ -26,15 +20,11 @@ export default function (props) {
     history.push("/login");
   };
 
-  useEffect(() => {
-    return () => {
-      clearTimeout(timer);
-    };
-  }, []);
+  useEffect(() => {}, []);
 
   return (
-    <div className="register-page">
-      <List header="用户注册">
+    <div className="login-page">
+      <List header="用户登录">
         <Form
           layout="horizontal"
           onFinish={onFinish}
@@ -46,7 +36,7 @@ export default function (props) {
               className="submit-footer"
               size="large"
             >
-              注册
+              登录
             </Button>
           }
         >
@@ -62,20 +52,10 @@ export default function (props) {
             name="password"
             rules={[{ required: true }, { type: "string", min: 6, max: 20 }]}
           >
-            <Input placeholder="请输入密码" clearable />
-          </Form.Item>
-          <Form.Item
-            label="确认密码"
-            name="repassword"
-            rules={[{ required: true }, { type: "string", min: 6, max: 20 }]}
-          >
-            <Input placeholder="请再交输入密码" clearable />
+            <Input placeholder="请输入密码" clearable type="password" />
           </Form.Item>
         </Form>
       </List>
-      <div className="login" onClick={handleClick}>
-        已有账户，去登录
-      </div>
     </div>
   );
 }

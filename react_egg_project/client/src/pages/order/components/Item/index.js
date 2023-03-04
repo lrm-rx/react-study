@@ -6,19 +6,23 @@ export default function (props) {
   const [state, setState] = useState();
 
   const handlePay = async () => {
-    const result = await Http({
-      url: "/orders/pay",
-      body: {
-        id: props.id,
-      },
+    return Toast.show({
+      icon: "fail",
+      content: "接口开发中!",
     });
-    if (result) {
-      Toast.show({
-        icon: "success",
-        content: "支付成功!",
-      });
-      window.location.reload();
-    }
+    // const result = await Http({
+    //   url: "/orders/pay",
+    //   body: {
+    //     id: props.id,
+    //   },
+    // });
+    // if (result) {
+    //   Toast.show({
+    //     icon: "success",
+    //     content: "支付成功!",
+    //   });
+    //   window.location.reload();
+    // }
   };
 
   useEffect(() => {}, []);

@@ -76,26 +76,25 @@ const houseSlice = createSlice({
     },
     // 获取评论
     // getComments(state, action) {
-    //   return {
-    //     ...state,
-    //     comments: action.payload,
-    //   };
+    //   state.comments = action.payload;
     // },
     setShowLoading(state, action) {
-      return {
-        ...state,
-        showLoading: action.payload,
-      };
+      state.showLoading = action.payload;
     },
     reloadComments(state, action) {
-      return {
-        ...state,
-        relaodCommentsNum: state.relaodCommentsNum + 1,
-        page: {
-          ...CommonEnum.PAGE,
-          pageNum: state.page.pageNum + 1,
-        },
+      state.relaodCommentsNum = state.relaodCommentsNum + 1;
+      state.page = {
+        ...CommonEnum.PAGE,
+        pageNum: state.page.pageNum + 1,
       };
+      // return {
+      //   ...state, // 会重新触发getHouseCommentAction
+      //   relaodCommentsNum: state.relaodCommentsNum + 1,
+      //   page: {
+      //     ...CommonEnum.PAGE,
+      //     pageNum: state.page.pageNum + 1,
+      //   },
+      // };
     },
     resetData(state, action) {
       return {
@@ -115,10 +114,7 @@ const houseSlice = createSlice({
         state.detail = payload;
       })
       .addCase(getHouseCommentAction.fulfilled, (state, { payload }) => {
-        return {
-          ...state,
-          comments: payload,
-        };
+        state.comments = payload;
       });
   },
 });

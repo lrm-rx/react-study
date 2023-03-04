@@ -80,9 +80,9 @@ export default function (props) {
     <ErrorBoundary>
       <div className="order-page">
         <Tabs onChange={handleChange} activeKey={type} defaultActiveKey="0">
-          <Tabs.Tab title="未支付" key={0}>
+          <Tabs.Tab title="未支付" key="0">
             <div className="tab">
-              <Lists orders={orders} type="0" showLoading={showLoading} />
+              <Lists orders={orders} type={0} showLoading={showLoading} />
             </div>
           </Tabs.Tab>
           <Tabs.Tab title="已支付" key="1">
