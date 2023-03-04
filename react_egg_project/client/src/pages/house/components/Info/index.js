@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Button } from "antd-mobile";
 import { timer } from "@/utils";
 
-export default function (props) {
+function Info(props) {
   const [state, setState] = useState();
 
   useEffect(() => {}, [props]);
@@ -23,3 +23,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default memo(Info);

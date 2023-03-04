@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { SearchBar, SpinLoading } from "antd-mobile";
 import { useHttpHook, useObserverHook, useImgHook } from "@/hooks";
 import { useLocation } from "umi";
@@ -8,7 +8,7 @@ import { CommonEnum } from "@/enums";
 
 import "./index.less";
 
-export default function (props) {
+function SearchPage(props) {
   const { search } = useLocation();
   const query = urlStrToObj(search);
   const [houseName, setHouseName] = useState("");
@@ -134,3 +134,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default memo(SearchPage);

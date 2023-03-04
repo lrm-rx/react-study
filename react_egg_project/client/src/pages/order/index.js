@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Tabs } from "antd-mobile";
 import Lists from "./components/Lists";
 import { useHttpHook, useObserverHook } from "@/hooks";
@@ -8,7 +8,7 @@ import { isEmpty } from "project-libs";
 import { ErrorBoundary } from "@/components";
 import "./index.less";
 
-export default function (props) {
+function Order(props) {
   const [page, setPage] = useState(CommonEnum.PAGE);
   const [orders, setOrders] = useState([]);
   const [showLoading, setShowLoading] = useState(true);
@@ -95,3 +95,5 @@ export default function (props) {
     </ErrorBoundary>
   );
 }
+
+export default memo(Order);

@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { isEmpty } from "project-libs";
 import OrderItem from "../Item";
 import { ShowLoading } from "@/components";
 import { OrderSkeletons } from "@/skeletons";
 
-export default function (props) {
+function OrderList(props) {
   const [state, setState] = useState(false);
 
   useEffect(() => {
@@ -32,3 +32,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default memo(OrderList);

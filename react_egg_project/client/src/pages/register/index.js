@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { List, Form, Input, Button, Toast } from "antd-mobile";
 import { useDispatch } from "react-redux";
 import { history } from "umi";
 import { registerAction, logoutAction } from "@/stores/modules/user";
 import "./index.less";
-export default function (props) {
+function Register(props) {
   let timer = null;
   const dispatch = useDispatch();
   const [state, setState] = useState();
@@ -79,3 +79,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default memo(Register);

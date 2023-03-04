@@ -1,10 +1,10 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect, useCallback, memo } from "react";
 import { Picker, List, DatePicker, Button, Toast } from "antd-mobile";
 import { history } from "umi";
 import dayjs from "dayjs";
 import { filterData } from "@/utils";
 
-export default function (props) {
+function Search(props) {
   // const [citys, setCitys] = useState([
   //   [
   //     { label: "杭州", value: "10001" },
@@ -174,3 +174,17 @@ export default function (props) {
     </div>
   );
 }
+
+function areEqual(prevProps, nextProps) {
+  // console.log(prevProps, nextProps)
+  if (
+    prevProps.citys === nextProps.citys &&
+    prevProps.citysLoading === nextProps.citysLoading
+  ) {
+    return true;
+  } else {
+    return false;
+  }
+}
+
+export default memo(Search, areEqual);

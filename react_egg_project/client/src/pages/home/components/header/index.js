@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Link } from "umi";
 
-export default function (props) {
-  const [state, setState] = useState();
+function Header(props) {
+  const [username, setState] = useState(localStorage.getItem("username"));
 
   useEffect(() => {}, []);
 
@@ -10,8 +10,16 @@ export default function (props) {
     <div className="header">
       <div className="header_title">民宿</div>
       <div className="header_login">
-        <Link to="/login">登录</Link> | <Link to="/register">注册</Link>
+        {username ? (
+          "admin"
+        ) : (
+          <>
+            <Link to="/login">登录</Link> | <Link to="/register">注册</Link>
+          </>
+        )}
       </div>
     </div>
   );
 }
+
+export default memo(Header);

@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Button, Toast } from "antd-mobile";
 import { Http, timer } from "@/utils";
 
-export default function (props) {
+function Item(props) {
   const [state, setState] = useState();
 
   const handlePay = async () => {
@@ -56,3 +56,4 @@ export default function (props) {
     </div>
   );
 }
+export default memo(Item);

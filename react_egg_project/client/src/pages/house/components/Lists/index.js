@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { ShowLoading } from "@/components";
 import { timer } from "@/utils";
 
-export default function (props) {
+function List(props) {
   const [state, setState] = useState();
 
   useEffect(() => {}, []);
@@ -29,3 +29,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default memo(List);

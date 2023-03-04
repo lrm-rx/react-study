@@ -44,7 +44,7 @@ export const loginAction = createAsyncThunk(
       body: payload,
     });
     if (result) {
-      localStorage.setItem("token", result.token);
+      localStorage.setItem("token", result.username);
       localStorage.setItem("username", result.username);
       Toast.show({
         icon: "success",

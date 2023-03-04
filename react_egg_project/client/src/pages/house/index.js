@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useLocation } from "umi";
 import {
@@ -16,7 +16,7 @@ import { useObserverHook } from "@/hooks";
 import { CommonEnum } from "@/enums";
 import { urlStrToObj } from "@/utils";
 
-export default function (props) {
+function House(props) {
   // 获取url参数
   const { search } = useLocation();
   const query = urlStrToObj(search);
@@ -89,3 +89,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default memo(House);

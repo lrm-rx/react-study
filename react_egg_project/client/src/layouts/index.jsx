@@ -1,3 +1,4 @@
+import { memo } from "react";
 import { useLocation, Outlet } from "umi";
 import { SafeArea } from "antd-mobile";
 import "normalize.css/normalize.css"; //全局引入
@@ -6,7 +7,7 @@ import { store } from "../stores";
 import styles from "./index.less";
 import { ErrorBoundary, MenuBar } from "@/components";
 
-export default function Layout() {
+function Layout() {
   const location = useLocation();
   const paths = ["/", "/order", "/user"];
 
@@ -24,3 +25,5 @@ export default function Layout() {
     </Provider>
   );
 }
+
+export default memo(Layout);

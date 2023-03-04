@@ -1,11 +1,11 @@
 import "./index.less";
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import Header from "./components/header";
 import Search from "./components/search";
 import Hot from "./components/hot";
 import { useHttpHook } from "@/hooks";
 
-export default function (props) {
+function Home(props) {
   const [state, setState] = useState();
 
   const [citys, citysLoading] = useHttpHook({
@@ -29,3 +29,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default memo(Home);

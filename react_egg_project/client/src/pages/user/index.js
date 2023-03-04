@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { List, Button } from "antd-mobile";
 import {
   FileOutline,
@@ -12,7 +12,7 @@ import { ErrorBoundary } from "@/components";
 import { getUserDetailAction, logoutAction } from "@/stores/modules/user";
 import "./index.less";
 
-export default function (props) {
+function User(props) {
   const dispatch = useDispatch();
   const userInfo = useSelector((state) => state.user.info);
   const [state, setState] = useState();
@@ -76,3 +76,5 @@ export default function (props) {
     </ErrorBoundary>
   );
 }
+
+export default memo(User)

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import "./index.less";
 
-export default function (props) {
+function OrderSkeleton(props) {
   const [state, setState] = useState(Array(3).fill(1));
 
   useEffect(() => {}, []);
@@ -22,3 +22,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default memo(OrderSkeletons);

@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { ImageUploader, Form, Input, Toast, Button } from "antd-mobile";
 import "./index.less";
-export default function (props) {
+function EditUser(props) {
   const [state, setState] = useState();
   const [file, setFile] = useState([]);
 
@@ -61,3 +61,5 @@ export default function (props) {
     </div>
   );
 }
+
+export default memo(EditUser);

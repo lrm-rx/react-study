@@ -1,7 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { Swiper } from "antd-mobile";
 
-export default function (props) {
+function Banner(props) {
   const [state, setState] = useState();
 
   useEffect(() => {}, []);
@@ -16,3 +16,5 @@ export default function (props) {
     </Swiper>
   );
 }
+
+export default memo(Banner)

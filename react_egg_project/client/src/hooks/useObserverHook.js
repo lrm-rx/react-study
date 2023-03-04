@@ -1,7 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, memo } from "react";
 
 let observer;
-export default function useObserverHook(ele, callback, watch = []) {
+function useObserverHook(ele, callback, watch = []) {
   useEffect(() => {
     const node = document.querySelector(ele);
     if (node) {
@@ -22,3 +22,4 @@ export default function useObserverHook(ele, callback, watch = []) {
     };
   }, watch);
 }
+export default memo(useObserverHook);
