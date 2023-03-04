@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import { TabBar, SafeArea } from "antd-mobile";
 import PropTypes from "prop-types";
 import { AppOutline, TextOutline, UserOutline } from "antd-mobile-icons";
@@ -6,7 +6,7 @@ import { history } from "umi";
 
 import "./index.less";
 
-export class MenuBar extends Component {
+export class MenuBar extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

@@ -1,12 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, memo } from "react";
 import { SpinLoading } from "antd-mobile";
 import PropTypes from "prop-types";
 import { CommonEnum } from "@/enums";
 import "./index.less";
 
-export default function ShowLoading(props) {
-  const [state, setState] = useState();
-
+function ShowLoading(props) {
   useEffect(() => {}, []);
 
   return (
@@ -29,3 +27,5 @@ ShowLoading.defalutProps = {
 ShowLoading.propTypes = {
   showLoading: PropTypes.bool,
 };
+
+export default memo(ShowLoading);

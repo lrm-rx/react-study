@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import CreatePortal from "../CreatePortal";
 import { CloseOutline } from "antd-mobile-icons";
 
@@ -27,7 +27,7 @@ const Styles = {
   },
 };
 
-export default class Modal extends Component {
+export default class Modal extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {

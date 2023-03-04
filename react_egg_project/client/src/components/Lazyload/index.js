@@ -1,6 +1,6 @@
-import React, { Component, lazy, Suspense } from "react";
+import React, { PureComponent, lazy, Suspense } from "react";
 
-export class Index extends Component {
+export class Index extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {};

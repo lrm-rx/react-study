@@ -10,15 +10,12 @@ function EditUser(props) {
   };
 
   const uploadImg = (file) => {
-    console.log("URL.createObjectURL(file):", URL.createObjectURL(file));
     return {
       url: URL.createObjectURL(file),
     };
   };
 
-  const onFinish = (values) => {
-    console.log("values", values);
-  };
+  const onFinish = (values) => {};
 
   useEffect(() => {}, []);
 

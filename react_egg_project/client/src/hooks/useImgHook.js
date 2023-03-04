@@ -1,4 +1,4 @@
-import { useEffect, memo } from "react";
+import { useEffect } from "react";
 import { isEmpty } from "project-libs";
 
 /**
@@ -8,7 +8,7 @@ import { isEmpty } from "project-libs";
  */
 
 let observer;
-function useImgHook(ele, callback, watch = []) {
+export default function useImgHook(ele, callback, watch = []) {
   useEffect(() => {
     const nodes = document.querySelectorAll(ele);
     if (!isEmpty(nodes)) {
@@ -33,5 +33,3 @@ function useImgHook(ele, callback, watch = []) {
     };
   }, watch);
 }
-
-export default memo(useImgHook);

@@ -1,7 +1,7 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 import ReactDOM from "react-dom";
 
-export default class CreatePortal extends Component {
+export default class CreatePortal extends PureComponent {
   constructor(props) {
     super(props);
     this.body = document.querySelector("body");

@@ -23,4 +23,4 @@ function OrderSkeleton(props) {
   );
 }
 
-export default memo(OrderSkeletons);
+export default memo(OrderSkeleton);

@@ -1,6 +1,6 @@
-import React, { Component } from "react";
+import React, { PureComponent } from "react";
 
-export class ErrorBoundary extends Component {
+export class ErrorBoundary extends PureComponent {
   constructor(props) {
     super(props);
     this.state = {
@@ -8,7 +8,6 @@ export class ErrorBoundary extends Component {
     };
   }
   static getDerivedStateFromError(error) {
-    console.log(error);
     return {
       flag: true,
     };

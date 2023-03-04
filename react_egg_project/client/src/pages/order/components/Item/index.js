@@ -42,7 +42,6 @@ function Item(props) {
         break;
     }
   };
-  console.log("props:", props);
 
   return (
     <div className="order-item">

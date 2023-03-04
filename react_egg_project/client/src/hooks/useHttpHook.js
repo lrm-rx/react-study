@@ -1,7 +1,13 @@
 import { useState, useEffect, memo } from "react";
 import { Http } from "@/utils";
 
-function useHttpHook({ url, method = "post", headers, body = {}, watch = [] }) {
+export default function useHttpHook({
+  url,
+  method = "post",
+  headers,
+  body = {},
+  watch = [],
+}) {
   const [result, setResult] = useState();
   const [loading, setLoading] = useState(true);
 
@@ -18,5 +24,3 @@ function useHttpHook({ url, method = "post", headers, body = {}, watch = [] }) {
 
   return [result, loading];
 }
-
-export default memo(useHttpHook);

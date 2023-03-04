@@ -1,6 +1,6 @@
-import { useLayoutEffect, useState, memo } from "react";
+import { useLayoutEffect, useState } from "react";
 
-function useTitleHook(title) {
+export default function useTitleHook(title) {
   const [state, setState] = useState();
 
   useLayoutEffect(() => {
@@ -10,5 +10,3 @@ function useTitleHook(title) {
 
   return state;
 }
-
-export default memo(useTitleHook);
