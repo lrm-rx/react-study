@@ -20,6 +20,7 @@
     "eggache/no-only-tests": 0,
     "array-bracket-spacing": 0,
     "no-alert": 0,
-    "no-undef": 0
+    "no-undef": 0,
+    "jsdoc/require-param": 0
   }
 }

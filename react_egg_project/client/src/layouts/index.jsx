@@ -14,9 +14,7 @@ function Layout() {
   return (
     <Provider store={store}>
       <SafeArea position="top" />
-      <ErrorBoundary>
-        <Outlet />
-      </ErrorBoundary>
+      <Outlet />
       <MenuBar
         show={paths.includes(location.pathname)}
         pathname={location.pathname}

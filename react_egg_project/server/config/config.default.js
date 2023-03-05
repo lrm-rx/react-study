@@ -23,9 +23,13 @@ module.exports = (appInfo) => {
     type: "all",
   };
 
+  config.allowHosts = ["localhost:8000", "127.0.0.1:8000"];
+
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
+    salt: "728c5861-667a-4831-91b4-9400147bde09",
+    redisExpire: 60 * 60 * 24,
   };
 
   config.view = {
@@ -90,6 +94,32 @@ module.exports = (appInfo) => {
       freezeTableName: true, // true时, 使用自定义的表名
       underscored: true, // 将字段命名以驼峰修改为 _
     },
+  };
+
+  config.jwt = {
+    secret: "cf336cab-0d0c-4571-9012-0090d2e73950",
+  };
+
+  config.redis = {
+    client: {
+      port: 6379,
+      host: "127.0.0.1",
+      db: 0,
+    },
+  };
+
+  // 限制访问的主机
+  config.allowHosts = ["localhost:8000", "127.0.0.1:8000"];
+
+  // 限制请求的频率
+  config.interfaceLimit = {
+    maxCount: 30, // 最大请求个数
+    time: 6 * 1000, // 间隔时间
+  };
+
+  config.interfaceCache = {
+    expire: 10,
+    include: ["/api/user/detail"],
   };
 
   return {

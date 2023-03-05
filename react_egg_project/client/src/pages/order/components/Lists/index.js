@@ -18,9 +18,7 @@ function OrderList(props) {
   return (
     <div>
       {isEmpty(props?.orders) ? (
-        <>
-          <ShowLoading showLoading={false} /> : <OrderSkeletons />
-        </>
+        <>{state ? <ShowLoading showLoading={false} /> : <OrderSkeletons />}</>
       ) : (
         <div className="tab-lists">
           {props.orders.map((item) => (

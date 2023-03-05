@@ -13,5 +13,10 @@ module.exports = (app) => {
     },
   };
 
+  const middleware = app.config.coreMiddleware;
+  app.config.coreMiddleware = [
+    ...middleware,
+    ...["interfaceLimit", "allowHosts", "notFound", "auth", "interfaceCache"],
+  ];
   // app.config.coreMiddleware.push("auth");
 };
