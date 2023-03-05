@@ -23,8 +23,6 @@ module.exports = (appInfo) => {
     type: "all",
   };
 
-  config.allowHosts = ["localhost:8000", "127.0.0.1:8000"];
-
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
@@ -67,7 +65,7 @@ module.exports = (appInfo) => {
   };
 
   config.auth = {
-    exclude: ["/home", "/user", "/user/login", "/user/logout"],
+    exclude: ["/api/user/login", "/api/user/register"],
   };
 
   config.mysql = {
@@ -84,7 +82,7 @@ module.exports = (appInfo) => {
 
   exports.sequelize = {
     dialect: "mysql", // support: mysql, mariadb, postgres, mssql
-    database: "egg",
+    database: "egg_house",
     host: "127.0.0.1",
     port: 3306,
     username: "root",
@@ -92,7 +90,7 @@ module.exports = (appInfo) => {
     define: {
       timestamps: false, // false时, 不需要sequelize生成相关时间字段
       freezeTableName: true, // true时, 使用自定义的表名
-      underscored: true, // 将字段命名以驼峰修改为 _
+      underscored: false, // 将字段命名以驼峰修改为 _
     },
   };
 
@@ -104,12 +102,13 @@ module.exports = (appInfo) => {
     client: {
       port: 6379,
       host: "127.0.0.1",
+      password: "",
       db: 0,
     },
   };
 
   // 限制访问的主机
-  config.allowHosts = ["localhost:8000", "127.0.0.1:8000"];
+  config.allowHosts = ["localhost:8001", "127.0.0.1:8001"];
 
   // 限制请求的频率
   config.interfaceLimit = {

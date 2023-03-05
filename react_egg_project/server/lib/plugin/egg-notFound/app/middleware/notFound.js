@@ -1,6 +1,6 @@
 module.exports = (options) => {
   return async (ctx, next) => {
-    const flag = ctx.app.router.stack.fliter((item) => {
+    const flag = ctx.app.router.stack.filter((item) => {
       return item.regexp.test(ctx.request.url);
     });
     if (flag.length) {

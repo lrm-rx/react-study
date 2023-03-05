@@ -4,7 +4,11 @@ module.exports = (app) => {
   const User = app.model.define("user", {
     id: { type: INTEGER, primaryKey: true, autoIncrement: true },
     username: STRING(20),
-    pwd: STRING(50),
+    password: STRING(64),
+    avatar: TEXT("long"),
+    sign: STRING(300),
+    createTime: DATE,
+    updateTime: DATE,
   });
 
   return User;

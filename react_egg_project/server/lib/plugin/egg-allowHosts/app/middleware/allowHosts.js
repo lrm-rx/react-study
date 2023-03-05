@@ -2,7 +2,9 @@ module.exports = (options) => {
   return async (ctx, next) => {
     const { referer } = ctx.request.header;
     if (referer) {
-      const ulr = new URL(referer);
+      const url = new URL(referer);
+      console.log("options:", options);
+      // console.log("url.host:", url.host);
       if (options.includes(url.host)) {
         await next();
       } else {

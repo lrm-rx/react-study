@@ -65,3 +65,8 @@
 2023-02-22 20:32:32 [httpLog] {"method":"PUT","url":"/user/edit","data":{"id":9,"pwd":"22222"},"startTime":"2023-02-22 20:32:32","endTime":"2023-02-22 20:32:32","timeLength":50}
 2023-02-22 20:33:04 [httpLog] {"method":"PUT","url":"/user/edit","data":{"id":9,"pwd":"777777"},"startTime":"2023-02-22 20:33:04","endTime":"2023-02-22 20:33:04","timeLength":34}
 2023-02-22 20:35:59 [httpLog] {"method":"DELETE","url":"/user/del","data":{"id":9},"startTime":"2023-02-22 20:35:59","endTime":"2023-02-22 20:35:59","timeLength":34}
+2023-03-05 23:48:49 [httpLog] {"method":"POST","url":"/api/user/register","data":{"username":"ning","password":"123456"},"startTime":"2023-03-05 23:48:49","endTime":"2023-03-05 23:48:49","timeLength":17}
+2023-03-05 23:52:18 [httpLog] {"method":"POST","url":"/api/user/register","data":{"username":"admin","password":"123456"},"startTime":"2023-03-05 23:52:18","endTime":"2023-03-05 23:52:18","timeLength":90}
+2023-03-05 23:55:14 [httpLog] {"method":"POST","url":"/api/user/register","data":{"username":"ming","password":"123456"},"startTime":"2023-03-05 23:55:14","endTime":"2023-03-05 23:55:14","timeLength":44}
+2023-03-05 23:58:09 [httpLog] {"method":"POST","url":"/api/user/register","data":{"username":"theshy","password":"123456"},"startTime":"2023-03-05 23:58:09","endTime":"2023-03-05 23:58:09","timeLength":44}
+2023-03-06 00:17:27 [httpLog] {"method":"POST","url":"/api/user/register","data":{"username":"xiaohu","password":"123456","repassword":"123456"},"startTime":"2023-03-06 00:17:26","endTime":"2023-03-06 00:17:27","timeLength":45}
