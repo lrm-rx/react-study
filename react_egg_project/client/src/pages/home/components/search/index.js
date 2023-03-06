@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useCallback, memo } from "react";
-import { Picker, List, DatePicker, Button, Toast } from "antd-mobile";
+import { Picker, List, DatePicker, Button, Toast, Cascader } from "antd-mobile";
 import { history } from "umi";
 import dayjs from "dayjs";
 import { filterData } from "@/utils";
@@ -12,14 +12,18 @@ function Search(props) {
   //   ],
   // ]);
   const [selectCityVisible, setSelectCityVisible] = useState(false);
-  const [selectedCity, setSelectedCity] = useState([]);
+  const [selectedCityCode, setSelectedCityCode] = useState("");
+  const [selectedCity, setSelectedCity] = useState("");
   const [startTime, setStartTime] = useState("");
   const [startTimeVisible, setStartTimeVisible] = useState(false);
   const [endTime, setEndTime] = useState("");
   const [endTimeVisible, setEndTimeVisible] = useState(false);
 
-  const handleCityChange = (value) => {
-    setSelectedCity(value);
+  const handleCityConfirm = (val, extend) => {
+    const lastItem = extend.items[extend.items.length - 1];
+    const num = Math.floor(Math.random() * (10004 - 10001)) + 10001 + "";
+    setSelectedCityCode(num);
+    setSelectedCity(lastItem.label);
   };
 
   const handleStartTimeChange = (value) => {
@@ -57,8 +61,8 @@ function Search(props) {
     }
     history.push({
       pathname: "/search",
-      search: selectedCity[0]?.trim()
-        ? `?code=${selectedCity}&startTime=${startTime}&endTime=${endTime}`
+      search: selectedCityCode.trim()
+        ? `?cityCode=${selectedCityCode}&startTime=${startTime}&endTime=${endTime}`
         : `?startTime=${startTime}&endTime=${endTime}`,
     });
   };
@@ -91,28 +95,21 @@ function Search(props) {
         {!props?.citysLoading && (
           <>
             <List.Item
-              extra={
-                selectedCity[0]
-                  ? filterData(props?.citys[0], selectedCity[0]).label
-                  : "请选择"
-              }
+              extra={selectedCity ? selectedCity : "请选择"}
               onClick={() => {
                 setSelectCityVisible(true);
               }}
             >
               可选城市
             </List.Item>
-            <Picker
-              title="城市"
-              columns={props?.citys}
+            <Cascader
+              options={props?.citys || []}
               visible={selectCityVisible}
+              title="城市"
               onClose={() => {
                 setSelectCityVisible(false);
               }}
-              value={selectedCity}
-              onConfirm={(v) => {
-                handleCityChange(v);
-              }}
+              onConfirm={(val, extend) => handleCityConfirm(val, extend)}
             />
           </>
         )}

@@ -23,6 +23,7 @@ function SearchPage(props) {
 
   const [houses, loading] = useHttpHook({
     url: "/house/search",
+    method: "get",
     body: {
       ...page,
       houseName,

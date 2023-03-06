@@ -23,8 +23,8 @@ function Hot(props) {
             key={item.id}
             onClick={() => handleClick(item.id)}
           >
-            <img className="img" alt="img" src={item.img} />
-            <div className="title">{item.title}</div>
+            <img className="img" alt="img" src={item.imgs[0].url} />
+            <div className="title">{item.name}</div>
             <div className="info">{item.info}</div>
             <div className="price">￥{item.price}</div>
           </div>

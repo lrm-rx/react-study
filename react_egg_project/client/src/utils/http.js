@@ -9,14 +9,14 @@ export default function Http({
   setResult,
 }) {
   setLoading && setLoading(true);
-  const token = localStorage.getItem("token");
+  const authorization = localStorage.getItem("token");
   let defaultHeader = {
     "Content-type": "application/json",
   };
-  defaultHeader = token
+  defaultHeader = authorization
     ? {
         ...defaultHeader,
-        token,
+        authorization,
       }
     : defaultHeader;
 
@@ -43,10 +43,19 @@ export default function Http({
             resolve(res.data);
             setResult && setResult(res.data);
           } else {
-            if (res.status === 1001) {
-              location.href = "/login?from=" + location.pathname;
-              localStorage.clear();
-            }
+            // if (res.status === 1001) {
+            //   Toast.show({
+            //     icon: "fail",
+            //     content: "用户登录失效!",
+            //     duration: 1000,
+            //   });
+            //   let timer;
+            //   timer = setTimeout(() => {
+            //     location.href = "/login?from=" + location.pathname;
+            //     localStorage.clear();
+            //     timer = null;
+            //   }, 2000);
+            // }
             Toast.show({
               icon: "fail",
               content: res.errMsg,

@@ -26,6 +26,22 @@ class UserService extends BaseService {
       return result;
     });
   }
+  // 编辑
+  async edit(params) {
+    return this.serviceRun(async () => {
+      try {
+        const { ctx } = this;
+        return await ctx.model.User.update(params, {
+          where: {
+            username: ctx.username,
+          },
+        });
+      } catch (error) {
+        console.error("edit", error);
+        return null;
+      }
+    });
+  }
 }
 
 module.exports = UserService;

@@ -26,7 +26,7 @@ module.exports = (appInfo) => {
   // add your user config here
   const userConfig = {
     // myAppName: 'egg',
-    salt: "728c5861-667a-4831-91b4-9400147bde09",
+    salt: "cf336cab-0d0c-4571-9012-0090d2e73950",
     redisExpire: 60 * 60 * 24,
   };
 
@@ -65,7 +65,7 @@ module.exports = (appInfo) => {
   };
 
   config.auth = {
-    exclude: ["/api/user/login", "/api/user/register"],
+    exclude: ["/api/user/login", "/api/user/register", "/api/commons/citys"],
   };
 
   config.mysql = {
@@ -108,7 +108,7 @@ module.exports = (appInfo) => {
   };
 
   // 限制访问的主机
-  config.allowHosts = ["localhost:8001", "127.0.0.1:8001"];
+  config.allowHosts = ["localhost:8000", "127.0.0.1:8000"];
 
   // 限制请求的频率
   config.interfaceLimit = {

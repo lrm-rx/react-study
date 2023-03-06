@@ -1,7 +1,10 @@
 import React, { useState, useEffect, memo } from "react";
 import { ImageUploader, Form, Input, Toast, Button } from "antd-mobile";
+import { useDispatch, useSelector } from "react-redux";
+import { editUserAction } from "@/stores/modules/user";
 import "./index.less";
 function EditUser(props) {
+  const dispatch = useDispatch();
   const [state, setState] = useState();
   const [file, setFile] = useState([]);
 
@@ -15,7 +18,9 @@ function EditUser(props) {
     };
   };
 
-  const onFinish = (values) => {};
+  const onFinish = (values) => {
+    dispatch(editUserAction({ ...values }));
+  };
 
   useEffect(() => {}, []);
 
@@ -46,7 +51,7 @@ function EditUser(props) {
       >
         <Form.Item
           label="电话"
-          name="tel"
+          name="phone"
           rules={[{ required: true }, { type: "string", min: 7, max: 11 }]}
         >
           <Input placeholder="请输入电话号码" clearable />

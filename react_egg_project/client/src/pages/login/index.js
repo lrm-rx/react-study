@@ -9,11 +9,18 @@ function Login(props) {
   const dispatch = useDispatch();
   const [state, setState] = useState();
 
-  const onFinish = (data) => {
-    dispatch(loginAction(data));
-    timer = setTimeout(() => {
-      history.push("/");
-    }, 1000);
+  const onFinish = async (data) => {
+    const { payload } = await dispatch(loginAction(data));
+    if (payload) {
+      Toast.show({
+        icon: "success",
+        content: "登录成功!",
+        duration: 1000,
+      });
+      timer = setTimeout(() => {
+        history.push("/");
+      }, 1000);
+    }
   };
 
   const handleClick = () => {

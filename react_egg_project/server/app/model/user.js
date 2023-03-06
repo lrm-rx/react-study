@@ -6,6 +6,7 @@ module.exports = (app) => {
     username: STRING(20),
     password: STRING(64),
     avatar: TEXT("long"),
+    phone: STRING(20),
     sign: STRING(300),
     createTime: DATE,
     updateTime: DATE,

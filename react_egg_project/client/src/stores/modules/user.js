@@ -9,7 +9,6 @@ export const getUserDetailAction = createAsyncThunk(
   async (payload, { dispatch }) => {
     const result = await Http({
       url: "/user/detail",
-      body: payload,
     });
     return result;
   }
@@ -35,6 +34,29 @@ export const registerAction = createAsyncThunk(
   }
 );
 
+// 编辑用户
+export const editUserAction = createAsyncThunk(
+  "/user/edit",
+  async (payload, { dispatch }) => {
+    const result = await Http({
+      url: "/user/edit",
+      body: payload,
+    });
+    if (result) {
+      Toast.show({
+        icon: "success",
+        content: "编辑成功!",
+        duration: 1000,
+      });
+      let timer;
+      timer = setTimeout(() => {
+        history.push("/user");
+        timer = null;
+      }, 1500);
+    }
+  }
+);
+
 // 用户登录
 export const loginAction = createAsyncThunk(
   "/user/login",
@@ -43,15 +65,16 @@ export const loginAction = createAsyncThunk(
       url: "/user/login",
       body: payload,
     });
-    if (result) {
-      localStorage.setItem("token", result.username);
-      localStorage.setItem("username", result.username);
+    if (!result) {
       Toast.show({
-        icon: "success",
-        content: "登录成功!",
+        icon: "fail",
+        content: result.errMsg,
         duration: 1000,
       });
     }
+    localStorage.setItem("token", result.token);
+    localStorage.setItem("username", result.username);
+    return result;
   }
 );
 
@@ -59,17 +82,21 @@ export const loginAction = createAsyncThunk(
 export const logoutAction = createAsyncThunk(
   "/user/logout",
   async (payload, { dispatch }) => {
-    // const result = await Http({
-    //   url: "/user/logout",
-    //   body: payload,
-    // });
+    const result = await Http({
+      url: "/user/logout",
+      body: payload,
+    });
     localStorage.clear();
     Toast.show({
       icon: "success",
       content: "退出登录成功!",
       duration: 1000,
     });
-    location.href = "/login?from=" + new Date().getTime();
+    let timer;
+    timer = setTimeout(() => {
+      location.href = "/login?from=" + new Date().getTime();
+      timer = null;
+    }, 2000);
   }
 );
 

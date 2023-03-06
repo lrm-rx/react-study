@@ -7,6 +7,7 @@ export function onRouteChange(route) {
   const isLogin = localStorage.getItem("token");
 
   if (nowPath.length === 1 && nowPath[0].auth && !isLogin) {
+    alert("111111");
     history.push({
       pathname: "/login",
       search: `?from=${new Date().getTime()}`,

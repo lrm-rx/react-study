@@ -1,8 +1,7 @@
 module.exports = (options) => {
   return async (ctx, next) => {
     const url = ctx.request.url;
-    // const user = ctx.session.user;
-    const token = ctx.request.token;
+    const token = ctx.request.header?.authorization;
     const username = await ctx.app.redis.get(ctx.username);
     const user = username ? username === token : username;
 

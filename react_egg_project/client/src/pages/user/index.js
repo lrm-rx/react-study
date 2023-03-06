@@ -17,11 +17,8 @@ function User(props) {
   const userInfo = useSelector((state) => state.user.info);
   const [state, setState] = useState();
 
-  const handleClick = (id) => {
-    history.push({
-      pathname: "/user/edit",
-      search: `?id=${id}`,
-    });
+  const handleClick = () => {
+    history.push("/user/edit");
   };
 
   const handleLogout = () => {
@@ -29,7 +26,7 @@ function User(props) {
   };
 
   useEffect(() => {
-    dispatch(getUserDetailAction({ id: 10 }));
+    dispatch(getUserDetailAction());
   }, []);
 
   return (
@@ -42,7 +39,7 @@ function User(props) {
               alt="user"
               src={userInfo?.avatar || require("../../assets/yay.jpg")}
             />
-            <div className="tel">{userInfo?.tel}</div>
+            <div className="tel">{userInfo?.phone}</div>
             <div className="sign">{userInfo?.sign}</div>
           </div>
         </div>
@@ -58,7 +55,7 @@ function User(props) {
             <List.Item prefix={<PhonebookOutline />} onClick={() => {}}>
               联系客服
             </List.Item>
-            <List.Item prefix={<SetOutline />} onClick={() => handleClick(10)}>
+            <List.Item prefix={<SetOutline />} onClick={handleClick}>
               设置
             </List.Item>
           </List>
@@ -77,4 +74,4 @@ function User(props) {
   );
 }
 
-export default memo(User)
+export default memo(User);
