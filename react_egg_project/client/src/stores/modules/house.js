@@ -53,9 +53,54 @@ export const getAddCommentAction = createAsyncThunk(
         type: "house/resetData",
         payload: {},
       });
-      // 手动触发刷新(todo: 为什么下拉可以自动触发getHouseCommentAction刷新?)
-      // dispatch(getHouseCommentAction());
     }
+  }
+);
+
+export const handleOrderAction = createAsyncThunk(
+  "/orders/handleOrder",
+  async (payload, { dispatch, getState }) => {
+    const result = await Http({
+      url,
+      body: payload,
+    });
+    return result;
+  }
+);
+
+// 已下单
+export const hasOrderAction = createAsyncThunk(
+  "/orders/hasOrder",
+  async (payload, { dispatch, getState }) => {
+    const result = await Http({
+      url: "/orders/hasOrder",
+      body: payload,
+    });
+    return result;
+  }
+);
+
+// 下单
+export const addOrderAction = createAsyncThunk(
+  "/orders/addOrder",
+  async (payload, { dispatch, getState }) => {
+    const result = await Http({
+      url: "/orders/addOrder",
+      body: payload,
+    });
+    return result;
+  }
+);
+
+// 取消
+export const delOrderAction = createAsyncThunk(
+  "/orders/delOrder",
+  async (payload, { dispatch, getState }) => {
+    const result = await Http({
+      url: "/orders/delOrder",
+      body: payload,
+    });
+    return result;
   }
 );
 
@@ -67,6 +112,7 @@ const houseSlice = createSlice({
     page: CommonEnum.PAGE,
     showLoading: true,
     relaodCommentsNum: 0,
+    order: null,
   },
   // 同步
   reducers: {
@@ -115,6 +161,18 @@ const houseSlice = createSlice({
       })
       .addCase(getHouseCommentAction.fulfilled, (state, { payload }) => {
         state.comments = payload;
+      })
+      .addCase(handleOrderAction.fulfilled, (state, { payload }) => {
+        state.order = payload;
+      })
+      .addCase(hasOrderAction.fulfilled, (state, { payload }) => {
+        state.order = payload;
+      })
+      .addCase(addOrderAction.fulfilled, (state, { payload }) => {
+        state.order = payload;
+      })
+      .addCase(delOrderAction.fulfilled, (state, { payload }) => {
+        state.order = payload;
       });
   },
 });

@@ -2,24 +2,33 @@ import React, { useState, useEffect, memo } from "react";
 import { ImageUploader, Form, Input, Toast, Button } from "antd-mobile";
 import { useDispatch, useSelector } from "react-redux";
 import { editUserAction } from "@/stores/modules/user";
+import { transferImgType } from "@/utils/transfer";
 import "./index.less";
+
 function EditUser(props) {
   const dispatch = useDispatch();
   const [state, setState] = useState();
   const [file, setFile] = useState([]);
+  const [fileStr, setFileStr] = useState("");
 
-  const handleChange = (e) => {
-    console.log("改变");
-  };
-
-  const uploadImg = (file) => {
+  const uploadImg = async (file) => {
+    const bloburl = URL.createObjectURL(file);
+    const result = await transferImgType(bloburl);
+    setFileStr(result);
     return {
       url: URL.createObjectURL(file),
     };
   };
 
   const onFinish = (values) => {
-    dispatch(editUserAction({ ...values }));
+    if (!fileStr) {
+      return Toast.show({
+        icon: "fail",
+        content: "请上传头像!",
+      });
+    }
+    const avatar = fileStr;
+    dispatch(editUserAction({ ...values, avatar }));
   };
 
   useEffect(() => {}, []);
@@ -27,12 +36,7 @@ function EditUser(props) {
   return (
     <div className="user-edit">
       <div className="avatar">
-        <ImageUploader
-          maxCount={1}
-          value={file}
-          onChange={handleChange}
-          upload={uploadImg}
-        />
+        <ImageUploader maxCount={1} value={file} upload={uploadImg} />
       </div>
       <Form
         layout="horizontal"

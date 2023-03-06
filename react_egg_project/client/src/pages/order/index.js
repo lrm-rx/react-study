@@ -16,7 +16,7 @@ function Order(props) {
 
   const invokeHttp = async (pageNum) => {
     const result = await Http({
-      url: "/order/lists",
+      url: "/orders/lists",
       body: {
         ...page,
         pageNum,
@@ -28,11 +28,12 @@ function Order(props) {
 
   const fetchOrder = async (pageNum) => {
     const result = await invokeHttp(pageNum);
+    console.log("result:", result);
     if (!isEmpty(result) && result.length <= page.pageSize) {
       setOrders(result);
-      setShowLoading(true);
-    } else {
       setShowLoading(false);
+    } else {
+      setShowLoading(true);
     }
   };
 
@@ -76,6 +77,9 @@ function Order(props) {
   useEffect(() => {
     fetchOrder(1);
   }, [type]);
+  useEffect(() => {
+    console.log("showLoading", showLoading);
+  }, [showLoading]);
   return (
     <ErrorBoundary>
       <div className="order-page">

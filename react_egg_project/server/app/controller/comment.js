@@ -1,7 +1,6 @@
 "use strict";
 
 const { Controller } = require("egg");
-const dayjs = require("dayjs");
 const BaseController = require("./base");
 
 class CommentController extends BaseController {

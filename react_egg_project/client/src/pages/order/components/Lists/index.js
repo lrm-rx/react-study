@@ -24,7 +24,7 @@ function OrderList(props) {
           {props.orders.map((item) => (
             <OrderItem type={props.type} key={item.id} {...item} />
           ))}
-          <ShowLoading showLoading={props.showLoading} />
+          <ShowLoading showLoading={props?.showLoading} />
         </div>
       )}
     </div>

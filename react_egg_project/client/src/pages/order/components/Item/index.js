@@ -6,23 +6,23 @@ function Item(props) {
   const [state, setState] = useState();
 
   const handlePay = async () => {
-    return Toast.show({
-      icon: "fail",
-      content: "接口开发中!",
-    });
-    // const result = await Http({
-    //   url: "/orders/pay",
-    //   body: {
-    //     id: props.id,
-    //   },
+    // return Toast.show({
+    //   icon: "fail",
+    //   content: "接口开发中!",
     // });
-    // if (result) {
-    //   Toast.show({
-    //     icon: "success",
-    //     content: "支付成功!",
-    //   });
-    //   window.location.reload();
-    // }
+    const result = await Http({
+      url: "/orders/pay",
+      body: {
+        id: props.id,
+      },
+    });
+    if (result) {
+      Toast.show({
+        icon: "success",
+        content: "支付成功!",
+      });
+      window.location.reload();
+    }
   };
 
   useEffect(() => {}, []);
@@ -45,10 +45,10 @@ function Item(props) {
 
   return (
     <div className="order-item">
-      <img alt="order" src={props?.img} />
+      <img alt="order" src={props?.house?.imgs[0]?.url} />
       <div className="center">
-        <div className="title">{props?.title}</div>
-        <div className="price">{props?.price}</div>
+        <div className="title">{props?.house?.name}</div>
+        <div className="price">￥{props?.house?.price}</div>
         <div className="time">{timer(props?.createTime, "day")}</div>
       </div>
       <div className="pay">{renderPay()}</div>

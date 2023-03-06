@@ -13,7 +13,7 @@ function List(props) {
       <div className="comment-lists">
         {props?.lists?.map((item) => (
           <div className="comment-lists_item" key={item?.id}>
-            <img alt="user" className="avatar" src={item?.avatar} />
+            <img alt="user" className="avatar" src={item?.user?.avatar} />
             <div className="right">
               <div className="right-top">
                 <p>{item?.user.username}</p>

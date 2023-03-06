@@ -2,7 +2,6 @@
 
 const { Service } = require("egg");
 const BaseService = require("./base");
-const md5 = require("md5");
 
 class CommentService extends BaseService {
   async add(params) {
