@@ -108,7 +108,16 @@ module.exports = (appInfo) => {
   };
 
   // 限制访问的主机
-  config.allowHosts = ["localhost:8000", "127.0.0.1:8000"];
+  config.allowHosts = [
+    "localhost:8000",
+    "127.0.0.1:8000",
+    "localhost:8001",
+    "127.0.0.1:8001",
+    "localhost:8002",
+    "127.0.0.1:8002",
+    "localhost:8003",
+    "127.0.0.1:8003",
+  ];
 
   // 限制请求的频率
   config.interfaceLimit = {

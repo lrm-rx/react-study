@@ -54,7 +54,7 @@ export const getAddCommentAction = createAsyncThunk(
         payload: {},
       });
       // 手动触发刷新(todo: 为什么下拉可以自动触发getHouseCommentAction刷新?)
-      dispatch(getHouseCommentAction());
+      // dispatch(getHouseCommentAction());
     }
   }
 );
@@ -82,19 +82,19 @@ const houseSlice = createSlice({
       state.showLoading = action.payload;
     },
     reloadComments(state, action) {
-      state.relaodCommentsNum = state.relaodCommentsNum + 1;
-      state.page = {
-        ...CommonEnum.PAGE,
-        pageNum: state.page.pageNum + 1,
-      };
-      // return {
-      //   ...state, // 会重新触发getHouseCommentAction
-      //   relaodCommentsNum: state.relaodCommentsNum + 1,
-      //   page: {
-      //     ...CommonEnum.PAGE,
-      //     pageNum: state.page.pageNum + 1,
-      //   },
+      // state.relaodCommentsNum = state.relaodCommentsNum + 1;
+      // state.page = {
+      //   ...CommonEnum.PAGE,
+      //   pageNum: state.page.pageNum + 1,
       // };
+      return {
+        ...state, // 会重新触发getHouseCommentAction
+        relaodCommentsNum: state.relaodCommentsNum + 1,
+        page: {
+          ...CommonEnum.PAGE,
+          pageNum: state.page.pageNum + 1,
+        },
+      };
     },
     resetData(state, action) {
       return {
@@ -102,7 +102,7 @@ const houseSlice = createSlice({
         comments: [],
         page: CommonEnum.PAGE,
         showLoading: true,
-        reloadCommentsNum: 0,
+        relaodCommentsNum: 0,
         ...action.payload,
       };
     },

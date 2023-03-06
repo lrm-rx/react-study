@@ -2,21 +2,26 @@ import React, { useState, useEffect, memo } from "react";
 import { TextArea, Button, Toast } from "antd-mobile";
 import { useDispatch, useSelector } from "react-redux";
 import { Modal } from "@/components";
+import { useLocation } from "umi";
+import { urlStrToObj } from "@/utils";
 import { getAddCommentAction } from "@/stores/modules/house";
 
 function Footer(props) {
+  const { search } = useLocation();
+  const query = urlStrToObj(search);
   const dispatch = useDispatch();
   const [show, setShow] = useState(false);
   const [commentsValue, setCommentsValue] = useState();
 
   const handleSubmit = () => {
     if (commentsValue.trim()) {
+      handleClose();
       dispatch(
         getAddCommentAction({
           comment: commentsValue,
+          houseId: query?.id,
         })
       );
-      handleClose();
     } else {
       Toast.show({
         icon: "fail",

@@ -1,10 +1,7 @@
 "use strict";
 
 const { Controller } = require("egg");
-const md5 = require("md5");
-const dayjs = require("dayjs");
 const BaseController = require("./base");
-const citys = require("./data/citys");
 
 class HouseController extends BaseController {
   async hot() {
@@ -15,8 +12,18 @@ class HouseController extends BaseController {
 
   async search() {
     const { ctx, service } = this;
-    // const result = await service.house.search(ctx.params());
-    this.success(ctx.params());
+    const result = await service.house.search(ctx.params());
+    this.success(result);
+  }
+
+  async detail() {
+    const { ctx, service } = this;
+    const result = await service.house.detail(ctx.params("id"));
+
+    this.success({
+      info: result,
+      banner: result.imgs,
+    });
   }
 }
 module.exports = HouseController;

@@ -16,15 +16,18 @@ function List(props) {
             <img alt="user" className="avatar" src={item?.avatar} />
             <div className="right">
               <div className="right-top">
-                <p>{item?.username}</p>
+                <p>{item?.user.username}</p>
                 <p>{timer(item?.createTime, "all")}</p>
               </div>
-              <div className="right-bottom">{item?.info}</div>
+              <div className="right-bottom">{item?.msg}</div>
             </div>
           </div>
         ))}
 
-        <ShowLoading showLoading={props?.showLoading} />
+        <ShowLoading
+          showLoading={props?.showLoading}
+          title={props?.lists?.length ? "" : "暂无评论"}
+        />
       </div>
     </div>
   );

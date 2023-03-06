@@ -23,7 +23,6 @@ function SearchPage(props) {
 
   const [houses, loading] = useHttpHook({
     url: "/house/search",
-    method: "get",
     body: {
       ...page,
       houseName,
@@ -64,7 +63,7 @@ function SearchPage(props) {
         setShowLoading(false);
       }
     }
-  }, [loading]);
+  }, [loading, houses]);
 
   useImgHook(".item-img", (enties) => {}, null);
 
@@ -105,20 +104,20 @@ function SearchPage(props) {
       </div>
       {/* 搜索结果 */}
       {!houseLists.length ? (
-        <SpinLoading className="houses-loading" color="primary" />
+        loading && <SpinLoading className="houses-loading" color="primary" />
       ) : (
         <div className="result">
           {houseLists.map((item) => (
             <div className="item" key={item.id}>
               <img
                 src={require("../../assets/blank.png")}
-                data-src={item.img}
+                data-src={item.imgs[0].url}
                 className="item-img"
                 alt="img"
               />
               <div className="item-right">
-                <div className="title">{item.title}</div>
-                <div className="price">{item.price}</div>
+                <div className="title">{item.name}</div>
+                <div className="price">￥{item.price}</div>
               </div>
             </div>
           ))}
@@ -132,6 +131,7 @@ function SearchPage(props) {
           <ShowLoading showLoading={showLoading} />
         </div>
       )}
+      {!houseLists.length && <div className="no_data">暂无数据!</div>}
     </div>
   );
 }

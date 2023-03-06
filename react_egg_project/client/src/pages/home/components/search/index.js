@@ -62,7 +62,7 @@ function Search(props) {
     history.push({
       pathname: "/search",
       search: selectedCityCode.trim()
-        ? `?cityCode=${selectedCityCode}&startTime=${startTime}&endTime=${endTime}`
+        ? `?code=${selectedCityCode}&startTime=${startTime}&endTime=${endTime}`
         : `?startTime=${startTime}&endTime=${endTime}`,
     });
   };

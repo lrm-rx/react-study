@@ -10,11 +10,11 @@ function Banner(props) {
     <Swiper autoplay loop>
       {props?.banner?.map((img, index) => (
         <Swiper.Item key={index}>
-          <img className="ak-swiper-img" src={img} alt="" />
+          <img className="ak-swiper-img" src={img.url} alt="" />
         </Swiper.Item>
       ))}
     </Swiper>
   );
 }
 
-export default memo(Banner)
+export default memo(Banner);

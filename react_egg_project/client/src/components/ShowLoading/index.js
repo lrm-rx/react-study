@@ -14,7 +14,9 @@ function ShowLoading(props) {
           <SpinLoading color="primary" />
         </div>
       ) : (
-        <div className="loading-info">~~没有更多数据啦!~~</div>
+        <div className="loading-info">
+          {props?.title || "~~没有更多数据啦!~~"}
+        </div>
       )}
     </div>
   );
