@@ -14,14 +14,17 @@
     "dayjs": "^1.11.7",
     "element-plus": "^2.2.32",
     "js-cookie": "^3.0.1",
+    "js-md5": "^0.7.3",
     "lodash-es": "^4.17.21",
     "normalize.css": "^8.0.1",
     "nprogress": "^0.2.0",
     "path-to-regexp": "^6.2.1",
-    "pinia": "^2.0.32",
+    "pinia": "^2.0.33",
+    "pinia-plugin-persistedstate": "^3.1.0",
     "screenfull": "^6.0.2",
     "three": "^0.150.1",
     "vue": "^3.2.45",
+    "vue-i18n": "^9.2.2",
     "vue-router": "^4.1.6"
   },
   "devDependencies": {
