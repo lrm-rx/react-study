@@ -22,8 +22,3 @@ declare module "*.scss" {
   const scss: Record<string, string>;
   export default scss;
 }
-
-declare module "three";
-declare module "three/examples/jsm/libs/lil-gui.module.min.js";
-declare module "three/examples/jsm/controls/OrbitControls.js";
-declare module "three/examples/jsm/libs/stats.module.js";

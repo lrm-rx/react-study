@@ -7,7 +7,6 @@ import { loadPlugins } from "@/plugins";
 import "normalize.css";
 import "element-plus/dist/index.css";
 import "element-plus/theme-chalk/dark/css-vars.css";
-import "@/styles/index.scss";
 
 const app = createApp(App);
 // 加载插件

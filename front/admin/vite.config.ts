@@ -14,6 +14,13 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
         "@": resolve(__dirname, "./src"),
       },
     },
+    css: {
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "@/styles/var.scss";`,
+        },
+      },
+    },
     plugins: [vue(), vueJsx()],
   };
 };
