@@ -1,12 +1,12 @@
-import { ref, reactive } from "vue";
+import { ref, reactive, toRefs } from "vue";
 import { defineStore, createPinia } from "pinia";
 import { GlobalState, ThemeConfigProps, AssemblySizeType } from "./interface";
 import { DEFAULT_PRIMARY } from "@/config/config";
 import piniaPersistConfig from "@/config/piniaPersist";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
-export const useGlobalStore = defineStore(
-  "globalState",
+export const GlobalStore = defineStore(
+  "GlobalStore",
   () => {
     const token = ref<GlobalState["token"]>(
       "9f44e3d8-7199-44f7-b629-2edd244c2b0c"
@@ -42,8 +42,33 @@ export const useGlobalStore = defineStore(
       footer: true,
     });
 
-    const changeToken = (value: string) => {
-      token.value = value;
+    // setToken
+    const setToken = (payload: string) => {
+      token.value = payload;
+    };
+    // setUserInfo
+    const setUserInfo = (payload: any) => {
+      userInfo.value = payload;
+    };
+    // setAssemblySizeSize
+    const setAssemblySizeSize = (payload: AssemblySizeType) => {
+      assemblySize.value = payload;
+    };
+    // updateLanguage
+    const updateLanguage = (payload: string) => {
+      language.value = payload;
+    };
+    // setThemeConfig
+    const setThemeConfig = (payload: ThemeConfigProps) => {
+      // themeConfig = payload;
+    };
+
+    const user = reactive({
+      num: 0,
+      num2: 2,
+    });
+    const changeNum = (value: number) => {
+      user.num = value;
     };
 
     return {
@@ -52,7 +77,13 @@ export const useGlobalStore = defineStore(
       assemblySize,
       language,
       themeConfig,
-      changeToken,
+      setToken,
+      setUserInfo,
+      setAssemblySizeSize,
+      updateLanguage,
+      setThemeConfig,
+      user,
+      changeNum,
     };
   },
   {

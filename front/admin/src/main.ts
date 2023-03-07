@@ -15,12 +15,11 @@ import "@/styles/theme/element-dark.scss";
 import "@/styles/element.scss";
 
 import I18n from "@/languages/index";
+// pinia store
+import pinia from "@/store";
 
 const app = createApp(App);
 // 加载插件
 loadPlugins(app);
-
-// pinia store
-import pinia from "@/store/index";
 
 app.use(router).use(I18n).use(pinia).mount("#app");
