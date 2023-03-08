@@ -8,7 +8,7 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
   const viteEnv = loadEnv(configEnv.mode, process.cwd()) as ImportMetaEnv;
   const { VITE_PUBLIC_PATH } = viteEnv;
   return {
-    base: VITE_PUBLIC_PATH,
+    base: "./",
     resolve: {
       alias: {
         "@": resolve(__dirname, "./src"),
@@ -18,6 +18,22 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
       preprocessorOptions: {
         scss: {
           additionalData: `@import "@/styles/var.scss";`,
+        },
+      },
+    },
+    server: {
+      // 服务器主机名，如果允许外部访问，可设置为 "0.0.0.0"
+      host: "0.0.0.0",
+      port: viteEnv.VITE_PORT,
+      open: viteEnv.VITE_OPEN,
+      cors: true,
+      // 跨域代理配置
+      proxy: {
+        "/api/v1": {
+          target: "https://mock.mengxuegu.com/mock/629d727e6163854a32e8307e", // easymock
+          // target: "https://www.fastmock.site/mock/f81e8333c1a9276214bcdbc170d9e0a0", // fastmock
+          changeOrigin: true,
+          rewrite: (path) => path.replace(/^\/api\/v1/, ""),
         },
       },
     },

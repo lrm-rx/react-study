@@ -6,7 +6,7 @@ import piniaPersistConfig from "@/config/piniaPersist";
 import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 
 export const GlobalStore = defineStore(
-  "GlobalStore",
+  "GlobalState",
   () => {
     const token = ref<GlobalState["token"]>("");
     const userInfo = ref<GlobalState["userInfo"]>(null);
@@ -75,7 +75,7 @@ export const GlobalStore = defineStore(
     };
   },
   {
-    persist: piniaPersistConfig({ key: "admin-global" }),
+    persist: piniaPersistConfig({ key: "GlobalState" }),
   }
 );
 // piniaPersist(持久化)

@@ -1,51 +1,62 @@
+import { ref, computed } from "vue";
 import { defineStore } from "pinia";
 import { TabsState, TabsMenuProps } from "@/store/interface";
 import piniaPersistConfig from "@/config/piniaPersist";
 import router from "@/router/index";
 
-// TabsStore
-export const TabsStore = defineStore({
-  id: "TabsState",
-  state: (): TabsState => ({
-    tabsMenuList: [],
-  }),
-  actions: {
-    // Add Tabs
-    async addTabs(tabItem: TabsMenuProps) {
-      if (this.tabsMenuList.every((item) => item.path !== tabItem.path)) {
-        this.tabsMenuList.push(tabItem);
+export const TabsStore = defineStore(
+  "TabsState",
+  () => {
+    const tabsMenuList = ref<TabsState["tabsMenuList"]>([]);
+
+    const addTabs = (tabItem: TabsMenuProps) => {
+      if (tabsMenuList.value.every((item) => item.path !== tabItem.path)) {
+        tabsMenuList.value.push(tabItem);
       }
-    },
-    // Remove Tabs
-    async removeTabs(tabPath: string, isCurrent: boolean = true) {
-      const tabsMenuList = this.tabsMenuList;
+    };
+
+    const removeTabs = (tabPath: string, isCurrent: boolean = true) => {
       if (isCurrent) {
-        tabsMenuList.forEach((item, index) => {
+        tabsMenuList.value.forEach((item, index) => {
           if (item.path !== tabPath) return;
-          const nextTab = tabsMenuList[index + 1] || tabsMenuList[index - 1];
+          const nextTab =
+            tabsMenuList.value[index + 1] || tabsMenuList.value[index - 1];
           if (!nextTab) return;
           router.push(nextTab.path);
         });
       }
-      this.tabsMenuList = tabsMenuList.filter((item) => item.path !== tabPath);
-    },
-    // Close MultipleTab
-    async closeMultipleTab(tabsMenuValue?: string) {
-      this.tabsMenuList = this.tabsMenuList.filter((item) => {
+      tabsMenuList.value = tabsMenuList.value.filter(
+        (item) => item.path !== tabPath
+      );
+    };
+
+    const closeMultipleTab = (tabsMenuValue?: string) => {
+      tabsMenuList.value = tabsMenuList.value.filter((item) => {
         return item.path === tabsMenuValue || !item.close;
       });
-    },
-    // Set Tabs
-    async setTabs(tabsMenuList: TabsMenuProps[]) {
-      this.tabsMenuList = tabsMenuList;
-    },
-    // Set Tabs Title
-    async setTabsTitle(title: string) {
+    };
+
+    const setTabs = (payload: TabsMenuProps[]) => {
+      tabsMenuList.value = payload;
+    };
+
+    const setTabsTitle = (title: string) => {
       const nowFullPath = location.hash.substring(1);
-      this.tabsMenuList.forEach((item) => {
+      tabsMenuList.value.forEach((item) => {
         if (item.path == nowFullPath) item.title = title;
       });
-    },
+    };
+
+    return {
+      tabsMenuList,
+      addTabs,
+      removeTabs,
+      closeMultipleTab,
+      setTabs,
+      setTabsTitle,
+    };
   },
-  persist: piniaPersistConfig({ key: "TabsState" }),
-});
+  {
+    persist: piniaPersistConfig({ key: "TabsState" }),
+  }
+);
