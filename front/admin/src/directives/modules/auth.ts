@@ -10,7 +10,7 @@ const auth: Directive = {
     const { value } = binding;
     const authStore = AuthStore();
     const currentPageRoles =
-      authStore.authButtonListGet[authStore.routeName] ?? [];
+      authStore.authButtonList[authStore.routeName] ?? [];
     if (value instanceof Array && value.length) {
       const hasPermission = value.every((item) =>
         currentPageRoles.includes(item)

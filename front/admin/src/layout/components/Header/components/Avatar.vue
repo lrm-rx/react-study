@@ -1,7 +1,7 @@
 <template>
 	<el-dropdown trigger="click">
 		<div class="avatar">
-			<img src="@/assets/images/avatar.gif" alt="avatar" />
+			<img src="@/assets/images/avatar.jpg" alt="avatar" />
 		</div>
 		<template #dropdown>
 			<el-dropdown-menu>
@@ -83,4 +83,5 @@ const openDialog = (refName: string) => {
 		width: 100%;
 		height: 100%;
 	}
-}</style>
+}
+</style>

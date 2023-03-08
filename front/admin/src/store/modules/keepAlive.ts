@@ -1,26 +1,28 @@
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { keepAliveState } from "@/store/interface";
 
-// KeepAliveStore
-export const KeepAliveStore = defineStore({
-  id: "KeepAliveStore",
-  state: (): keepAliveState => ({
-    keepAliveName: [],
-  }),
-  actions: {
-    // addKeepAliveName
-    async addKeepAliveName(name: string) {
-      !this.keepAliveName.includes(name) && this.keepAliveName.push(name);
-    },
-    // removeKeepAliveName
-    async removeKeepAliveName(name: string) {
-      this.keepAliveName = this.keepAliveName.filter(
-        (item: any) => item !== name
-      );
-    },
-    // setKeepAliveName
-    async setKeepAliveName(keepAliveName: string[] = []) {
-      this.keepAliveName = keepAliveName;
-    },
-  },
+export const KeepAliveStore = defineStore("KeepAliveStore", () => {
+  const keepAliveName = ref<keepAliveState["keepAliveName"]>([]);
+
+  const addKeepAliveName = (name: string) => {
+    !keepAliveName.value.includes(name) && keepAliveName.value.push(name);
+  };
+
+  const removeKeepAliveName = (name: string) => {
+    keepAliveName.value = keepAliveName.value.filter(
+      (item: any) => item !== name
+    );
+  };
+
+  const setKeepAliveName = (payload: string[] = []) => {
+    keepAliveName.value = payload;
+  };
+
+  return {
+    keepAliveName,
+    addKeepAliveName,
+    removeKeepAliveName,
+    setKeepAliveName,
+  };
 });

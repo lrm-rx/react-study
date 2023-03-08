@@ -8,7 +8,7 @@ import { AuthStore } from "@/store/modules/auth";
 export const useAuthButtons = () => {
   const route = useRoute();
   const authStore = AuthStore();
-  const authButtons = authStore.authButtonListGet[route.name as string] || [];
+  const authButtons = authStore.authButtonList[route.name as string] || [];
 
   // 当前页按钮权限列表
   const BUTTONS = computed(() => {
