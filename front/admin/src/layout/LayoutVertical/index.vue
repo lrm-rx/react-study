@@ -30,15 +30,15 @@ import { computed } from "vue";
 import { useRoute } from "vue-router";
 import { GlobalStore } from "@/store";
 import { AuthStore } from "@/store/modules/auth";
-import Main from "@/layouts/components/Main/index.vue";
-import ToolBarLeft from "@/layouts/components/Header/ToolBarLeft.vue";
-import ToolBarRight from "@/layouts/components/Header/ToolBarRight.vue";
-import SubMenu from "@/layouts/components/Menu/SubMenu.vue";
+import Main from "@/layout/components/Main/index.vue";
+import ToolBarLeft from "@/layout/components/Header/ToolBarLeft.vue";
+import ToolBarRight from "@/layout/components/Header/ToolBarRight.vue";
+import SubMenu from "@/layout/components/Menu/SubMenu.vue";
 
 const route = useRoute();
 const authStore = AuthStore();
 const globalStore = GlobalStore();
-const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path));
+const activeMenu = computed(() => (route.meta.activeMenu ? route.meta.activeMenu : route.path)) as any;
 const menuList = computed(() => authStore.showMenuListGet);
 const isCollapse = computed(() => globalStore.themeConfig.isCollapse);
 </script>

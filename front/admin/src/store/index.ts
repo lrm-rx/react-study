@@ -1,4 +1,4 @@
-import { ref, reactive, toRefs } from "vue";
+import { ref } from "vue";
 import { defineStore, createPinia } from "pinia";
 import { GlobalState, ThemeConfigProps, AssemblySizeType } from "./interface";
 import { DEFAULT_PRIMARY } from "@/config/config";
@@ -8,17 +8,15 @@ import piniaPluginPersistedstate from "pinia-plugin-persistedstate";
 export const GlobalStore = defineStore(
   "GlobalStore",
   () => {
-    const token = ref<GlobalState["token"]>(
-      "9f44e3d8-7199-44f7-b629-2edd244c2b0c"
-    );
+    const token = ref<GlobalState["token"]>("");
     const userInfo = ref<GlobalState["userInfo"]>(null);
     // element组件大小
     const assemblySize = ref<GlobalState["assemblySize"]>("default");
     const language = ref<GlobalState["language"]>("");
-    const themeConfig = reactive<GlobalState["themeConfig"]>({
+    const themeConfig = ref<GlobalState["themeConfig"]>({
       // 当前页面是否全屏
       maximize: false,
-      // 布局切换 ==>  纵向：vertical | 经典：classic | 横向：transverse | 分栏：columns
+      // 布局切换 ==>  纵向：vertical | 横向：transverse
       layout: "vertical",
       // 默认 primary 主题颜色
       primary: DEFAULT_PRIMARY,
@@ -60,15 +58,7 @@ export const GlobalStore = defineStore(
     };
     // setThemeConfig
     const setThemeConfig = (payload: ThemeConfigProps) => {
-      // themeConfig = payload;
-    };
-
-    const user = reactive({
-      num: 0,
-      num2: 2,
-    });
-    const changeNum = (value: number) => {
-      user.num = value;
+      themeConfig.value = payload;
     };
 
     return {
@@ -82,8 +72,6 @@ export const GlobalStore = defineStore(
       setAssemblySizeSize,
       updateLanguage,
       setThemeConfig,
-      user,
-      changeNum,
     };
   },
   {

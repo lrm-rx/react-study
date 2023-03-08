@@ -25,7 +25,7 @@ export interface ThemeConfigProps {
 
 export type AssemblySizeType = "default" | "small" | "large";
 
-export type LayoutType = "vertical" | "classic" | "transverse" | "columns";
+export type LayoutType = "vertical" | "transverse";
 
 /* tabsMenuProps */
 export interface TabsMenuProps {
