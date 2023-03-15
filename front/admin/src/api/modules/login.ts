@@ -7,9 +7,13 @@ import http from "@/api";
 /**
  * @name 登录模块
  */
-// * 用户登录
+// 获取验证码
+export const loginVerityCode = () => {
+  return http.get<Login.VerityCode>("/user/veritycode");
+};
+// 用户登录
 export const loginApi = (params: Login.ReqLoginForm) => {
-  return http.post<Login.ResLogin>(PORT1 + `/login`, params, {
+  return http.post<Login.ResLogin>("/user/login", params, {
     headers: { noLoading: true },
   }); // 正常 post json 请求  ==>  application/json
 };

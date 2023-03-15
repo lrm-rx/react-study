@@ -11,30 +11,19 @@
         </div>
         <div class="login-plane-form">
           <el-form :model="loginForm" :rules="loginFormRules" ref="loginFormRef" @keyup.enter="handleLogin">
-            <el-form-item prop="username">
-              <el-input placeholder="用户名" :prefix-icon="User" type="text" size="large" tabindex="1"
-                v-model="loginForm.username" />
+            <el-form-item prop="loginname">
+              <el-input placeholder="用户名/邮箱" :prefix-icon="User" type="text" size="large" tabindex="1"
+                v-model="loginForm.loginname" />
             </el-form-item>
             <el-form-item prop="password">
               <el-input placeholder="密码" :prefix-icon="Lock" show-password type="password" size="large" tabindex="2"
                 v-model="loginForm.password" />
             </el-form-item>
-            <el-form-item prop="code">
-              <el-input v-model.trim="loginForm.code" placeholder="验证码" :prefix-icon="Key" type="text" tabindex="3"
-                maxlength="7">
+            <el-form-item prop="veritycode">
+              <el-input v-model.trim="loginForm.veritycode" placeholder="验证码" :prefix-icon="Key" size="large" type="text"
+                tabindex="3" maxlength="7">
                 <template #append>
-                  <el-image :src="codeUrl" @click="createCode" draggable="false">
-                    <template #placeholder>
-                      <el-icon>
-                        <Picture />
-                      </el-icon>
-                    </template>
-                    <template #error>
-                      <el-icon>
-                        <Loading />
-                      </el-icon>
-                    </template>
-                  </el-image>
+                  <div class="verity_code_svg" v-html="codeUrl" @click="createCode"></div>
                 </template>
               </el-input>
             </el-form-item>
@@ -51,55 +40,89 @@
 <script lang="ts" setup>
 import { onMounted, reactive, ref } from "vue"
 import { useRouter } from "vue-router"
-import { User, Lock, Key, Picture, Loading } from "@element-plus/icons-vue"
+import { User, Lock, Key } from "@element-plus/icons-vue"
 import { type FormInstance, FormRules } from "element-plus"
 import { initThree } from "@/utils/render-three"
+import { Login } from "@/api/interface/index";
+import { loginVerityCode, loginApi } from "@/api/modules/login";
+import { ElNotification } from "element-plus";
+import { GlobalStore } from "@/store";
+import { TabsStore } from "@/store/modules/tabs";
+import { KeepAliveStore } from "@/store/modules/keepAlive";
+import { getTimeState } from "@/utils/util";
+import { HOME_URL } from "@/config/config";
+import { initDynamicRouter } from "@/router/modules/dynamicRouter";
+import md5 from "js-md5";
 
 const router = useRouter()
+const tabsStore = TabsStore();
+const keepAlive = KeepAliveStore();
+const globalStore = GlobalStore();
 const loginFormRef = ref<FormInstance | null>(null)
 
 // 登录按钮
 const loading = ref(false)
 // 验证码
-const codeUrl = ref("")
+const codeUrl = ref()
 // 登录表单数据
-const loginForm = reactive({
-  username: "admin",
-  password: "12345678",
-  code: ""
-})
+
+const loginForm = reactive<Login.ReqLoginForm>({
+  loginname: "admin",
+  password: "a123456",
+  veritycode: ""
+});
 // 登录表单校验规则
 const loginFormRules: FormRules = {
-  username: [{ required: true, message: "请输入用户名", trigger: "blur" }],
+  loginname: [{ required: true, message: "请输入用户名/邮箱", trigger: "blur" }],
   password: [
     { required: true, message: "请输入密码", trigger: "blur" },
-    { min: 8, max: 16, message: "长度在 8 到 16 个字符", trigger: "blur" }
+    { min: 6, max: 20, message: "长度在 6 到 20 个字符", trigger: "blur" }
   ],
-  code: [{ required: true, message: "请输入验证码", trigger: "blur" }]
+  veritycode: [{ required: true, message: "请输入验证码", trigger: "blur" }]
 }
 // 登录逻辑
 const handleLogin = () => {
-  loginFormRef.value?.validate((valid: boolean) => {
-    if (valid) {
-      return true
-    } else {
-      return false
+  loginFormRef.value?.validate(async (valid: boolean) => {
+    if (!valid) return;
+    loading.value = true;
+    try {
+      // 1.执行登录接口
+      const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) });
+      globalStore.setToken(data.token);
+      return;
+      // 2.添加动态路由
+      await initDynamicRouter();
+
+      // 3.清空 tabs、keepAlive 保留的数据
+      tabsStore.closeMultipleTab();
+      keepAlive.setKeepAliveName();
+
+      // 4.跳转到首页
+      router.push(HOME_URL);
+      ElNotification({
+        title: getTimeState(),
+        message: "欢迎登录博客后台!!!",
+        type: "success",
+        duration: 3000
+      });
+    } catch (error) {
+      console.error('444', error);
+    } finally {
+      loading.value = false;
     }
   })
 }
 // 创建验证码
-const createCode = () => {
+const createCode = async () => {
   // 先清空验证码的输入
-  loginForm.code = ""
+  loginForm.veritycode = "";
   // 获取验证码
-  codeUrl.value = "http://dummyimage.com/100x40/dcdfe6/000000.png&text=V3Admin"
+  codeUrl.value = await loginVerityCode();
 }
 onMounted(() => {
-  console.log("页面加载好了");
   initThree();
+  createCode();
 })
-// 初始化验证码
-createCode()
 
 </script>
 
@@ -159,6 +182,11 @@ createCode()
       .login-plane-form {
         padding: 45px 55px;
         box-sizing: border-box;
+
+        .verity_code_svg {
+          width: 120px;
+          height: 40px;
+        }
       }
     }
 
@@ -184,6 +212,10 @@ createCode()
 <style lang="scss" scoped>
 // element公用样式，如果有特别的再去重置
 .login-plane {
+  :deep(.el-input-group__append) {
+    padding: 0;
+  }
+
   :deep(.el-input__inner::-webkit-input-placeholder) {
     color: rgba(255, 255, 255, 0.8);
   }
