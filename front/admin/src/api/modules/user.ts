@@ -23,7 +23,7 @@ export const getUserTreeList = (params: User.ReqUserParams) => {
 
 // * 新增用户
 export const addUser = (params: { id: string }) => {
-  return http.post("user/register", params);
+  return http.post("user/admin/adduser", params);
 };
 
 // * 批量添加用户

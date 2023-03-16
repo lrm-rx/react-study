@@ -3,7 +3,7 @@
 		<el-upload action="#" :id="uuid" :class="['upload', self_disabled ? 'disabled' : '', drag ? 'no-border' : '']"
 			:multiple="false" :disabled="self_disabled" :show-file-list="false" :http-request="handleHttpUpload"
 			:before-upload="beforeUpload" :on-success="uploadSuccess" :on-error="uploadError" :drag="drag"
-			:accept="fileType.join(',')">
+			:accept="fileType.join(',')" :limit="limit" :disable="disabled">
 			<template v-if="imageUrl">
 				<img :src="imageUrl" class="upload-image" />
 				<div class="upload-handle" @click.stop>
@@ -57,6 +57,7 @@ type FileTypes =
 	| "image/bmp"
 	| "image/gif"
 	| "image/jpeg"
+	| "image/jpg"
 	| "image/pjpeg"
 	| "image/png"
 	| "image/svg+xml"
@@ -74,6 +75,8 @@ interface UploadFileProps {
 	height?: string; // 组件高度 ==> 非必传（默认为 150px）
 	width?: string; // 组件宽度 ==> 非必传（默认为 150px）
 	borderRadius?: string; // 组件边框圆角 ==> 非必传（默认为 8px）
+	limit?: number; // 限制数量
+	userId: string; // 用户id
 }
 
 // 接受父组件参数
@@ -82,7 +85,8 @@ const props = withDefaults(defineProps<UploadFileProps>(), {
 	drag: true,
 	disabled: false,
 	fileSize: 5,
-	fileType: () => ["image/jpeg", "image/png", "image/gif"],
+	limit: 1,
+	fileType: () => ["image/jpeg", "image/png", "image/gif", "image/jpg"],
 	height: "150px",
 	width: "150px",
 	borderRadius: "8px"
@@ -115,11 +119,12 @@ const handleHttpUpload = async (options: UploadRequestOptions) => {
 	let formData = new FormData();
 	// 在formData添加参数
 	formData.append("avatar", options.file);
-	formData.append("id",);
+	formData.append("id", props.userId);
 	try {
 		const api = props.api ?? uploadImg;
-		const { data } = await api(formData);
-		emit("update:imageUrl", data.fileUrl);
+		const { data: { info: { avatar } } } = await api(formData);
+		// 刷新头像
+		emit("update:imageUrl", avatar);
 		// 调用 el-form 内部的校验方法（可自动校验）
 		formItemContext?.prop && formContext?.validateField([formItemContext.prop as string]);
 		emit("check-validate");

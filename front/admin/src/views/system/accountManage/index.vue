@@ -32,7 +32,7 @@ import { useHandleData } from "@/hooks/useHandleData";
 import { useAuthButtons } from "@/hooks/useAuthButtons";
 import ProTable from "@/components/ProTable/index.vue";
 import UserDrawer from "./UserDrawer.vue";
-import { CirclePlus, Delete, EditPen, Download, Upload, View, Refresh } from "@element-plus/icons-vue";
+import { CirclePlus, Delete, EditPen, View, Refresh } from "@element-plus/icons-vue";
 import {
 	getUserList,
 	deleteUser,

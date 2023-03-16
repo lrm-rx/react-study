@@ -1,8 +1,9 @@
 <template>
   <el-drawer v-model="drawerVisible" :destroy-on-close="true" size="450px" :title="`${drawerProps.title}用户`">
     <el-form ref="ruleFormRef" label-width="100px" label-suffix=" :" :rules="rules" :model="drawerProps.rowData">
-      <el-form-item label="用户头像" prop="avatar">
-        <UploadImg v-model:imageUrl="drawerProps.rowData!.avatar" width="135px" height="135px" :file-size="3">
+      <el-form-item label="用户头像" prop="avatar" v-if="drawerProps.title !== '新增'">
+        <UploadImg v-model:imageUrl="drawerProps.rowData!.avatar" width="135px" height="135px" :file-size="1"
+          :userId="drawerProps.rowData!.id" :disabled="drawerProps.title !== '编辑'">
           <template #empty>
             <el-icon>
               <Avatar />
@@ -12,9 +13,9 @@
           <template #tip> 头像大小不能超过 3M </template>
         </UploadImg>
       </el-form-item>
-      <el-form-item label="用户名" prop="username">
+      <el-form-item label=" 用户名" prop="username">
         <el-input :disabled="(drawerProps.title === '编辑' || drawerProps.title === '查看' || drawerProps.title === '')"
-          v-model="drawerProps.rowData!.username" placeholder="请填写用户姓名" clearable></el-input>
+          v-model="drawerProps.rowData!.username" placeholder="请填写用户名" clearable></el-input>
       </el-form-item>
       <el-form-item label="邮箱" prop="email">
         <el-input :disabled="(drawerProps.title === '编辑' || drawerProps.title === '查看' || drawerProps.title === '')"
