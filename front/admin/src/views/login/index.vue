@@ -89,14 +89,11 @@ const handleLogin = () => {
       // 1.执行登录接口
       const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) });
       globalStore.setToken(data.token);
-      return;
       // 2.添加动态路由
       await initDynamicRouter();
-
       // 3.清空 tabs、keepAlive 保留的数据
       tabsStore.closeMultipleTab();
       keepAlive.setKeepAliveName();
-
       // 4.跳转到首页
       router.push(HOME_URL);
       ElNotification({

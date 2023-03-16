@@ -1,4 +1,4 @@
-<!-- 📚📚📚 Pro-Table 文档: https://juejin.cn/post/7166068828202336263 -->
+<!--  Pro-Table 文档: https://juejin.cn/post/7166068828202336263 -->
 
 <template>
 	<!-- 查询表单 card -->
@@ -74,7 +74,7 @@ import { useSelection } from "@/hooks/useSelection";
 import { BreakPoint } from "@/components/Grid/interface";
 import { ColumnProps } from "@/components/ProTable/interface";
 import { ElTable, TableProps } from "element-plus";
-import { Refresh, Printer, Operation, Search } from "@element-plus/icons-vue";
+import { Refresh, Operation, Search } from "@element-plus/icons-vue";
 import { filterEnum, formatValue, handleProp, handleRowAccordingToProp } from "@/utils/util";
 import SearchForm from "@/components/SearchForm/index.vue";
 import Pagination from "./components/Pagination.vue";
@@ -185,7 +185,7 @@ const colSetting = tableColumns.value!.filter(
 );
 const openColSetting = () => colRef.value.openColSetting();
 
-// 🙅‍♀️ 不需要打印可以把以下方法删除（目前数据处理比较复杂 201-238）
+// 不需要打印可以把以下方法删除
 // 处理打印数据（把后台返回的值根据 enum 做转换）
 const printData = computed(() => {
 	let printDataList = JSON.parse(JSON.stringify(selectedList.value.length ? selectedList.value : tableData.value));

@@ -53,9 +53,7 @@ const router = useRouter();
 const proTable = ref();
 
 // 如果表格需要初始化请求参数，直接定义传给 ProTable(之后每次请求都会自动带上该参数，此参数更改之后也会一直带上，改变此参数会自动刷新表格数据)
-const initParam = reactive({
-	type: 1
-});
+const initParam = reactive({});
 
 // dataCallback 是对于返回的表格数据做处理，如果你后台返回的数据不是 list && total && pageNum && pageSize 这些字段，那么你可以在这里进行处理成这些字段
 // 或者直接去 hooks/useTable.ts 文件中把字段改为你后端对应的就行
@@ -71,9 +69,8 @@ const dataCallback = (data: any) => {
 // 如果你想在请求之前对当前请求参数做一些操作，可以自定义如下函数：params 为当前所有的请求参数（包括分页），最后返回请求列表接口
 // 默认不做操作就直接在 ProTable 组件上绑定	:requestApi="getUserList"
 const getTableList = (params: any) => {
-	let newParams = JSON.parse(JSON.stringify(params));
-	newParams.username && (newParams.username = "custom-" + newParams.username);
-	return getUserList(newParams);
+	// 可以对params的属性进行修改
+	return getUserList(params);
 };
 
 // 页面按钮权限（按钮权限既可以使用 hooks，也可以直接使用 v-auth 指令，指令适合直接绑定在按钮上，hooks 适合根据按钮权限显示不同的内容）
@@ -85,67 +82,36 @@ const columns: ColumnProps<User.ResUserList>[] = [
 	{ type: "index", label: "#", width: 80 },
 	{
 		prop: "username",
-		label: "用户姓名",
+		label: "用户名",
 		search: { el: "input" },
+	},
+	{ prop: "email", label: "邮箱", search: { el: "input" } },
+	{
+		prop: "nickname", label: "昵称", search: { el: "input" },
 		render: scope => {
 			return (
-				<el-button type="primary" link onClick={() => ElMessage.success("我是通过 tsx 语法渲染的内容")}>
-					{scope.row.username}
-				</el-button>
+				<span>{scope.row.nickname ? scope.row.nickname : "用户未设置"}</span>
 			);
 		}
 	},
 	{
-		prop: "gender",
-		label: "性别",
-		// 直接放字典数据
-		// enum: genderType,
-		// 字典请求不带参数
-		enum: getUserGender,
-		// 字典请求携带参数
-		// enum: () => getUserGender({ id: 1 }),
-		search: { el: "select", props: { filterable: true } },
-		fieldNames: { label: "genderLabel", value: "genderValue" }
-	},
-	// 多级 prop
-	{ prop: "user.detail.age", label: "年龄", search: { el: "input" } },
-	{ prop: "idCard", label: "身份证号", search: { el: "input" } },
-	{ prop: "email", label: "邮箱" },
-	{ prop: "address", label: "居住地址" },
-	{
-		prop: "status",
-		label: "用户状态",
-		enum: getUserStatus,
-		search: { el: "tree-select", props: { filterable: true } },
-		fieldNames: { label: "userLabel", value: "userStatus" },
+		prop: "role", label: "角色",
 		render: scope => {
 			return (
-				<>
-					{BUTTONS.value.status ? (
-						<el-switch
-							model-value={scope.row.status}
-							active-text={scope.row.status ? "启用" : "禁用"}
-							active-value={1}
-							inactive-value={0}
-							onClick={() => changeStatus(scope.row)}
-						/>
-					) : (
-						<el-tag type={scope.row.status ? "success" : "danger"}>{scope.row.status ? "启用" : "禁用"}</el-tag>
-					)}
-				</>
+				<span>{scope.row.role === 1 ? "管理员" : "普通用户"}</span>
 			);
 		}
 	},
 	{
-		prop: "createTime",
-		label: "创建时间",
+		prop: "createdAt",
+		label: "注册时间",
 		width: 180,
-		search: {
-			el: "date-picker",
-			span: 2,
-			props: { type: "datetimerange", valueFormat: "YYYY-MM-DD HH:mm:ss" },
-			defaultValue: ["2022-11-12 11:35:00", "2022-12-12 11:35:00"]
-		}
+		// search: {
+		// 	el: "date-picker",
+		// 	span: 2,
+		// 	props: { type: "datetimerange", valueFormat: "YYYY-MM-DD HH:mm:ss" },
+		// 	defaultValue: ["2022-11-12 11:35:00", "2022-12-12 11:35:00"]
+		// }
 	},
 	{ prop: "operation", label: "操作", fixed: "right", width: 330 }
 ];
@@ -167,24 +133,6 @@ const batchDelete = async (id: string[]) => {
 const resetPass = async (params: User.ResUserList) => {
 	await useHandleData(resetUserPassWord, { id: params.id }, `重置【${params.username}】用户密码`);
 	proTable.value.getTableList();
-};
-
-// 切换用户状态
-const changeStatus = async (row: User.ResUserList) => {
-	await useHandleData(changeUserStatus, { id: row.id, status: row.status == 1 ? 0 : 1 }, `切换【${row.username}】用户状态`);
-	proTable.value.getTableList();
-};
-
-// 批量添加用户
-const dialogRef = ref();
-const batchAdd = () => {
-	const params = {
-		title: "用户",
-		tempApi: exportUserInfo,
-		importApi: BatchAddUser,
-		getTableList: proTable.value.getTableList
-	};
-	dialogRef.value.acceptParams(params);
 };
 
 // 打开 drawer(新增、查看、编辑)

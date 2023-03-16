@@ -1,5 +1,6 @@
 import { ResPage, User } from "@/api/interface/index";
 import { PORT1 } from "@/api/config/servicePort";
+import qs from "qs";
 import http from "@/api";
 
 /**
@@ -7,7 +8,9 @@ import http from "@/api";
  */
 // * 获取用户列表
 export const getUserList = (params: User.ReqUserParams) => {
-  return http.post<ResPage<User.ResUserList>>(PORT1 + `/user/list`, params);
+  return http.get<ResPage<User.ResUserList>>(
+    `/user/list${qs.stringify(params, { addQueryPrefix: true })}`
+  );
 };
 
 // * 获取树形用户列表
@@ -20,7 +23,7 @@ export const getUserTreeList = (params: User.ReqUserParams) => {
 
 // * 新增用户
 export const addUser = (params: { id: string }) => {
-  return http.post(PORT1 + `/user/add`, params);
+  return http.post("user/register", params);
 };
 
 // * 批量添加用户
@@ -30,7 +33,7 @@ export const BatchAddUser = (params: FormData) => {
 
 // * 编辑用户
 export const editUser = (params: { id: string }) => {
-  return http.post(PORT1 + `/user/edit`, params);
+  return http.post(`user/update/${params.id}`, params);
 };
 
 // * 删除用户

@@ -44,7 +44,7 @@ class RequestHttp {
         config.headers!.noLoading || showFullScreenLoading();
         const token = globalStore.token;
         if (config.headers && typeof config.headers?.set === "function")
-          config.headers.set("x-access-token", token);
+          config.headers.set("authorization", token);
         return config;
       },
       (error: AxiosError) => {

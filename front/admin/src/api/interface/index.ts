@@ -66,17 +66,10 @@ export namespace User {
   export interface ResUserList {
     id: string;
     username: string;
-    gender: number;
-    user: {
-      detail: {
-        age: number;
-      };
-    };
-    idCard: string;
+    nickname: string;
     email: string;
-    address: string;
-    createTime: string;
-    status: number;
+    createdAt: string;
+    role: number;
     avatar: string;
     children?: ResUserList[];
   }
