@@ -38,12 +38,7 @@ import {
 	deleteUser,
 	editUser,
 	addUser,
-	changeUserStatus,
 	resetUserPassWord,
-	exportUserInfo,
-	BatchAddUser,
-	getUserStatus,
-	getUserGender
 } from "@/api/modules/user";
 
 const router = useRouter();

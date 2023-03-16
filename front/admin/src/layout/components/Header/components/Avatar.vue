@@ -1,7 +1,8 @@
 <template>
 	<el-dropdown trigger="click">
 		<div class="avatar">
-			<img src="@/assets/images/avatar.jpg" alt="avatar" />
+			<img v-if="globalStore?.userInfo?.avatar.trim()" :src="globalStore?.userInfo?.avatar" alt="avatar" />
+			<img v-else src="@/assets/images/avatar.jpg" alt="avatar" />
 		</div>
 		<template #dropdown>
 			<el-dropdown-menu>

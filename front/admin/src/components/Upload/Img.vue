@@ -51,6 +51,7 @@ import { uploadImg } from "@/api/modules/upload";
 import { generateUUID } from "@/utils/util";
 import { ElNotification, formContextKey, formItemContextKey } from "element-plus";
 import type { UploadProps, UploadRequestOptions } from "element-plus";
+import { GlobalStore } from "@/store";
 
 type FileTypes =
 	| "image/apng"
@@ -114,6 +115,7 @@ interface UploadEmits {
 	(e: "update:imageUrl", value: string): void;
 	(e: "check-validate"): void;
 }
+const globalStore = GlobalStore();
 const emit = defineEmits<UploadEmits>();
 const handleHttpUpload = async (options: UploadRequestOptions) => {
 	let formData = new FormData();
@@ -122,9 +124,12 @@ const handleHttpUpload = async (options: UploadRequestOptions) => {
 	formData.append("id", props.userId);
 	try {
 		const api = props.api ?? uploadImg;
-		const { data: { info: { avatar } } } = await api(formData);
+		const { data } = await api(formData);
 		// 刷新头像
-		emit("update:imageUrl", avatar);
+		emit("update:imageUrl", data.info.avatar);
+		if (data?.info?.id === globalStore?.userInfo?.id) {
+			globalStore.setUserInfo(data?.info)
+		}
 		// 调用 el-form 内部的校验方法（可自动校验）
 		formItemContext?.prop && formContext?.validateField([formItemContext.prop as string]);
 		emit("check-validate");
