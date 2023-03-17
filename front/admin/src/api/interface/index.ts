@@ -29,10 +29,6 @@ export namespace Upload {
     fileUrl: string;
   }
 }
-export interface ResStatus {
-  userLabel: string;
-  userValue: number;
-}
 
 // * 登录模块
 export namespace Login {
@@ -46,6 +42,7 @@ export namespace Login {
   }
   export interface ResLogin {
     token: string;
+    id: number;
   }
   export interface ResAuthButtons {
     [key: string]: string[];
@@ -55,13 +52,14 @@ export namespace Login {
 // * 用户管理模块
 export namespace User {
   export interface ReqUserParams extends ReqPage {
+    id: number;
     username: string;
-    gender: number;
-    idCard: string;
+    nickname: string;
     email: string;
-    address: string;
-    createTime: string[];
-    status: number;
+    createdAt: string;
+  }
+  export interface ReqUserParamId {
+    id: number;
   }
   export interface ResUserList {
     id: string;
@@ -73,22 +71,24 @@ export namespace User {
     avatar: string;
     children?: ResUserList[];
   }
-  export interface ResStatus {
-    userLabel: string;
-    userValue: number;
+}
+
+// * 分类管理模块
+export namespace Category {
+  export interface ReqCategoryParams extends ReqPage {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
   }
-  export interface ResGender {
-    genderLabel: string;
-    genderValue: number;
+  export interface ReqCategoryParamId {
+    id: number;
   }
-  export interface ResDepartment {
+  export interface ResCategoryList {
     id: string;
     name: string;
-    children?: ResDepartment[];
-  }
-  export interface ResRole {
-    id: string;
-    name: string;
-    children?: ResDepartment[];
+    createdAt: string;
+    updatedAt: string;
+    children?: ResCategoryList[];
   }
 }

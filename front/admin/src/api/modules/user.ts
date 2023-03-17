@@ -3,14 +3,16 @@ import { formType } from "@/layout/components/header/components/PasswordDialog.v
 import qs from "qs";
 import http from "@/api";
 
-/**
- * @name 用户管理模块
- */
 // * 获取用户列表
 export const getUserList = (params: User.ReqUserParams) => {
   return http.get<ResPage<User.ResUserList>>(
     `/user/list${qs.stringify(params, { addQueryPrefix: true })}`
   );
+};
+
+// 通过id获取用户信息
+export const getUserById = (params: { id: number }) => {
+  return http.get("/user/finduser", params);
 };
 
 // * 新增用户
@@ -35,5 +37,5 @@ export const deleteUser = (params: { id: string[] }) => {
 
 // * 重置用户密码
 export const resetUserPassWord = (params: { id: string }) => {
-  return http.post(`/user/rest_password`, params);
+  return http.post(`/user/resetpassword/${params.id}`, params);
 };

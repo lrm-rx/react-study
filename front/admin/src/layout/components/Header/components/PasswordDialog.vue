@@ -29,6 +29,7 @@ import md5 from "js-md5";
 import { ElNotification } from 'element-plus';
 import { useRouter } from "vue-router";
 import { LOGIN_URL } from "@/config/config";
+import { GlobalStore } from "@/store";
 import { logoutApi } from "@/api/modules/login";
 
 export interface formType {
@@ -37,6 +38,7 @@ export interface formType {
 	repeatNewPassword: string
 }
 const router = useRouter()
+const globalStore = GlobalStore();
 const dialogVisible = ref(false);
 const ruleFormRef = ref()
 
@@ -83,7 +85,7 @@ const validatePass2 = (rule: any, value: any, callback: any) => {
 const rules = {
 	oldPassword: [{ required: true, message: '请输入原密码', trigger: 'blur' }],
 	newPassword: [{ required: true, validator: validatePass, trigger: 'blur' }],
-	repeatNewPassword: [{ required: true, validator: validatePass2, trigger: 'blur' }],
+	repeatNewPassword: [{ required: true, validator: validatePass2, trigger: ['blur', 'change'] }],
 }
 
 const resetForm = () => {
@@ -99,7 +101,6 @@ const comfirmChangePassword = async () => {
 	}
 	try {
 		const data = await updatePassword(params);
-		console.log("修改密码返回:", data);
 		if (Number(data?.code) === 200) {
 			ElNotification({
 				title: "温馨提示",
@@ -110,11 +111,17 @@ const comfirmChangePassword = async () => {
 			timer = setTimeout(async () => {
 				// 1.调用退出登录接口
 				await logoutApi();
+				// 2.清除 Token和userid
+				globalStore.setToken("");
+				globalStore.setUserId(-1);
+				// 3. 重定向到登录页
 				router.push(LOGIN_URL);
 			}, 5000);
 		}
 	} catch (error) {
 		console.error(error);
+	} finally {
+		dialogVisible.value = false;
 	}
 }
 

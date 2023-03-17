@@ -3,8 +3,8 @@
 	<el-container class="layout">
 		<el-header>
 			<div class="logo flx-center">
-				<img src="@/assets/images/logo.svg" alt="logo" />
-				<span>横向布局</span>
+				<img src="@/assets/images/logo.jpg" alt="logo" />
+				<span>博客后台</span>
 			</div>
 			<el-menu mode="horizontal" :default-active="activeMenu" :router="false" :unique-opened="true"
 				background-color="#191a20" text-color="#dadada" active-text-color="#ffffff">

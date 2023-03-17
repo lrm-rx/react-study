@@ -1,4 +1,4 @@
-import { ref } from "vue";
+import { ref, computed } from "vue";
 import { defineStore, createPinia } from "pinia";
 import { GlobalState, ThemeConfigProps, AssemblySizeType } from "./interface";
 import { DEFAULT_PRIMARY } from "@/config/config";
@@ -10,6 +10,7 @@ export const GlobalStore = defineStore(
   () => {
     const token = ref<GlobalState["token"]>("");
     const userInfo = ref<GlobalState["userInfo"]>(null);
+    const userId = ref(0);
     // element组件大小
     const assemblySize = ref<GlobalState["assemblySize"]>("default");
     const language = ref<GlobalState["language"]>("");
@@ -40,6 +41,11 @@ export const GlobalStore = defineStore(
       footer: true,
     });
 
+    // setUserId
+    const setUserId = (payload: number) => {
+      userId.value = payload;
+    };
+
     // setToken
     const setToken = (payload: string) => {
       token.value = payload;
@@ -62,6 +68,7 @@ export const GlobalStore = defineStore(
     };
 
     return {
+      userId,
       token,
       userInfo,
       assemblySize,
@@ -72,10 +79,14 @@ export const GlobalStore = defineStore(
       setAssemblySizeSize,
       updateLanguage,
       setThemeConfig,
+      setUserId,
     };
   },
   {
-    persist: piniaPersistConfig({ key: "GlobalState" }),
+    persist: piniaPersistConfig({
+      key: "GlobalState",
+      paths: ["assemblySize", "language", "themeConfig", "token", "userId"],
+    }),
   }
 );
 // piniaPersist(持久化)

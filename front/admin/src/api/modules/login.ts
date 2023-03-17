@@ -1,5 +1,4 @@
 import { Login } from "@/api/interface/index";
-import { PORT1 } from "@/api/config/servicePort";
 import DynamicRouter from "@/assets/json/dynamicRouter.json";
 import AuthButtons from "@/assets/json/authButtons.json";
 import http from "@/api";
@@ -21,7 +20,7 @@ export const loginApi = (params: Login.ReqLoginForm) => {
 // * 获取按钮权限
 export const getAuthButtonListApi = () => {
   // return http.get<Login.ResAuthButtons>(
-  //   PORT1 + `/auth/buttons`,
+  //   `/auth/buttons`,
   //   {},
   //   { headers: { noLoading: true } }
   // );
@@ -32,7 +31,7 @@ export const getAuthButtonListApi = () => {
 // * 获取菜单列表
 export const getAuthMenuListApi = () => {
   // return http.get<Menu.MenuOptions[]>(
-  //   PORT1 + `/menu/list`,
+  //   `/menu/list`,
   //   {},
   //   { headers: { noLoading: true } }
   // );

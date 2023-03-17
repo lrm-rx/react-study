@@ -10,10 +10,10 @@
             </el-icon>
             <span>请上传头像</span>
           </template>
-          <template #tip> 头像大小不能超过 3M </template>
+          <template #tip> 头像大小不能超过 1M </template>
         </UploadImg>
       </el-form-item>
-      <el-form-item label=" 用户名" prop="username">
+      <el-form-item label="用户名" prop="username">
         <el-input :disabled="(drawerProps.title === '编辑' || drawerProps.title === '查看' || drawerProps.title === '')"
           v-model="drawerProps.rowData!.username" placeholder="请填写用户名" clearable></el-input>
       </el-form-item>
@@ -80,14 +80,10 @@ const ruleFormRef = ref<FormInstance>();
 const handleSubmit = () => {
   ruleFormRef.value!.validate(async valid => {
     if (!valid) return;
-    try {
-      await drawerProps.value.api!(drawerProps.value.rowData);
-      ElMessage.success({ message: `${drawerProps.value.title}用户成功！` });
-      drawerProps.value.getTableList!();
-      drawerVisible.value = false;
-    } catch (error) {
-      console.log(error);
-    }
+    await drawerProps.value.api!(drawerProps.value.rowData);
+    ElMessage.success({ message: `${drawerProps.value.title}用户成功！` });
+    drawerProps.value.getTableList!();
+    drawerVisible.value = false;
   });
 };
 

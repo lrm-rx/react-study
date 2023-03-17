@@ -44,6 +44,78 @@
           }
         }
       ]
+    },
+    {
+      "path": "/blog",
+      "name": "blog",
+      "redirect": "/blog/categories",
+      "meta": {
+        "icon": "Tickets",
+        "title": "文章管理",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      },
+      "children": [
+        {
+          "path": "/blog/categories",
+          "name": "category",
+          "component": "/blog/category/index",
+          "meta": {
+            "icon": "Menu",
+            "title": "分类管理",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/blog/tags",
+          "name": "tag",
+          "component": "/blog/tag/index",
+          "meta": {
+            "icon": "Menu",
+            "title": "标签管理",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/blog/articles",
+          "name": "article",
+          "component": "/blog/article/index",
+          "meta": {
+            "icon": "Menu",
+            "title": "文章管理",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/blog/comments",
+          "name": "comment",
+          "component": "/blog/comment/index",
+          "meta": {
+            "icon": "Menu",
+            "title": "评论管理",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        }
+      ]
     }
   ],
   "msg": "成功"

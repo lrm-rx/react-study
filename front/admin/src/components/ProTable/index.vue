@@ -108,7 +108,7 @@ const props = withDefaults(defineProps<ProTableProps>(), {
 });
 
 // 是否显示搜索模块
-const isShowSearch = ref(true);
+const isShowSearch = ref(false);
 
 // 表格 DOM 元素
 const tableRef = ref<InstanceType<typeof ElTable>>();

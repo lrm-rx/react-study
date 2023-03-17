@@ -24,7 +24,6 @@
 
 <script setup lang="tsx" name="accountManage">
 import { ref, reactive } from "vue";
-import { ElMessage, ElMessageBox } from "element-plus";
 import { useRouter } from "vue-router";
 import { User } from "@/api/interface";
 import { ColumnProps } from "@/components/ProTable/interface";

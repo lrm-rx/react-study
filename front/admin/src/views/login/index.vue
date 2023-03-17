@@ -89,7 +89,8 @@ const handleLogin = () => {
       // 1.执行登录接口
       const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) });
       globalStore.setToken(data.token);
-      globalStore.setUserInfo(data)
+      globalStore.setUserId(data.id);
+      // globalStore.setUserInfo(data)
       // 2.添加动态路由
       await initDynamicRouter();
       // 3.清空 tabs、keepAlive 保留的数据
@@ -104,7 +105,7 @@ const handleLogin = () => {
         duration: 3000
       });
     } catch (error) {
-      console.error('444', error);
+      console.error(error);
     } finally {
       loading.value = false;
     }
@@ -118,6 +119,7 @@ const createCode = async () => {
   codeUrl.value = await loginVerityCode();
 }
 onMounted(() => {
+  console.log("globalStore.userId:", globalStore.userId);
   initThree();
   createCode();
 })

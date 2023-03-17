@@ -1,7 +1,8 @@
 {
   "code": 200,
   "data": {
-    "accountManage": ["add", "batchDelete", "edit", "delete", "reset", "status"]
+    "accountManage": ["add", "batchDelete", "edit", "delete", "reset"],
+    "category": ["add", "batchDelete", "edit", "delete"]
   },
   "msg": "成功"
 }
