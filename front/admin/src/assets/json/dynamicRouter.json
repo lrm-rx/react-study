@@ -65,7 +65,7 @@
           "component": "/blog/category/index",
           "meta": {
             "icon": "Menu",
-            "title": "分类管理",
+            "title": "分类列表",
             "isLink": "",
             "isHide": false,
             "isFull": false,
@@ -79,7 +79,7 @@
           "component": "/blog/tag/index",
           "meta": {
             "icon": "Menu",
-            "title": "标签管理",
+            "title": "标签列表",
             "isLink": "",
             "isHide": false,
             "isFull": false,
@@ -93,7 +93,7 @@
           "component": "/blog/article/index",
           "meta": {
             "icon": "Menu",
-            "title": "文章管理",
+            "title": "文章列表",
             "isLink": "",
             "isHide": false,
             "isFull": false,
@@ -107,7 +107,7 @@
           "component": "/blog/comment/index",
           "meta": {
             "icon": "Menu",
-            "title": "评论管理",
+            "title": "评论列表",
             "isLink": "",
             "isHide": false,
             "isFull": false,

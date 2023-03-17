@@ -2,7 +2,8 @@
   "code": 200,
   "data": {
     "accountManage": ["add", "batchDelete", "edit", "delete", "reset"],
-    "category": ["add", "batchDelete", "edit", "delete"]
+    "category": ["add", "batchDelete", "edit", "delete"],
+    "tag": ["add", "batchDelete", "edit", "delete"]
   },
   "msg": "成功"
 }

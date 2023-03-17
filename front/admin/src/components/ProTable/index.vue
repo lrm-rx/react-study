@@ -1,5 +1,3 @@
-<!--  Pro-Table 文档: https://juejin.cn/post/7166068828202336263 -->
-
 <template>
 	<!-- 查询表单 card -->
 	<SearchForm :search="search" :reset="reset" :searchParam="searchParam" :columns="searchColumns" :searchCol="searchCol"

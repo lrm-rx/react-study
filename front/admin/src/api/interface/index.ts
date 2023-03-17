@@ -92,3 +92,23 @@ export namespace Category {
     children?: ResCategoryList[];
   }
 }
+
+// * 标签管理模块
+export namespace Tag {
+  export interface ReqTagParams extends ReqPage {
+    id: number;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+  export interface ReqTagParamId {
+    id: number;
+  }
+  export interface ResTagList {
+    id: string;
+    name: string;
+    createdAt: string;
+    updatedAt: string;
+    children?: ResTagList[];
+  }
+}

@@ -80,10 +80,22 @@ const columns: ColumnProps<Category.ResCategoryList>[] = [
     prop: "createdAt",
     label: "创建时间",
     width: 180,
+    search: {
+      el: "date-picker",
+      span: 2,
+      props: { type: "datetimerange", valueFormat: "YYYY-MM-DD HH:mm:ss" },
+      defaultValue: []
+    }
   }, {
     prop: "updatedAt",
     label: "更新时间",
     width: 180,
+    search: {
+      el: "date-picker",
+      span: 2,
+      props: { type: "datetimerange", valueFormat: "YYYY-MM-DD HH:mm:ss" },
+      defaultValue: []
+    }
   },
   { prop: "operation", label: "操作", fixed: "right", width: 330 }
 ];

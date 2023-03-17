@@ -100,12 +100,12 @@ const columns: ColumnProps<User.ResUserList>[] = [
 		prop: "createdAt",
 		label: "注册时间",
 		width: 180,
-		// search: {
-		// 	el: "date-picker",
-		// 	span: 2,
-		// 	props: { type: "datetimerange", valueFormat: "YYYY-MM-DD HH:mm:ss" },
-		// 	defaultValue: ["2022-11-12 11:35:00", "2022-12-12 11:35:00"]
-		// }
+		search: {
+			el: "date-picker",
+			span: 2,
+			props: { type: "datetimerange", valueFormat: "YYYY-MM-DD HH:mm:ss" },
+			defaultValue: []
+		}
 	},
 	{ prop: "operation", label: "操作", fixed: "right", width: 330 }
 ];

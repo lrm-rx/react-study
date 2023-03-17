@@ -25,8 +25,6 @@ import { GlobalStore } from "@/store";
 
 const globalStore = GlobalStore();
 
-console.log("globalStore", globalStore.userInfo);
-
 </script>
 
 <style scoped lang="scss">
