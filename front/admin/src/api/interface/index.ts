@@ -112,3 +112,30 @@ export namespace Tag {
     children?: ResTagList[];
   }
 }
+
+// * 文章管理模块
+export namespace Article {
+  export interface ReqArticleParams extends ReqPage {
+    id: number;
+    title: string;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+  export interface ReqArticleParamId {
+    id: number;
+  }
+  export interface TagsList {
+    id: number;
+    name: string;
+  }
+  export interface ResArticleList {
+    id: string;
+    title: string;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    tags?: TagsList[];
+    children?: ResArticleList[];
+  }
+}

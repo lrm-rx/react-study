@@ -3,7 +3,12 @@ import http from "@/api";
 
 // * 获取分类列表
 export const getCategoryList = (params: Category.ReqCategoryParams) => {
-  return http.post<ResPage<Category.ResCategoryList>>("/Category/list", params);
+  return http.post<ResPage<Category.ResCategoryList>>("/category/list", params);
+};
+
+// 获取所有分类信息
+export const getAllCategory = () => {
+  return http.get("/category/findallcategory");
 };
 
 // 通过id获取分类信息

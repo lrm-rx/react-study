@@ -6,6 +6,11 @@ export const getTagList = (params: Tag.ReqTagParams) => {
   return http.post<ResPage<Tag.ResTagList>>("/tag/list", params);
 };
 
+// * 获取所有标签
+export const getAllTag = () => {
+  return http.get("/tag/findalltag");
+};
+
 // * 新增标签
 export const addTag = (params: { id: string }) => {
   return http.post("/tag/create", params);

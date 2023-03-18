@@ -18,6 +18,20 @@ export const staticRouter: RouteRecordRaw[] = [
     },
   },
   {
+    path: "/blog/article/:tag",
+    component: () => import("@/views/blog/article/aritle.vue"),
+    meta: {
+      title: "文章",
+    },
+  },
+  {
+    path: "/blog/article/detail",
+    component: () => import("@/views/blog/article/detail.vue"),
+    meta: {
+      title: "文章详情",
+    },
+  },
+  {
     path: "/layout",
     name: "layout",
     component: () => import("@/layout/index.vue"),
