@@ -1,0 +1,39 @@
+.login-modal {
+  .ant-modal-content {
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(15px) saturate(180%);
+    -webkit-backdrop-filter: blur(15px) saturate(180%);
+    border: 1px solid rgba(209, 213, 219, 0.4);
+    .ant-modal-header {
+      background-color: transparent;
+      .ant-modal-title {
+        text-align: center;
+        font-size: 22px;
+      }
+    }
+    .ant-modal-body {
+      .login-form {
+        .ant-input-affix-wrapper {
+          background-color: transparent;
+        }
+        .ant-input {
+          background-color: transparent;
+        }
+
+        .form-verity-code {
+          .ant-form-item-control-input-content {
+            display: flex;
+            .verity-code-area {
+              width: 192px;
+              height: 40px;
+              border: 1px solid green;
+            }
+          }
+        }
+        .login-form-button {
+          width: 100%;
+        }
+      }
+    }
+  }
+}

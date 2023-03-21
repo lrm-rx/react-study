@@ -10,6 +10,10 @@ export const HeaderWraper = styled.div`
   color: rgba(0, 0, 0, 0.87);
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
     0 1px 10px 0 rgba(0, 0, 0, 0.12);
+  background-color: rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(15px) saturate(180%);
+  -webkit-backdrop-filter: blur(15px) saturate(180%);
+  border: 1px solid rgba(209, 213, 219, 0.4);
 
   .logo {
     display: flex;

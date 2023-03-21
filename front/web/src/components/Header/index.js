@@ -3,12 +3,17 @@ import { NavLink } from "react-router-dom";
 import logo from "@/assets/images/logo.jpg";
 import { HeaderWraper } from "./style";
 import { LoginModal } from "./LoginModal";
+import { RegisterModel } from "./RegisterModel";
 
 const Header = memo((props) => {
-  const [showLoginModal, setshowLoginModal] = useState(false);
+  const [showLoginModal, setShowLoginModal] = useState(false);
+  const [showRegisterModal, setShowRegisterModal] = useState(false);
 
-  const handleCancel = (value) => {
-    setshowLoginModal(value);
+  const handleCancelLogin = (value) => {
+    setShowLoginModal(value);
+  };
+  const handleCancelRegister = (value) => {
+    setShowRegisterModal(value);
   };
   return (
     <HeaderWraper>
@@ -27,15 +32,25 @@ const Header = memo((props) => {
           </NavLink>
         ))}
         <div className="login-register">
-          <div className="login" onClick={() => setshowLoginModal(true)}>
+          <div className="login" onClick={() => setShowLoginModal(true)}>
             登录
           </div>
           <span className="cross-line"></span>
-          <div className="register">注册</div>
+          <div className="register" onClick={() => setShowRegisterModal(true)}>
+            注册
+          </div>
         </div>
       </div>
       {/* 登录弹窗 */}
-      <LoginModal isShow={showLoginModal} cancel={handleCancel} />
+      <LoginModal
+        isShowLoginModal={showLoginModal}
+        cancelLogin={handleCancelLogin}
+      />
+      {/* 注册弹窗 */}
+      <RegisterModel
+        isShowRegisterModal={showRegisterModal}
+        cancelRegister={handleCancelRegister}
+      />
     </HeaderWraper>
   );
 });
