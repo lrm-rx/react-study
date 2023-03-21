@@ -42,6 +42,11 @@ export const HeaderWraper = styled.div`
         background-color: rgba(0, 0, 0, 0.1);
       }
     }
+
+    .active-link {
+      border-bottom: 4px solid #1a73e8;
+    }
+
     .login-register {
       height: 60px;
       margin-left: 10px;

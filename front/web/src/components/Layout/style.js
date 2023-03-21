@@ -6,6 +6,7 @@ export const LayoutWraper = styled.div`
     position: fixed;
     top: 0;
     left: 0;
+    z-index: 99;
   }
   .main-content-area {
     min-height: calc(100vh - 120px);
@@ -15,5 +16,6 @@ export const LayoutWraper = styled.div`
     position: fixed;
     bottom: 0;
     left: 0;
+    z-index: 99;
   }
 `;

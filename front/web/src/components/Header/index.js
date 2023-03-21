@@ -26,7 +26,7 @@ const Header = memo((props) => {
           <NavLink
             key={item.link}
             to={item.link}
-            className={({ isActive }) => (isActive ? "active2" : "")}
+            className={({ isActive }) => (isActive ? "active-link" : "")}
           >
             {item.title}
           </NavLink>
