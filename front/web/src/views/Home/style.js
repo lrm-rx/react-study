@@ -4,8 +4,8 @@ export const HomeWraper = styled.div`
   padding: 60px 0;
   overflow: hidden;
   height: 100vh;
-  background-size: cover;
   background: url(${(props) => props.bgUrl});
+  background-size: cover;
   .note {
     position: absolute;
     top: 50%;

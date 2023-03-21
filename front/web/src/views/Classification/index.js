@@ -1,7 +1,9 @@
 import { memo } from "react";
+import { CategoryWraper } from "./style";
+import categoryBgImg from "@/assets/images/bg4.jpg";
 
 const Category = memo(() => {
-  return <div>分类</div>;
+  return <CategoryWraper categoryBg={categoryBgImg}>分类</CategoryWraper>;
 });
 
 export default Category;
