@@ -1,6 +1,6 @@
 import { memo, useState } from "react";
 import { NavLink } from "react-router-dom";
-import logo from "@/assets/images/logo.jpg";
+import logo from "@/assets/images/logo.svg";
 import { HeaderWraper } from "./style";
 import { LoginModal } from "./LoginModal";
 import { RegisterModel } from "./RegisterModel";

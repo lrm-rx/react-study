@@ -5,7 +5,7 @@ export const headerLinks = [
   },
   {
     title: "文章",
-    link: "/article",
+    link: "/articles",
   },
   {
     title: "归档",
