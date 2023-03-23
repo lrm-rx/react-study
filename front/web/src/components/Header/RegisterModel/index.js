@@ -48,8 +48,6 @@ export const RegisterModel = memo((props) => {
       title: "提示",
       icon: <ExclamationCircleFilled />,
       content: "确定要取消注册吗? 取消之后表单填写的内容将被清空!",
-      okText: "确定",
-      cancelText: "取消",
       onOk() {
         form.resetFields();
         props.cancelRegister(false);
