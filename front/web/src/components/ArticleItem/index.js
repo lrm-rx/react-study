@@ -6,10 +6,15 @@ import {
   WalletOutlined,
   TagsOutlined,
 } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
 import { ArticleItemWraper } from "./style";
 import c2 from "@/assets/images/bg2.jpg";
 
 export const ArticleItem = memo(() => {
+  const navigate = useNavigate();
+  const goArticleDetail = () => {
+    navigate(`/article/detail/${1}`);
+  };
   return (
     <ArticleItemWraper>
       <div className="article-card">
@@ -19,7 +24,7 @@ export const ArticleItem = memo(() => {
         <div className="right">
           <div className="title">JS常用正则合集</div>
           <ul>
-            <li className="watch-count">
+            <li onClick={goArticleDetail} className="watch-count">
               <EyeOutlined style={{ marginRight: "6px" }} />
               查看(99)
             </li>

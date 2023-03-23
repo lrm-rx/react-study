@@ -6,12 +6,21 @@ import Footer from "../Footer";
 import { headerLinks } from "@/common/local-data";
 import "@/common/common.scss";
 import { LayoutWraper } from "./style";
+import { useViewWidth } from "@/hooks/useViewWidth";
 
 const Layout = memo(() => {
   const location = useLocation();
   const [fixHeaderAndFooter, setFixHeaderAndFooter] = useState(true);
+  const { windowWidth } = useViewWidth();
   useEffect(() => {
-    if (location.pathname === "/articles") {
+    console.log("windowWidth:", windowWidth);
+  }, [windowWidth]);
+
+  useEffect(() => {
+    if (
+      location.pathname === "/articles" ||
+      location.pathname.includes("/article/detail")
+    ) {
       setFixHeaderAndFooter(false);
       return;
     }

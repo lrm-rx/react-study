@@ -1,11 +1,12 @@
 import React, { lazy, Suspense } from "react";
-import { createHashRouter, Navigate } from "react-router-dom";
+import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Spin } from "antd";
 
 const BeforeEach = lazy(() => import("@/components/BeforeEach"));
 const Layout = lazy(() => import("@/components/Layout"));
 const Home = lazy(() => import("@/views/Home"));
 const Article = lazy(() => import("@/views/Article"));
+const ArticleDetail = lazy(() => import("@/views/Article/Detail"));
 const Pigeonhole = lazy(() => import("@/views/Pigeonhole"));
 const Category = lazy(() => import("@/views/Classification"));
 const ArticleTag = lazy(() => import("@/views/Tag"));
@@ -76,6 +77,11 @@ export const routes = [
         name: "about",
         element: lazyLoad(<About />),
       },
+      {
+        path: "/article/detail/:id",
+        name: "detail",
+        element: lazyLoad(<ArticleDetail />),
+      },
     ],
   },
   {
@@ -88,6 +94,6 @@ export const routes = [
   },
 ];
 
-const router = createHashRouter(routes);
+const router = createBrowserRouter(routes);
 
 export default router;
