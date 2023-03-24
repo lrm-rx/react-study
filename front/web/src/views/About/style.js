@@ -9,17 +9,6 @@ export const AboutWraper = styled.div`
   background: url(${(props) => props.aboutBg}) no-repeat;
   background-size: cover;
   .about {
-    .abc {
-      position: fixed;
-      top: 100px;
-      left: 200px;
-    }
-    .abc-d {
-      width: 100px;
-      height: 100px;
-      color: red;
-      background-color: pink;
-    }
     min-width: 200px;
     padding: 20px;
     /* 拟物玻璃化效果 */

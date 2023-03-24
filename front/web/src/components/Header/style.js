@@ -6,7 +6,6 @@ export const HeaderWraper = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  border-bottom: 1px solid #ccc;
   color: rgba(0, 0, 0, 0.87);
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2), 0 4px 5px 0 rgba(0, 0, 0, 0.14),
     0 1px 10px 0 rgba(0, 0, 0, 0.12);
@@ -86,14 +85,6 @@ export const HeaderWraper = styled.div`
         height: 26px;
         border: 1px solid #666666;
         margin: 0 6px;
-      }
-      .nickname-avatar {
-        cursor: pointer;
-        span {
-          margin-right: 6px;
-          display: inline-block;
-          max-width: 100px;
-        }
       }
     }
   }

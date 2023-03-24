@@ -83,12 +83,12 @@ export const routes = [
         name: "detail",
         element: lazyLoad(<ArticleDetail />),
       },
-      {
-        path: "/article/writing",
-        name: "writing",
-        element: lazyLoad(<WriteArticle />),
-      },
     ],
+  },
+  {
+    path: "/article/writing",
+    name: "writing",
+    element: lazyLoad(<WriteArticle />),
   },
   {
     path: "/404",
