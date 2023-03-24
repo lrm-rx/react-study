@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
 export const ArticleWraper = styled.div`
+  padding: 20px 0;
   .article-area {
     min-height: calc(100vh - 160px);
-    margin-top: 20px;
     padding-left: 10px;
     border: 2px solid #ccc;
     border-radius: 10px;

@@ -7,6 +7,7 @@ const Layout = lazy(() => import("@/components/Layout"));
 const Home = lazy(() => import("@/views/Home"));
 const Article = lazy(() => import("@/views/Article"));
 const ArticleDetail = lazy(() => import("@/views/Article/Detail"));
+const WriteArticle = lazy(() => import("@/views/Article/Write"));
 const Pigeonhole = lazy(() => import("@/views/Pigeonhole"));
 const Category = lazy(() => import("@/views/Classification"));
 const ArticleTag = lazy(() => import("@/views/Tag"));
@@ -81,6 +82,11 @@ export const routes = [
         path: "/article/detail/:id",
         name: "detail",
         element: lazyLoad(<ArticleDetail />),
+      },
+      {
+        path: "/article/writing",
+        name: "writing",
+        element: lazyLoad(<WriteArticle />),
       },
     ],
   },

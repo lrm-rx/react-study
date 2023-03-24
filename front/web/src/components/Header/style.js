@@ -46,11 +46,13 @@ export const HeaderWraper = styled.div`
       border-bottom: 4px solid #1a73e8;
     }
 
-    .login-register {
+    .nav-options {
       height: 60px;
       margin-left: 10px;
       display: flex;
       align-items: center;
+      .save-publish-btn,
+      .writing-btn,
       .login,
       .register {
         width: 50px;
@@ -66,11 +68,32 @@ export const HeaderWraper = styled.div`
           color: #fff;
         }
       }
+      .save-publish-btn,
+      .writing-btn {
+        width: 60px;
+        margin-right: 6px;
+        background-color: #1a73e8;
+        color: #fff;
+        &:hover {
+          background-color: rgba(26, 115, 232, 0.9);
+        }
+      }
+      .save-publish-btn {
+        width: 90px;
+      }
       .cross-line {
         width: 1px;
         height: 26px;
         border: 1px solid #666666;
         margin: 0 6px;
+      }
+      .nickname-avatar {
+        cursor: pointer;
+        span {
+          margin-right: 6px;
+          display: inline-block;
+          max-width: 100px;
+        }
       }
     }
   }
