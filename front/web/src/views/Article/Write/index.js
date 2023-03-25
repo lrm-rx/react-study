@@ -8,16 +8,17 @@ import {
 } from "react-router-dom";
 import { Button, Form, Input, Select } from "antd";
 import classnames from "classnames";
-import NicknameAvatar from "@/components/NicknameAvatar";
-import Footer from "@/components/Footer";
-import { useScrollTop } from "@/hooks/useScrollTop";
+import NicknameAvatar from "@components/NicknameAvatar";
+import Footer from "@components/Footer";
+import { useScrollTop } from "@hooks/useScrollTop";
+import { ARTICLE_HEADER_TO_TOP } from "@common/contants";
 import { WriteArticleWraper } from "./style";
 
 const WriteArticle = memo(() => {
   const { scrollTop } = useScrollTop();
   const [fixArticleHeader, setFixArticleHeader] = useState(false);
   useEffect(() => {
-    if (scrollTop >= 60) {
+    if (scrollTop >= ARTICLE_HEADER_TO_TOP) {
       setFixArticleHeader(true);
     } else {
       setFixArticleHeader(false);

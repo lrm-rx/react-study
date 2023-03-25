@@ -2,14 +2,14 @@ import { useState, useEffect, memo, useMemo } from "react";
 import { Pagination, Calendar } from "antd";
 import dayjs from "dayjs";
 import { ArticleWraper } from "./style";
-import { ArticleItem } from "@/components/ArticleItem";
+import { ArticleItem } from "@components/ArticleItem";
 
 const Article = memo(() => {
   const [currentTime, setCurrentTime] = useState("");
   useEffect(() => {
     let timer = 0;
     const setTiem = () => {
-      setCurrentTime(dayjs(new Date()).format("YYYY-MM-DD hh:mm:ss"));
+      setCurrentTime(dayjs(new Date()).format("YYYY年MM月DD日 hh:mm:ss"));
       timer = setTimeout(setTiem, 1000);
     };
     timer = setTimeout(setTiem, 1000);

@@ -1,9 +1,9 @@
 import { memo, useEffect } from "react";
 import useTypewriter from "react-typewriter-hook";
 import { HomeWraper } from "./style";
-import bgImg from "@/assets/images/sakura.jpg";
-import petal from "@/assets/images/petal.png";
-import { petalAnimate } from "@/utils/createAnimate";
+import bgImg from "@assets/images/sakura.jpg";
+import petal from "@assets/images/petal.png";
+import { petalAnimate } from "@utils/createAnimate";
 
 const Home = memo(() => {
   const talk = useTypewriter(

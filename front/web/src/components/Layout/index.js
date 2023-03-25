@@ -4,11 +4,12 @@ import { FloatButton } from "antd";
 import classnames from "classnames";
 import Header from "../Header";
 import Footer from "../Footer";
-import { headerLinks } from "@/common/local-data";
-import "@/common/common.scss";
+import { headerLinks } from "@common/local-data";
+import "@common/common.scss";
 import { LayoutWraper } from "./style";
-import { useViewWidth } from "@/hooks/useViewWidth";
-import { useScrollTop } from "@/hooks/useScrollTop";
+import { GLOBAL_HEADER_TO_TOP } from "@common/contants";
+import { useViewWidth } from "@hooks/useViewWidth";
+import { useScrollTop } from "@hooks/useScrollTop";
 
 const Layout = memo(() => {
   const location = useLocation();
@@ -20,7 +21,7 @@ const Layout = memo(() => {
   }, [windowWidth]);
   const { scrollTop } = useScrollTop();
   useEffect(() => {
-    if (scrollTop >= 200) {
+    if (scrollTop >= GLOBAL_HEADER_TO_TOP) {
       setFixHeader(true);
     } else {
       setFixHeader(false);

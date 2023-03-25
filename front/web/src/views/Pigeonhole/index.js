@@ -1,8 +1,8 @@
 import { memo, useEffect } from "react";
 import { Timeline } from "antd";
 import { PigeonholeWraper } from "./style";
-import pigeonholeBgImg from "@/assets/images/bg2.jpg";
-import { snowAnimate } from "@/utils/createAnimate";
+import pigeonholeBgImg from "@assets/images/bg2.jpg";
+import { snowAnimate } from "@utils/createAnimate";
 
 const Pigeonhole = memo(() => {
   useEffect(() => {

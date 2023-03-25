@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { CategoryWraper } from "./style";
-import categoryBgImg from "@/assets/images/bg4.jpg";
-import c1 from "@/assets/images/c1.jpg";
-import c2 from "@/assets/images/c2.jpg";
-import c3 from "@/assets/images/c3.jpg";
-import c4 from "@/assets/images/c4.jpg";
+import categoryBgImg from "@assets/images/bg4.jpg";
+import c1 from "@assets/images/c1.jpg";
+import c2 from "@assets/images/c2.jpg";
+import c3 from "@assets/images/c3.jpg";
+import c4 from "@assets/images/c4.jpg";
 
 const Category = memo(() => {
   return (

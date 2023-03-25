@@ -2,16 +2,16 @@ import React, { lazy, Suspense } from "react";
 import { createBrowserRouter, Navigate } from "react-router-dom";
 import { Spin } from "antd";
 
-const BeforeEach = lazy(() => import("@/components/BeforeEach"));
-const Layout = lazy(() => import("@/components/Layout"));
-const Home = lazy(() => import("@/views/Home"));
-const Article = lazy(() => import("@/views/Article"));
-const ArticleDetail = lazy(() => import("@/views/Article/Detail"));
-const WriteArticle = lazy(() => import("@/views/Article/Write"));
-const Pigeonhole = lazy(() => import("@/views/Pigeonhole"));
-const Category = lazy(() => import("@/views/Classification"));
-const ArticleTag = lazy(() => import("@/views/Tag"));
-const About = lazy(() => import("@/views/About"));
+const BeforeEach = lazy(() => import("@components/BeforeEach"));
+const Layout = lazy(() => import("@components/Layout"));
+const Home = lazy(() => import("@views/Home"));
+const Article = lazy(() => import("@views/Article"));
+const ArticleDetail = lazy(() => import("@views/Article/Detail"));
+const WriteArticle = lazy(() => import("@views/Article/Write"));
+const Pigeonhole = lazy(() => import("@views/Pigeonhole"));
+const Category = lazy(() => import("@views/Classification"));
+const ArticleTag = lazy(() => import("@views/Tag"));
+const About = lazy(() => import("@views/About"));
 const NotFound = lazy(() => import("../views/NotFound"));
 
 const lazyLoad = (children) => {

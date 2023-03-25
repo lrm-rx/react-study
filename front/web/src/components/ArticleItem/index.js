@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { ArticleItemWraper } from "./style";
-import c2 from "@/assets/images/bg2.jpg";
+import c2 from "@assets/images/bg2.jpg";
 
 export const ArticleItem = memo(() => {
   const navigate = useNavigate();
@@ -22,7 +22,9 @@ export const ArticleItem = memo(() => {
           <img src={c2} alt="" />
         </div>
         <div className="right">
-          <div className="title">JS常用正则合集</div>
+          <div className="title text-nowrap">
+            JS常用正则合集JS常用正则合集JS常用正则合集JS常用正则合集JS常用正则合集JS常用正则合集
+          </div>
           <ul>
             <li onClick={goArticleDetail} className="watch-count">
               <EyeOutlined style={{ marginRight: "6px" }} />
@@ -37,16 +39,26 @@ export const ArticleItem = memo(() => {
               09:35
             </li>
           </ul>
-          <div className="sort-content">
+          <div className="sort-content text-nowrap">
             网络中的常用正则表达式网络中的常用正则表达式网络中的常用正则表达式
           </div>
-          <ul>
+          <ul className="text-nowrap">
             <li className="skill">
               <WalletOutlined style={{ marginRight: "6px" }} />
               技术
             </li>
-            <li className="tags">
+            <li className="tags text-nowrap">
               <TagsOutlined style={{ marginRight: "6px" }} />
+              <span className="article-tag">正则</span>
+              <span className="article-tag">正则</span>
+              <span className="article-tag">正则</span>
+              <span className="article-tag">正则</span>
+              <span className="article-tag">正则</span>
+              <span className="article-tag">正则</span>
+              <span className="article-tag">正则</span>
+              <span className="article-tag">正则</span>
+              <span className="article-tag">正则</span>
+              <span className="article-tag">正则</span>
               <span className="article-tag">正则</span>
               <span className="article-tag">正则</span>
               <span className="article-tag">正则</span>

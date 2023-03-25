@@ -13,9 +13,10 @@ import {
   useParams,
 } from "react-router-dom";
 import { ArticleDetailWraper } from "./style";
-import { mdText } from "@/common/local-data";
-import { useViewWidth } from "@/hooks/useViewWidth";
-import { useScrollTop } from "@/hooks/useScrollTop";
+import { mdText } from "@common/local-data";
+import { GLOBAL_HEADER_TO_TOP } from "@common/contants";
+import { useViewWidth } from "@hooks/useViewWidth";
+import { useScrollTop } from "@hooks/useScrollTop";
 
 const ArticleDetail = memo(() => {
   const navRef = useRef();
@@ -34,7 +35,7 @@ const ArticleDetail = memo(() => {
     setMarkNavOffsetLeft(navRef.current.getBoundingClientRect().x);
   }, [windowWidth]);
   useEffect(() => {
-    if (scrollTop >= 200) {
+    if (scrollTop >= GLOBAL_HEADER_TO_TOP) {
       setFixMarkNav(true);
       return;
     }

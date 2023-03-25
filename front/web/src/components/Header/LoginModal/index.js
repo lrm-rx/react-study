@@ -29,11 +29,9 @@ export const LoginModal = memo((props) => {
       onCancel={cancel}
     >
       <Form
+        form={form}
         name="normal_login"
         className="login-form"
-        initialValues={{
-          remember: true,
-        }}
         onFinish={onFinish}
       >
         <Form.Item
@@ -49,6 +47,7 @@ export const LoginModal = memo((props) => {
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="用户名"
             size="large"
+            autocomplete="off"
           />
         </Form.Item>
         <Form.Item

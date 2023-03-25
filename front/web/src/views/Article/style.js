@@ -9,11 +9,11 @@ export const ArticleWraper = styled.div`
     border-radius: 10px;
     display: flex;
     .article-left {
-      flex: 2;
+      width: 66%;
     }
     .article-right {
       padding: 20px 10px;
-      flex: 1;
+      width: 33%;
       .current-date-time {
         margin: 10px 0;
         font-size: 14px;

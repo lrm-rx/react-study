@@ -1,7 +1,7 @@
 import { memo, useEffect } from "react";
 import { Tag } from "antd";
 import { TagWraper } from "./style";
-import tagBgImg from "@/assets/images/bg3.jpg";
+import tagBgImg from "@assets/images/bg3.jpg";
 
 const ArticleTag = memo(() => {
   useEffect(() => {

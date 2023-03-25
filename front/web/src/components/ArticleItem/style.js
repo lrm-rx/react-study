@@ -19,6 +19,7 @@ export const ArticleItemWraper = styled.div`
     }
     .right {
       height: 120px;
+      max-width: 462px;
       display: flex;
       flex-direction: column;
       justify-content: space-around;
