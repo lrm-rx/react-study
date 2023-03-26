@@ -106,7 +106,7 @@ html::-webkit-scrollbar {
 
 /* 版心2 */
 .wrap-v2 {
-  width: 66%;
+  width: 1100px;
   min-width: 420px;
   margin: 0 auto;
 }

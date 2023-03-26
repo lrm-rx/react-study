@@ -11,7 +11,7 @@ export const HomeWraper = styled.div`
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    width: 500px;
+    max-width: 500px;
     padding: 20px;
     font-size: 18px;
     /* 拟物玻璃化效果 */
@@ -20,6 +20,49 @@ export const HomeWraper = styled.div`
     border-radius: 10px;
     border: 1px solid rgba(209, 213, 219, 0.4);
     color: #000;
+    cursor: pointer;
+    .easy-typed-cursor {
+      margin-left: 6px;
+      opacity: 1;
+      -webkit-animation: blink 0.7s infinite;
+      -moz-animation: blink 0.7s infinite;
+      animation: blink 0.7s infinite;
+    }
+    @keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-webkit-keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
+
+    @-moz-keyframes blink {
+      0% {
+        opacity: 1;
+      }
+      50% {
+        opacity: 0;
+      }
+      100% {
+        opacity: 1;
+      }
+    }
   }
 
   /* 去除滚动条 */

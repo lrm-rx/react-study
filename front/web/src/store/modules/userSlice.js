@@ -1,6 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 
-const commonSlice = createSlice({
+const userSlice = createSlice({
   name: "todos",
   initialState: {
     todoList: [],
@@ -76,6 +76,6 @@ export const {
   markCompleted,
   markNotCompleted,
   markAllCompleted,
-} = commonSlice.actions;
+} = userSlice.actions;
 
-export const commonReducer = commonSlice.reducer;
+export const userReducer = userSlice.reducer;

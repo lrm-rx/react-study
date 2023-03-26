@@ -4746,6 +4746,11 @@ duplexer@^0.1.2:
   resolved "https://registry.npmmirror.com/duplexer/-/duplexer-0.1.2.tgz#3abe43aef3835f8ae077d136ddce0f276b0400e6"
   integrity sha512-jtD6YG370ZCIi/9GTaJKQxWTZD045+4R4hTk/x1UyoqadyJ9x9CgSi1RlVDQF8U2sxLLSnFkCaMihqljHIWgMg==
 
+easy-typer-js@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.npmmirror.com/easy-typer-js/-/easy-typer-js-2.1.0.tgz#10ba052dd8c9b9ffe580e6ab45b5da6c25aba2cc"
+  integrity sha512-P1G1oPO26lPfuPdaS3KyywFc36HRVKBJvzxJiOMbn5+Z3n9JLzhTT4cJK121mnjujyOWQiRla4ikHZQHPcoa/g==
+
 ee-first@1.1.1:
   version "1.1.1"
   resolved "https://registry.npmmirror.com/ee-first/-/ee-first-1.1.1.tgz#590c61156b0ae2f4f0255732a158b266bc56b21d"
@@ -9694,11 +9699,6 @@ react-scripts@5.0.1:
   optionalDependencies:
     fsevents "^2.3.2"
 
-react-typewriter-hook@^1.0.1:
-  version "1.0.1"
-  resolved "https://registry.npmmirror.com/react-typewriter-hook/-/react-typewriter-hook-1.0.1.tgz#f16d7ce6fb2b5b131c345bf38ad34ccc6d69b8d3"
-  integrity sha512-XOBBkI1fuZRH5OBpJ9qZuXxMZ1T8EgU2VsbKwR+2mvA5rMVjMtbTg2iRNFxpiYY3ClNQ5fBegAaCqRLsNNsvfg==
-
 react@^16.12.0:
   version "16.14.0"
   resolved "https://registry.npmmirror.com/react/-/react-16.14.0.tgz#94d776ddd0aaa37da3eda8fc5b6b18a4c9a3114d"
@@ -10367,11 +10367,6 @@ sockjs@^0.3.24:
     faye-websocket "^0.11.3"
     uuid "^8.3.2"
     websocket-driver "^0.7.4"
-
-solarlunar-es@^1.0.9:
-  version "1.0.9"
-  resolved "https://registry.npmmirror.com/solarlunar-es/-/solarlunar-es-1.0.9.tgz#fdd29efbf28afa0f649f19732c9ed01a2dd3c7b7"
-  integrity sha512-Phsk53NMRexjZkXmL6Q9l1UOtJ0GPt+/KUu+mCZkGIV9GlXpYxwjjh4hGhSd7j7k/PrVtX5Uh7/iW5R7fJ+STg==
 
 source-list-map@^2.0.0, source-list-map@^2.0.1:
   version "2.0.1"
