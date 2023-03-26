@@ -1,23 +1,36 @@
-import { memo, useState } from "react";
+import { useState, useEffect, memo } from "react";
 import { Button, Modal, Form, Input } from "antd";
 import {
   LockOutlined,
   UserOutlined,
   VerifiedOutlined,
 } from "@ant-design/icons";
+import { getVertifyCode } from "@service/common";
 import "./index.scss";
 
 export const LoginModal = memo((props) => {
   const [form] = Form.useForm();
+  const [svgCode, setSvgCode] = useState();
   const cancel = () => {
     form.resetFields();
-    props.cancelLogin(false);
+    props.cancelLogin && props.cancelLogin(false);
   };
   const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+    props.userLogin && props.userLogin(values);
   };
+  const handleVertifyCode = async () => {
+    const code = await getVertifyCode();
+    setSvgCode(code);
+  };
+  useEffect(() => {
+    if (props.isShowLoginModal) {
+      handleVertifyCode();
+    }
+  }, [props.isShowLoginModal]);
+
   return (
     <Modal
+      forceRender={true}
       title="登录"
       width={500}
       className="login-modal"
@@ -47,7 +60,8 @@ export const LoginModal = memo((props) => {
             prefix={<UserOutlined className="site-form-item-icon" />}
             placeholder="用户名"
             size="large"
-            autocomplete="off"
+            autoComplete="off"
+            className="user-login-input"
           />
         </Form.Item>
         <Form.Item
@@ -64,12 +78,13 @@ export const LoginModal = memo((props) => {
             type="password"
             placeholder="密码"
             size="large"
+            className="user-login-input"
           />
         </Form.Item>
 
         <Form.Item
-          className="form-verity-code"
-          name="username"
+          className="form-vertify-code"
+          name="vertifycode"
           rules={[
             {
               required: true,
@@ -77,12 +92,18 @@ export const LoginModal = memo((props) => {
             },
           ]}
         >
-          <Input
-            prefix={<VerifiedOutlined className="site-form-item-icon" />}
-            placeholder="验证码"
-            size="large"
-          />
-          <div className="verity-code-area">验证码</div>
+          <>
+            <Input
+              prefix={<VerifiedOutlined className="site-form-item-icon" />}
+              placeholder="验证码"
+              size="large"
+            />
+            <div
+              className="verity-code-area"
+              dangerouslySetInnerHTML={{ __html: svgCode }}
+              onClick={() => handleVertifyCode()}
+            ></div>
+          </>
         </Form.Item>
 
         <Form.Item>

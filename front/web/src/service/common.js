@@ -1,14 +1,24 @@
 import request from "./axios";
 
 // 获取登录验证码
-export function getVertifyCode(ids) {
+export function getVertifyCode() {
   return request({
     url: "/user/veritycode",
     params: {},
   });
 }
+// 检查用户名是否可用
+export function checkUserName({ username = "" }) {
+  return request({
+    url: "/user/checkusername",
+    method: "POST",
+    data: {
+      username,
+    },
+  });
+}
 // 检查邮箱是否可用
-export function checkEmail({ email }) {
+export function checkEmail({ email = "" }) {
   return request({
     url: "/user/checkemail",
     method: "POST",
@@ -18,13 +28,24 @@ export function checkEmail({ email }) {
   });
 }
 // 发送邮箱验证码
-export function sendEmail({ username, email }) {
+export function sendEmail({ username = "", email = "" }) {
   return request({
     url: "/user/sendemail",
     method: "POST",
     data: {
       username,
       email,
+    },
+  });
+}
+
+// 用户注册
+export function newUserRegister(data) {
+  return request({
+    url: "/user/register",
+    method: "POST",
+    data: {
+      ...data,
     },
   });
 }

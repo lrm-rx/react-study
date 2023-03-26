@@ -16,6 +16,8 @@
     "classnames": "^2.3.2",
     "dayjs": "^1.11.7",
     "github-markdown-css": "^5.2.0",
+    "js-md5": "^0.7.3",
+    "lodash-es": "^4.17.21",
     "markdown-navbar": "^1.4.3",
     "normalize.css": "^8.0.1",
     "react": "^18.2.0",
@@ -48,7 +50,8 @@
     ],
     "rules": {
       "no-unused-vars": "off",
-      "no-useless-computed-key": "off"
+      "no-useless-computed-key": "off",
+      "eslint-disable-next-line": "off"
     }
   },
   "browserslist": {

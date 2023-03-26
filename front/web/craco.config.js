@@ -13,6 +13,7 @@ module.exports = {
       "@views": resolve("src/views"),
       "@store": resolve("src/store"),
       "@utils": resolve("src/utils"),
+      "@service": resolve("src/service"),
     },
   },
 };

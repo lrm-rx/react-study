@@ -1,5 +1,9 @@
-import { memo, useState } from "react";
-import { Modal, Button, Col, Form, Input, Row } from "antd";
+import { useEffect, useState, memo } from "react";
+import { Modal, Button, Col, Space, Form, Input, Row, message } from "antd";
+import _ from "lodash-es";
+import { checkUserName, checkEmail, sendEmail } from "@service/common";
+import { debounce, checkFormData, objToArray, handleTrim } from "@utils/common";
+import { USER_NAME_REG, USER_PASSWORD_REG, USER_EMAIL } from "@common/contants";
 import { ExclamationCircleFilled } from "@ant-design/icons";
 import "./index.scss";
 
@@ -21,21 +25,52 @@ const formItemLayout = {
     },
   },
 };
-const { confirm } = Modal;
-
-const checkFormData = (data) => {
-  for (const key in data) {
-    if (Object.hasOwnProperty.call(data, key)) {
-      if (data[key]) {
-        return false;
-      }
-      return true;
-    }
-  }
+const tailLayout = {
+  wrapperCol: {
+    offset: 6,
+    span: 16,
+  },
 };
+const { confirm } = Modal;
 
 export const RegisterModel = memo((props) => {
   const [form] = Form.useForm();
+  const [codeBtnText, setCodeBtnText] = useState("获取验证码");
+  const [checkVerifycode, setCheckVerifycode] = useState(true);
+  const [codeBtnDisabled, setCodeBtnDisabled] = useState(false);
+  const clickVerityCode = async () => {
+    try {
+      (codeBtnText === "获取验证码" || codeBtnText === "再次发送") &&
+        setCheckVerifycode(false);
+      let num = 60,
+        timeout = null;
+      // validateFields 自带拦截
+      form.validateFields();
+      const { username, email } = form.getFieldsValue();
+      if (!username?.trim() || !email?.trim()) return;
+      const result = await sendEmail({ username, email });
+      if (result.code !== 200) {
+        message.error(result.msg, 2);
+        return;
+      }
+      message.success("邮件发送成功!", 2);
+      setCheckVerifycode(true);
+      (function decrement() {
+        if (num <= 0) {
+          setCodeBtnText("再次发送");
+          setCodeBtnDisabled(false);
+          clearTimeout(timeout);
+          return;
+        }
+        setCodeBtnDisabled(true);
+        setCodeBtnText(`${num}S后再次发送`);
+        num--;
+        timeout = setTimeout(decrement, 1000);
+      })();
+    } catch (error) {
+      console.log("error", error);
+    }
+  };
   const cancelRegister = () => {
     const formData = form.getFieldsValue();
     const isEmpty = checkFormData(formData);
@@ -49,17 +84,89 @@ export const RegisterModel = memo((props) => {
       icon: <ExclamationCircleFilled />,
       content: "确定要取消注册吗? 取消之后表单填写的内容将被清空!",
       onOk() {
+        setCodeBtnText("获取验证码");
         form.resetFields();
-        props.cancelRegister(false);
+        props.cancelRegister && props.cancelRegister(false);
       },
     });
   };
-  const onFinish = (values) => {
-    console.log("Received values of form: ", values);
+  const formSubmit = () => {
+    // 触发校验
+    form.submit();
+    const values = form.getFieldsValue();
+    const formData = _.omit(values, ["nickname"]);
+    const clearDataTrim = handleTrim(formData);
+    const isHasEmpty = Object.values(clearDataTrim).some((item) => !item);
+    if (isHasEmpty) return;
+    form.resetFields();
+    setCodeBtnText("获取验证码");
+    props.userRegister && props.userRegister(values);
+  };
+
+  const check_username = (username) => {
+    return new Promise((resolve, reject) => {
+      checkUserName({ username })
+        .then((result) => {
+          if (result.code !== 200) {
+            resolve(result);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  const validatorUsername = async (rule, value, callback) => {
+    try {
+      if (!value?.trim()) {
+        throw new Error("请输入用户名!");
+      }
+      if (value?.trim() && USER_NAME_REG.test(value)) {
+        const result = await check_username(value);
+        if (result.code === 403) {
+          throw new Error(result.msg);
+        }
+        callback();
+      }
+      throw new Error("含英文/数字/汉字/字符(_.-)且长度在2-20之间!");
+    } catch (err) {
+      callback(err);
+    }
+  };
+
+  const checkE_mail = (email) => {
+    return new Promise((resolve, reject) => {
+      checkEmail({ email })
+        .then((result) => {
+          if (result.code !== 200) {
+            resolve(result);
+          }
+        })
+        .catch((error) => {
+          reject(error);
+        });
+    });
+  };
+
+  const validatorEmail = async (rule, value, callback) => {
+    try {
+      if (value?.trim() && USER_EMAIL.test(value)) {
+        const result = await checkE_mail(value);
+        if (result.code === 403) {
+          throw new Error(result.msg);
+        }
+        callback();
+      }
+      callback();
+    } catch (err) {
+      callback(err);
+    }
   };
 
   return (
     <Modal
+      forceRender={true}
       title="注册"
       width={500}
       className="register-modal"
@@ -75,9 +182,19 @@ export const RegisterModel = memo((props) => {
         className="register-form"
         form={form}
         name="register"
-        onFinish={onFinish}
-        scrollToFirstError
       >
+        <Form.Item
+          name="username"
+          label="用户名"
+          rules={[
+            {
+              required: true,
+              validator: debounce(validatorUsername),
+            },
+          ]}
+        >
+          <Input className="register-input" autoComplete="off" />
+        </Form.Item>
         <Form.Item
           name="email"
           label="邮箱"
@@ -90,9 +207,12 @@ export const RegisterModel = memo((props) => {
               required: true,
               message: "请输入你的邮箱!",
             },
+            {
+              validator: debounce(validatorEmail),
+            },
           ]}
         >
-          <Input size="large" />
+          <Input className="register-input" autoComplete="off" />
         </Form.Item>
 
         <Form.Item
@@ -100,16 +220,27 @@ export const RegisterModel = memo((props) => {
           label="密码"
           rules={[
             {
-              required: true,
-              message: "请输入密码!",
+              validator: (_, value) => {
+                if (!value?.trim()) {
+                  return Promise.reject(
+                    new Error("请输入密码且前后不能包含空格!")
+                  );
+                }
+                if (value?.trim() && !USER_PASSWORD_REG.test(value)) {
+                  return Promise.reject(
+                    new Error("包含英文和数字或字符(!@#_.)且长度在6-20之间!")
+                  );
+                }
+                return Promise.resolve();
+              },
             },
           ]}
         >
-          <Input.Password size="large" />
+          <Input.Password className="register-input" />
         </Form.Item>
 
         <Form.Item
-          name="confirm"
+          name="repeatPassword"
           label="确认密码"
           dependencies={["password"]}
           rules={[
@@ -127,14 +258,14 @@ export const RegisterModel = memo((props) => {
             }),
           ]}
         >
-          <Input.Password size="large" />
+          <Input.Password className="register-input" />
         </Form.Item>
 
         <Form.Item name="nickname" label="昵称">
-          <Input size="large" />
+          <Input className="register-input" autoComplete="off" />
         </Form.Item>
 
-        <Form.Item label="邮箱验证码" extra="请输入邮箱后点击按钮获取验证码">
+        <Form.Item label="邮箱验证码" extra="请填写表单后点击按钮获取验证码">
           <Row gutter={8}>
             <Col span={12}>
               <Form.Item
@@ -142,29 +273,47 @@ export const RegisterModel = memo((props) => {
                 noStyle
                 rules={[
                   {
-                    required: true,
-                    message: "请输入获取到的邮箱验证码!",
+                    required: checkVerifycode,
+                    message: "请输入邮箱验证码!",
                   },
                 ]}
               >
-                <Input size="large" />
+                <Input className="register-input" autoComplete="off" />
               </Form.Item>
             </Col>
             <Col span={12}>
-              <Button className="verify-code-button" size="large">
-                获取验证码
+              <Button
+                disabled={codeBtnDisabled}
+                onClick={clickVerityCode}
+                className="verify-code-button"
+              >
+                {codeBtnText}
               </Button>
             </Col>
           </Row>
         </Form.Item>
-        <Button
-          className="register-form-button"
-          type="primary"
-          size="large"
-          htmlType="submit"
-        >
-          注册
-        </Button>
+        <Form.Item {...tailLayout}>
+          <div className="register-form-options">
+            <Button
+              className="reset-form-button"
+              size="large"
+              onClick={() => {
+                form.resetFields();
+                setCheckVerifycode(true);
+              }}
+            >
+              重置
+            </Button>
+            <Button
+              className="register-form-button"
+              type="primary"
+              size="large"
+              onClick={formSubmit}
+            >
+              注册
+            </Button>
+          </div>
+        </Form.Item>
       </Form>
     </Modal>
   );

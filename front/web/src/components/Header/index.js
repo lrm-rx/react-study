@@ -1,12 +1,13 @@
 import { memo, useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
-import { useDebounceFn } from "ahooks";
+import md5 from "js-md5";
+import { message } from "antd";
 import logo from "@assets/images/logo.svg";
+import { newUserRegister } from "@service/common";
 import { HeaderWraper } from "./style";
 import { LoginModal } from "./LoginModal";
 import { RegisterModel } from "./RegisterModel";
 import NicknameAvatar from "../NicknameAvatar";
-import { Button } from "antd";
 
 const Header = memo((props) => {
   const isLogin = false;
@@ -15,22 +16,25 @@ const Header = memo((props) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [count, setCount] = useState(0);
-  const { run: handleClick } = useDebounceFn(
-    () => {
-      setCount(count + 1);
-    },
-    {
-      wait: 500,
-    }
-  );
   const handleUserLogin = (data) => {
     console.log("data:", data);
   };
   const handleCancelLogin = (value) => {
     setShowLoginModal(value);
   };
-  const handleUserRegister = (data) => {
-    console.log("注册:", data);
+  const handleUserRegister = async (data) => {
+    const registerData = {
+      ...data,
+      password: md5(data.password),
+      repeatPassword: md5(data.repeatPassword),
+    };
+    const result = await newUserRegister(registerData);
+    if (result.code !== 200) {
+      message.error(result.msg, 2);
+      return;
+    }
+    message.success(`用户 ${result.data.username} 注册成功!`, 2);
+    setShowRegisterModal(false);
   };
   const handleCancelRegister = (value) => {
     setShowRegisterModal(value);
