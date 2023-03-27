@@ -2,8 +2,10 @@ import { memo, useState } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import md5 from "js-md5";
 import { message } from "antd";
+import { useDispatch } from "react-redux";
+import { userLoginAction } from "@store/modules/userSlice";
 import logo from "@assets/images/logo.svg";
-import { newUserRegister } from "@service/common";
+import { newUserRegister } from "@service/user";
 import { HeaderWraper } from "./style";
 import { LoginModal } from "./LoginModal";
 import { RegisterModel } from "./RegisterModel";
@@ -16,8 +18,14 @@ const Header = memo((props) => {
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [count, setCount] = useState(0);
+  const dispatch = useDispatch();
   const handleUserLogin = (data) => {
-    console.log("data:", data);
+    const params = {
+      ...data,
+      password: md5(data?.password),
+    };
+    // 去调用接口
+    dispatch(userLoginAction(params));
   };
   const handleCancelLogin = (value) => {
     setShowLoginModal(value);

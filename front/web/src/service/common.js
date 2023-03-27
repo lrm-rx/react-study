@@ -38,14 +38,3 @@ export function sendEmail({ username = "", email = "" }) {
     },
   });
 }
-
-// 用户注册
-export function newUserRegister(data) {
-  return request({
-    url: "/user/register",
-    method: "POST",
-    data: {
-      ...data,
-    },
-  });
-}

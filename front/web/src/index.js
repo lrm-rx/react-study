@@ -10,12 +10,15 @@ import dayjs from "dayjs";
 import "dayjs/locale/zh-cn";
 import "@assets/css/reset.css";
 import router from "@/router";
+import { store } from "@store";
 
 dayjs.locale("zh-cn");
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <ConfigProvider locale={zhCN}>
-    <RouterProvider router={router}></RouterProvider>
-  </ConfigProvider>
+  <Provider store={store}>
+    <ConfigProvider locale={zhCN}>
+      <RouterProvider router={router}></RouterProvider>
+    </ConfigProvider>
+  </Provider>
 );

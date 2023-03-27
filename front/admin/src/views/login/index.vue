@@ -119,7 +119,6 @@ const createCode = async () => {
   codeUrl.value = await loginVerityCode();
 }
 onMounted(() => {
-  console.log("globalStore.userId:", globalStore.userId);
   initThree();
   createCode();
 })

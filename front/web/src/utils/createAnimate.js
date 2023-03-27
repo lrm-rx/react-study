@@ -42,7 +42,7 @@ export const petalAnimate = (id, img) => {
 
   let mouseX = 0;
   function touchHandler(e) {
-    mouseX = (e.clientX || e.touches[0].clientX) / window.innerWidth;
+    mouseX = e.clientX / window.innerWidth;
   }
   window.addEventListener("mousemove", touchHandler);
   window.addEventListener("touchmove", touchHandler);

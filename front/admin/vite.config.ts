@@ -30,7 +30,7 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
       // 跨域代理配置
       proxy: {
         "/api/v1": {
-          target: "http://127.0.0.1:3006/api/v1", // easymock
+          target: "http://127.0.0.1:3006/api/v1",
           changeOrigin: true,
           rewrite: (path) => path.replace(/^\/api\/v1/, ""),
         },

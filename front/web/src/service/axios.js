@@ -4,8 +4,10 @@ export default function request(option) {
   return new Promise((resolve, reject) => {
     // 1.创建axios的实例
     const instance = originAxios.create({
-      baseURL: "http://localhost:3006/api/v1",
+      baseURL: "/api/v1",
       timeout: 10000,
+      // 跨域允许携带凭证
+      withCredentials: true,
     });
 
     // 配置请求和响应拦截

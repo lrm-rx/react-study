@@ -1,5 +1,5 @@
 import { useState, useEffect, memo } from "react";
-import { Button, Modal, Form, Input } from "antd";
+import { Button, Modal, Form, Input, Row, Col } from "antd";
 import {
   LockOutlined,
   UserOutlined,
@@ -48,7 +48,7 @@ export const LoginModal = memo((props) => {
         onFinish={onFinish}
       >
         <Form.Item
-          name="username"
+          name="loginname"
           rules={[
             {
               required: true,
@@ -58,7 +58,7 @@ export const LoginModal = memo((props) => {
         >
           <Input
             prefix={<UserOutlined className="site-form-item-icon" />}
-            placeholder="用户名"
+            placeholder="用户名/邮箱"
             size="large"
             autoComplete="off"
             className="user-login-input"
@@ -82,17 +82,35 @@ export const LoginModal = memo((props) => {
           />
         </Form.Item>
 
-        <Form.Item
-          className="form-vertify-code"
-          name="vertifycode"
-          rules={[
-            {
-              required: true,
-              message: "请输入验证码!",
-            },
-          ]}
-        >
-          <>
+        <Form.Item>
+          <Row gutter={8}>
+            <Col span={17}>
+              <Form.Item
+                name="veritycode"
+                noStyle
+                rules={[
+                  {
+                    required: true,
+                    message: "请输入验证码!",
+                  },
+                ]}
+              >
+                <Input
+                  prefix={<VerifiedOutlined className="site-form-item-icon" />}
+                  placeholder="验证码"
+                  size="large"
+                />
+              </Form.Item>
+            </Col>
+            <Col span={7}>
+              <div
+                className="verity-code-area"
+                dangerouslySetInnerHTML={{ __html: svgCode }}
+                onClick={() => handleVertifyCode()}
+              ></div>
+            </Col>
+          </Row>
+          {/* <>
             <Input
               prefix={<VerifiedOutlined className="site-form-item-icon" />}
               placeholder="验证码"
@@ -103,7 +121,7 @@ export const LoginModal = memo((props) => {
               dangerouslySetInnerHTML={{ __html: svgCode }}
               onClick={() => handleVertifyCode()}
             ></div>
-          </>
+          </> */}
         </Form.Item>
 
         <Form.Item>
