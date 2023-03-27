@@ -5,6 +5,7 @@ import bgImg from "@assets/images/sakura.jpg";
 import petal from "@assets/images/petal.png";
 import { petalAnimate } from "@utils/createAnimate";
 import { EASY_TYPER_URL } from "@common/contants";
+import { getGreeting } from "@service/common";
 
 const Home = memo(() => {
   // 配置对象
@@ -35,29 +36,32 @@ const Home = memo(() => {
       }
     );
   };
-  const changeSentence = () => {
-    fetch(EASY_TYPER_URL)
-      .then((res) => res.json())
-      .then((result) => {
-        let content;
-        if (result.code === 200) {
-          content = `${result.data.content} —— ${result.data.name}`;
-        } else {
-          content = "时光啊就像潮水它送来了一切也会带走一切 —— 暮光星灵·佐伊";
-        }
-        initTyper(content);
-      });
+  const changeSentence = async () => {
+    const result = await getGreeting();
+    let content;
+    if (result.code === 200) {
+      content =
+        result.data ||
+        "时光啊就像潮水它送来了一切也会带走一切 —— 暮光星灵·佐伊";
+    } else {
+      content = "时光啊就像潮水它送来了一切也会带走一切 —— 暮光星灵·佐伊";
+    }
+    initTyper(content);
+    // fetch(EASY_TYPER_URL)
+    //   .then((res) => res.json())
+    //   .then((result) => {
+    //     let content;
+    //     if (result.code === 200) {
+    //       content = `${result.data.content} —— ${result.data.name}`;
+    //     } else {
+    //       content = "时光啊就像潮水它送来了一切也会带走一切 —— 暮光星灵·佐伊";
+    //     }
+    //     initTyper(content);
+    //   });
   };
   useEffect(() => {
     changeSentence();
   }, []);
-
-  // useEffect(() => {
-  //   initTyper();
-  //   return () => {
-  //     typer.close();
-  //   };
-  // }, []);
 
   useEffect(() => {
     petalAnimate("canvas", petal);

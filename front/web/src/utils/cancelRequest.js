@@ -4,7 +4,9 @@ const pendingMap = new Map();
 // 生成每个请求唯一的键
 function getPendingKey(config) {
   let { url, method, params, data } = config;
-  if (typeof data === "string") data = JSON.parse(data); // response里面返回的config.data是个字符串对象
+  if (typeof data === "string") {
+    data = JSON.parse(data);
+  } // response里面返回的config.data是个字符串对象
   return [url, method, JSON.stringify(params), JSON.stringify(data)].join("&");
 }
 

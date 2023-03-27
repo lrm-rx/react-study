@@ -110,18 +110,6 @@ export const LoginModal = memo((props) => {
               ></div>
             </Col>
           </Row>
-          {/* <>
-            <Input
-              prefix={<VerifiedOutlined className="site-form-item-icon" />}
-              placeholder="验证码"
-              size="large"
-            />
-            <div
-              className="verity-code-area"
-              dangerouslySetInnerHTML={{ __html: svgCode }}
-              onClick={() => handleVertifyCode()}
-            ></div>
-          </> */}
         </Form.Item>
 
         <Form.Item>

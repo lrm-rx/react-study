@@ -1,5 +1,12 @@
 import request from "./axios";
 
+// 首页greeting
+export function getGreeting() {
+  return request({
+    url: "/common/greeting",
+    params: {},
+  });
+}
 // 获取登录验证码
 export function getVertifyCode() {
   return request({

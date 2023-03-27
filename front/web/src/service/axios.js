@@ -1,5 +1,6 @@
 import originAxios from "axios";
 import { addPending, removePending } from "@utils/cancelRequest";
+import { showLoading, hideLoading } from "@utils/globalLoading";
 
 export default function request(option) {
   return new Promise((resolve, reject) => {
@@ -24,24 +25,37 @@ export default function request(option) {
         // console.log(config);
 
         // 4.等等
+        // requestCount为0，才创建全局loading, 避免重复创建
+        if (config?.headers?.isLoading !== false) {
+          showLoading(); // 全局loading
+        }
+        // 取消请求
         removePending(config);
         addPending(config);
         return config;
       },
       (error) => {
-        // console.log('来到了request拦截failure中');
+        // 判断当前请求是否设置了不显示Loading
+        if (error.config?.headers?.isLoading !== false) {
+          hideLoading();
+        }
         return error;
       }
     );
 
     instance.interceptors.response.use(
       (response) => {
-        // console.log('来到了response拦截success中');
+        // 判断当前请求是否设置了不显示Loading
+        if (response.config?.headers?.isLoading !== false) {
+          hideLoading();
+        }
         removePending(response.config);
         return response.data;
       },
       (error) => {
-        error.config && removePending(error.config);
+        if (error.config?.headers?.isLoading !== false) {
+          hideLoading();
+        }
         if (error && error.response) {
           switch (error.response.status) {
             case 400:
@@ -54,6 +68,7 @@ export default function request(option) {
               error.message = "其他错误信息";
           }
         }
+        error.config && removePending(error.config);
         return error;
       }
     );
