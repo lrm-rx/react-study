@@ -169,6 +169,7 @@ export const RegisterModel = memo((props) => {
       forceRender={true}
       title="注册"
       width={500}
+      centered="true"
       className="register-modal"
       keyboard={false}
       mask={false}
@@ -220,11 +221,10 @@ export const RegisterModel = memo((props) => {
           label="密码"
           rules={[
             {
+              required: true,
               validator: (_, value) => {
                 if (!value?.trim()) {
-                  return Promise.reject(
-                    new Error("请输入密码且前后不能包含空格!")
-                  );
+                  return Promise.reject(new Error("请输入密码!"));
                 }
                 if (value?.trim() && !USER_PASSWORD_REG.test(value)) {
                   return Promise.reject(
@@ -236,7 +236,7 @@ export const RegisterModel = memo((props) => {
             },
           ]}
         >
-          <Input.Password className="register-input" />
+          <Input.Password autoComplete="off" className="register-input" />
         </Form.Item>
 
         <Form.Item
@@ -258,7 +258,7 @@ export const RegisterModel = memo((props) => {
             }),
           ]}
         >
-          <Input.Password className="register-input" />
+          <Input.Password autoComplete="off" className="register-input" />
         </Form.Item>
 
         <Form.Item name="nickname" label="昵称">

@@ -33,6 +33,7 @@ export const LoginModal = memo((props) => {
       forceRender={true}
       title="登录"
       width={500}
+      centered="true"
       className="login-modal"
       keyboard={false}
       mask={false}
@@ -79,6 +80,7 @@ export const LoginModal = memo((props) => {
             placeholder="密码"
             size="large"
             className="user-login-input"
+            autoComplete="off"
           />
         </Form.Item>
 
@@ -98,6 +100,7 @@ export const LoginModal = memo((props) => {
                 <Input
                   prefix={<VerifiedOutlined className="site-form-item-icon" />}
                   placeholder="验证码"
+                  autoComplete="off"
                   size="large"
                 />
               </Form.Item>

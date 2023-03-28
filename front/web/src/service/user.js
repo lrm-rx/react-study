@@ -34,13 +34,44 @@ export function userLogin({ loginname, password, veritycode }) {
     },
   });
 }
+// 退出系统
+export function userLogout() {
+  return request({
+    url: "/user/logout",
+    method: "POST",
+    data: {},
+  });
+}
 
 // 获取用户信息
 export function getUserInfo(id) {
   return request({
     url: "/user/finduser",
+    headers: {
+      isAuth: true,
+    },
     params: {
-      id
+      id,
+    },
+  });
+}
+
+// 用户修改密码
+export function updatePassword({
+  oldPassword,
+  newPassword,
+  repeatNewPassword,
+}) {
+  return request({
+    url: "/user/updatepassword",
+    method: "POST",
+    headers: {
+      isAuth: true,
+    },
+    data: {
+      oldPassword,
+      newPassword,
+      repeatNewPassword,
     },
   });
 }
