@@ -11,6 +11,9 @@ export function getGreeting() {
 export function getVertifyCode() {
   return request({
     url: "/user/veritycode",
+    headers: {
+      isShowLoading: false,
+    },
     params: {},
   });
 }

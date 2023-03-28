@@ -8,6 +8,9 @@ export default function request(option) {
     const instance = originAxios.create({
       baseURL: "/api/v1",
       timeout: 10000,
+      headers: {
+        isShowLoading: true, // 默认所有的请求都带loading
+      },
       // 跨域允许携带凭证
       withCredentials: true,
     });
@@ -26,7 +29,7 @@ export default function request(option) {
 
         // 4.等等
         // requestCount为0，才创建全局loading, 避免重复创建
-        if (config?.headers?.isLoading !== false) {
+        if (config.headers.isShowLoading !== false) {
           showLoading(); // 全局loading
         }
         // 取消请求
@@ -36,7 +39,7 @@ export default function request(option) {
       },
       (error) => {
         // 判断当前请求是否设置了不显示Loading
-        if (error.config?.headers?.isLoading !== false) {
+        if (error.config.headers.isShowLoading !== false) {
           hideLoading();
         }
         return error;
@@ -46,14 +49,14 @@ export default function request(option) {
     instance.interceptors.response.use(
       (response) => {
         // 判断当前请求是否设置了不显示Loading
-        if (response.config?.headers?.isLoading !== false) {
+        if (response.config.headers.isShowLoading !== false) {
           hideLoading();
         }
         removePending(response.config);
         return response.data;
       },
       (error) => {
-        if (error.config?.headers?.isLoading !== false) {
+        if (error.config.headers.isShowLoading !== false) {
           hideLoading();
         }
         if (error && error.response) {

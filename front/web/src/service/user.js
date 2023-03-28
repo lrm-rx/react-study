@@ -34,3 +34,13 @@ export function userLogin({ loginname, password, veritycode }) {
     },
   });
 }
+
+// 获取用户信息
+export function getUserInfo(id) {
+  return request({
+    url: "/user/finduser",
+    params: {
+      id
+    },
+  });
+}

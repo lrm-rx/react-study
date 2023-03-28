@@ -2,6 +2,8 @@ import { useState, useEffect, memo } from "react";
 import { Outlet, useLocation } from "react-router-dom";
 import { FloatButton } from "antd";
 import classnames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { getUserInfoAction } from "@store/modules/userSlice";
 import Header from "../Header";
 import Footer from "../Footer";
 import { headerLinks } from "@common/local-data";
@@ -13,9 +15,18 @@ import { useScrollTop } from "@hooks/useScrollTop";
 
 const Layout = memo(() => {
   const location = useLocation();
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const userId = useSelector((state) => state.userInfo.userId);
+  const dispatch = useDispatch();
   const [fixHeaderAndFooter, setFixHeaderAndFooter] = useState(true);
   const [fixHeader, setFixHeader] = useState(false);
   const { windowWidth } = useViewWidth();
+  useEffect(() => {
+    if (isLogin && Number(userId) !== 0) {
+      // 获取用户信息
+      dispatch(getUserInfoAction(userId));
+    }
+  }, [isLogin, userId]);
   useEffect(() => {
     // console.log("windowWidth:", windowWidth);
   }, [windowWidth]);

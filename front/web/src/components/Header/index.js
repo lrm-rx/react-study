@@ -1,8 +1,8 @@
-import { memo, useState } from "react";
+import { memo, useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import md5 from "js-md5";
 import { message } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { userLoginAction } from "@store/modules/userSlice";
 import logo from "@assets/images/logo.svg";
 import { newUserRegister } from "@service/user";
@@ -12,12 +12,12 @@ import { RegisterModel } from "./RegisterModel";
 import NicknameAvatar from "../NicknameAvatar";
 
 const Header = memo((props) => {
-  const isLogin = false;
   const location = useLocation();
   const navigate = useNavigate();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [count, setCount] = useState(0);
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
   const dispatch = useDispatch();
   const handleUserLogin = (data) => {
     const params = {
@@ -27,6 +27,12 @@ const Header = memo((props) => {
     // 去调用接口
     dispatch(userLoginAction(params));
   };
+  useEffect(() => {
+    if (isLogin) {
+      setShowLoginModal(false);
+    }
+  }, [isLogin]);
+
   const handleCancelLogin = (value) => {
     setShowLoginModal(value);
   };
