@@ -11,6 +11,7 @@ import {
   message,
 } from "antd";
 import md5 from "js-md5";
+import { useNavigate } from "react-router-dom";
 import { updatePassword } from "@service/user";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogoutAction } from "@store/modules/userSlice";
@@ -48,6 +49,7 @@ const { confirm } = Modal;
 
 const NicknameAvatar = memo(() => {
   const [form] = Form.useForm();
+  const navigate = useNavigate();
   const nickname = useSelector((state) => state.userInfo.basicInfo?.nickname);
   const avatar = useSelector((state) => state.userInfo.basicInfo?.avatar);
   const dispatch = useDispatch();
@@ -90,7 +92,7 @@ const NicknameAvatar = memo(() => {
         {
           key: "1",
           label: <span className="dropdown-item">个人主页</span>,
-          onClick: () => {},
+          onClick: () => navigate(`/personalhomepage`),
         },
         {
           key: "2",

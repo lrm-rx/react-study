@@ -12,6 +12,7 @@ const Pigeonhole = lazy(() => import("@views/Pigeonhole"));
 const Category = lazy(() => import("@views/Classification"));
 const ArticleTag = lazy(() => import("@views/Tag"));
 const About = lazy(() => import("@views/About"));
+const PersonalPage = lazy(() => import("@views/PersonalPage"));
 const NotFound = lazy(() => import("../views/NotFound"));
 
 const lazyLoad = (children) => {
@@ -79,9 +80,14 @@ export const routes = [
         element: lazyLoad(<About />),
       },
       {
-        path: "/article/detail/:id",
+        path: "article/detail/:id",
         name: "detail",
         element: lazyLoad(<ArticleDetail />),
+      },
+      {
+        path: "personalhomepage",
+        name: "personalhomepage",
+        element: lazyLoad(<PersonalPage />),
       },
     ],
   },

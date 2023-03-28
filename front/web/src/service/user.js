@@ -75,3 +75,16 @@ export function updatePassword({
     },
   });
 }
+
+// 头像上传
+export function uploadAvatar(data) {
+  return request({
+    url: "/upload/avatar",
+    method: "POST",
+    headers: {
+      isAuth: true,
+      "Content-Type": "multipart/form-data",
+    },
+    data,
+  });
+}

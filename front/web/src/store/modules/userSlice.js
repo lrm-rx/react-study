@@ -102,6 +102,10 @@ const userSlice = createSlice({
       state.isLogin = false;
       state.basicInfo = null;
     },
+    // 刷新基本信息
+    refreshBasicInfo: (state, action) => {
+      state.basicInfo = action.payload;
+    },
   },
   // 2.0官方不推荐使用对象的形式
   // extraReducers: {
@@ -122,6 +126,6 @@ const userSlice = createSlice({
   },
 });
 
-export const { setLoginFlag } = userSlice.actions;
+export const { setLoginFlag, refreshBasicInfo } = userSlice.actions;
 
 export const userReducer = userSlice.reducer;
