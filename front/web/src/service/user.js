@@ -88,3 +88,17 @@ export function uploadAvatar(data) {
     data,
   });
 }
+
+// 更新用户信息
+export function updateUserInfo(uid, nickname) {
+  return request({
+    url: `/user/update/${uid}`,
+    method: "POST",
+    headers: {
+      isAuth: true,
+    },
+    data: {
+      nickname,
+    },
+  });
+}
