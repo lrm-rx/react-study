@@ -29,3 +29,13 @@ export function updateArticle(id, data) {
     data,
   });
 }
+
+// 通过id查找文章
+export function getArticleDetail(id) {
+  return request({
+    url: "/article/detail",
+    params: {
+      id
+    },
+  });
+}

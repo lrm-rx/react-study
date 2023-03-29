@@ -12,6 +12,8 @@ import {
   useSearchParams,
   useParams,
 } from "react-router-dom";
+import { message, Row, Col, Space, Tag } from "antd";
+import { getArticleDetail } from "@service/article";
 import { ArticleDetailWraper } from "./style";
 import { mdText } from "@common/local-data";
 import { GLOBAL_HEADER_TO_TOP } from "@common/contants";
@@ -40,19 +42,50 @@ const ArticleDetail = memo(() => {
       return;
     }
     setFixMarkNav(false);
-    // console.log("scrollTop:", scrollTop);
   }, [scrollTop]);
 
+  const [articleTitle, setArticleTitle] = useState("");
+  const [category, setCategory] = useState("");
+  const [tags, setTags] = useState([]);
+  const [createdAt, setCreatedAt] = useState("");
+
   useEffect(() => {
-    setMdContent(mdText);
-  }, []);
-  // console.log("id:", params.id);
+    (async () => {
+      const result = await getArticleDetail(Number(params.id));
+      if (Number(result.code) !== 200) {
+        message.error({
+          content: result.msg,
+          duration: 1,
+        });
+        return;
+      }
+      const detail = result.data || {};
+      setArticleTitle(detail.title);
+      setCategory(detail.category.name);
+      setTags(detail.tags);
+      setCreatedAt(detail.createdAt);
+      setMdContent(detail.contentText);
+    })();
+  }, [params.id]);
 
   return (
     <ArticleDetailWraper
       navWidth={markNavWidth}
       navOffsetLet={markNavOffsetLeft}
     >
+      <h3 className="article-title">{articleTitle}</h3>
+      <Row justify="center" className="article-info">
+        <Col span={6}>分类: {category}</Col>
+        <Col span={8}>
+          标签:
+          <Space>
+            {tags.map((item) => (
+              <Tag key={item.id}>{item.name}</Tag>
+            ))}
+          </Space>
+        </Col>
+        <Col span={5}>创建时间: {createdAt}</Col>
+      </Row>
       <div className="article-detail">
         <div className="article-nav" ref={navRef}>
           <MarkNav

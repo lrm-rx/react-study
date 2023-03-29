@@ -23,7 +23,7 @@ export const ArticleItemWraper = styled.div`
       display: flex;
       flex-direction: column;
       justify-content: space-around;
-      margin-left: 30px;
+      padding-left: 30px;
       .title {
         cursor: pointer;
         font-size: 22px;
@@ -45,7 +45,7 @@ export const ArticleItemWraper = styled.div`
           cursor: pointer;
           color: #00e676;
         }
-        .skill {
+        .category {
           color: #00e676;
         }
         .tags {

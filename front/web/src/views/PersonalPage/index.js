@@ -12,7 +12,7 @@ const PersonalPage = memo(() => {
     <PersonalPageWraper>
       <div className="wrap-v1 personal-home-page">
         <Tabs
-          defaultActiveKey="2"
+          defaultActiveKey="1"
           items={[
             {
               key: "1",
