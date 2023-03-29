@@ -1,5 +1,6 @@
 import originAxios from "axios";
 import { store } from "@store";
+import { userLogoutAction, resetUserInfoData } from "@store/modules/userSlice";
 import { addPending, removePending } from "@utils/cancelRequest";
 import { showLoading, hideLoading } from "@utils/globalLoading";
 
@@ -53,6 +54,11 @@ export default function request(option) {
           hideLoading();
         }
         removePending(response.config);
+        // 如何token已经过期,则清空相关的数据
+        if (Number(response.data.code) === 403) {
+          store.dispatch(resetUserInfoData());
+          store.dispatch(userLogoutAction());
+        }
         return response.data;
       },
       (error) => {

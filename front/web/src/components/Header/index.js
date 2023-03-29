@@ -53,6 +53,14 @@ const Header = memo((props) => {
   const handleCancelRegister = (value) => {
     setShowRegisterModal(value);
   };
+  // 写文章
+  const clickWriteArticle = () => {
+    if (!isLogin) {
+      setShowLoginModal(true);
+      return;
+    }
+    navigate("/article/writing");
+  };
   return (
     <HeaderWraper>
       <div className="logo">
@@ -70,12 +78,7 @@ const Header = memo((props) => {
           </NavLink>
         ))}
         <div className="nav-options">
-          <div
-            className="writing-btn"
-            onClick={() => {
-              navigate("/article/writing");
-            }}
-          >
+          <div className="writing-btn" onClick={() => clickWriteArticle()}>
             写文章
           </div>
           {isLogin ? (

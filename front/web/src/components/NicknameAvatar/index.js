@@ -14,7 +14,7 @@ import md5 from "js-md5";
 import { useNavigate } from "react-router-dom";
 import { updatePassword } from "@service/user";
 import { useDispatch, useSelector } from "react-redux";
-import { userLogoutAction } from "@store/modules/userSlice";
+import { userLogoutAction, resetUserInfoData } from "@store/modules/userSlice";
 import { UserOutlined } from "@ant-design/icons";
 import { USER_PASSWORD_REG } from "@common/contants";
 import { NicknameAvatarWraper } from "./style";
@@ -77,11 +77,7 @@ const NicknameAvatar = memo(() => {
     });
   };
   const logout = () => {
-    const clearDate = {
-      userId: 0,
-      token: "",
-      isLogin: false,
-    };
+    dispatch(resetUserInfoData());
     dispatch(userLogoutAction());
   };
   // Dropdown Menu
@@ -92,7 +88,7 @@ const NicknameAvatar = memo(() => {
         {
           key: "1",
           label: <span className="dropdown-item">个人主页</span>,
-          onClick: () => navigate(`/personalhomepage`),
+          onClick: () => navigate("/personalhomepage"),
         },
         {
           key: "2",

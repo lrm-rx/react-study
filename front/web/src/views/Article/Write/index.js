@@ -6,8 +6,13 @@ import {
   useSearchParams,
   useParams,
 } from "react-router-dom";
-import { Button, Form, Input, Select } from "antd";
+import { Button, Form, Input, Select, message } from "antd";
 import classnames from "classnames";
+import { useDispatch, useSelector } from "react-redux";
+import { getAllCategoriesAction } from "@store/modules/categorySlice";
+import { getAllTagsAction } from "@store/modules/tagsSlice";
+import { debounce } from "@utils/common";
+import { createArticle } from "@service/article";
 import NicknameAvatar from "@components/NicknameAvatar";
 import Footer from "@components/Footer";
 import { useScrollTop } from "@hooks/useScrollTop";
@@ -15,6 +20,15 @@ import { ARTICLE_HEADER_TO_TOP } from "@common/contants";
 import { WriteArticleWraper } from "./style";
 
 const WriteArticle = memo(() => {
+  const navigate = useNavigate();
+  const categories = useSelector((state) => state.categoryInfo.list);
+  const tags = useSelector((state) => state.TagsInfo.list);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(getAllCategoriesAction());
+    dispatch(getAllTagsAction());
+  }, []);
+
   const { scrollTop } = useScrollTop();
   const [fixArticleHeader, setFixArticleHeader] = useState(false);
   useEffect(() => {
@@ -27,7 +41,33 @@ const WriteArticle = memo(() => {
   const [form] = Form.useForm();
   const [markdown, setMarkdown] = useState("");
 
-  const handleChange = () => {};
+  const writeFinish = async (values) => {
+    if (!markdown?.trim()) {
+      message.error({
+        content: "文章内容不能为空!",
+        duration: 1,
+      });
+      return;
+    }
+    const data = {
+      ...values,
+      contentText: markdown?.trim(),
+    };
+
+    const result = await createArticle(data);
+    if (Number(result.code) === 200) {
+      message.success({
+        content: result.msg,
+        duration: 1,
+      });
+      navigate("/personalhomepage");
+      return;
+    }
+    message.error({
+      content: result.msg,
+      duration: 1,
+    });
+  };
 
   return (
     <WriteArticleWraper>
@@ -41,6 +81,7 @@ const WriteArticle = memo(() => {
           <Form
             className="write-article-form"
             form={form}
+            onFinish={writeFinish}
             name="writeArticle"
             layout="inline"
           >
@@ -58,7 +99,7 @@ const WriteArticle = memo(() => {
             </Form.Item>
 
             <Form.Item
-              name="category"
+              name="categoryId"
               label="分类"
               rules={[
                 {
@@ -69,23 +110,19 @@ const WriteArticle = memo(() => {
             >
               <Select
                 className="category-select"
-                defaultValue="lucy"
-                onChange={handleChange}
-                options={[
-                  {
-                    value: "jack",
-                    label: "Jack",
-                  },
-                  {
-                    value: "lucy",
-                    label: "Lucy",
-                  },
-                ]}
+                // defaultValue="lucy"
+                fieldNames={{
+                  value: "id",
+                  label: "name",
+                  options: categories,
+                }}
+                options={categories}
+                placeholder="请选择"
               />
             </Form.Item>
 
             <Form.Item
-              name="tag"
+              name="tagIds"
               label="标签"
               rules={[
                 {
@@ -96,18 +133,16 @@ const WriteArticle = memo(() => {
             >
               <Select
                 className="tag-select"
-                defaultValue="lucy"
-                onChange={handleChange}
-                options={[
-                  {
-                    value: "jack",
-                    label: "Jack",
-                  },
-                  {
-                    value: "lucy",
-                    label: "Lucy",
-                  },
-                ]}
+                // defaultValue="lucy"
+                mode="tags"
+                maxTagCount={2}
+                fieldNames={{
+                  value: "id",
+                  label: "name",
+                  options: tags,
+                }}
+                options={tags}
+                placeholder="请选择"
               />
             </Form.Item>
             <Form.Item>
@@ -128,7 +163,7 @@ const WriteArticle = memo(() => {
           className="article-write-md"
           value={markdown}
           visible={true}
-          onChange={(editor, data, value) => setMarkdown(value)}
+          onChange={(editor, data, value) => debounce(setMarkdown(editor), 300)}
         />
       </div>
       <Footer />

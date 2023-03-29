@@ -26,7 +26,7 @@ export const WriteArticleWraper = styled.div`
           width: 120px;
         }
         .tag-select {
-          width: 300px;
+          width: 220px;
         }
       }
     }

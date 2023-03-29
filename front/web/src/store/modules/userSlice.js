@@ -6,7 +6,6 @@ import {
   updatePassword,
   getUserInfo,
 } from "@service/user";
-import { resetArticleData } from "./articleSlice";
 // 用户登录
 export const userLoginAction = createAsyncThunk(
   "user/login",
@@ -76,8 +75,16 @@ export const userLogoutAction = createAsyncThunk(
       dispatch({
         type: "userInfo/resetUserInfoData",
       });
-      dispatch(resetArticleData());
+      message.success({
+        content: result.msg,
+        duration: 1,
+      });
+      return;
     }
+    message.error({
+      content: result.msg,
+      duration: 1,
+    });
   }
 );
 
@@ -126,6 +133,7 @@ const userSlice = createSlice({
   },
 });
 
-export const { setLoginFlag, refreshBasicInfo } = userSlice.actions;
+export const { setLoginFlag, resetUserInfoData, refreshBasicInfo } =
+  userSlice.actions;
 
 export const userReducer = userSlice.reducer;
