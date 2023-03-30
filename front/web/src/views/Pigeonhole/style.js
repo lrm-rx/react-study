@@ -19,5 +19,18 @@ export const PigeonholeWraper = styled.div`
     &::-webkit-scrollbar {
       width: 0;
     }
+    .archives-navlink {
+      color: #000;
+    }
+    .archives-navlink-div {
+      cursor: pointer;
+    }
+    .archives-no-data {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      font-size: 20px;
+    }
   }
 `;

@@ -35,7 +35,15 @@ export function getArticleDetail(id) {
   return request({
     url: "/article/detail",
     params: {
-      id
+      id,
     },
+  });
+}
+
+// 文章归档
+export function getArchives() {
+  return request({
+    url: "/article/archives",
+    params: {},
   });
 }
