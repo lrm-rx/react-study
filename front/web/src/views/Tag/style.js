@@ -8,8 +8,9 @@ export const TagWraper = styled.div`
   height: 100vh;
   background: url(${(props) => props.tagBg}) no-repeat;
   background-size: cover;
-  .tagcloud {
-    width: 70%;
-    min-height: 240px;
+  .tagcloud-all {
+    .child-node {
+      cursor: pointer;
+    }
   }
 `;

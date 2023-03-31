@@ -51,7 +51,6 @@ export const HeaderWraper = styled.div`
       display: flex;
       align-items: center;
       .save-publish-btn,
-      .writing-btn,
       .login,
       .register {
         width: 50px;
@@ -69,13 +68,7 @@ export const HeaderWraper = styled.div`
       }
       .save-publish-btn,
       .writing-btn {
-        width: 60px;
         margin-right: 6px;
-        background-color: #1a73e8;
-        color: #fff;
-        &:hover {
-          background-color: rgba(26, 115, 232, 0.9);
-        }
       }
       .save-publish-btn {
         width: 90px;

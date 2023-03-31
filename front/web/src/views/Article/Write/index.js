@@ -8,9 +8,7 @@ import {
 } from "react-router-dom";
 import { Button, Form, Input, Select, message } from "antd";
 import classnames from "classnames";
-import { useDispatch, useSelector } from "react-redux";
-import { getAllCategoriesAction } from "@store/modules/categorySlice";
-import { getAllTagsAction } from "@store/modules/tagsSlice";
+import { useSelector } from "react-redux";
 import { debounce } from "@utils/common";
 import { createArticle } from "@service/article";
 import NicknameAvatar from "@components/NicknameAvatar";
@@ -23,11 +21,6 @@ const WriteArticle = memo(() => {
   const navigate = useNavigate();
   const categories = useSelector((state) => state.categoryInfo.list);
   const tags = useSelector((state) => state.TagsInfo.list);
-  const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(getAllCategoriesAction());
-    dispatch(getAllTagsAction());
-  }, []);
 
   const { scrollTop } = useScrollTop();
   const [fixArticleHeader, setFixArticleHeader] = useState(false);

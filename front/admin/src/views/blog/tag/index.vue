@@ -77,6 +77,15 @@ const columns: ColumnProps<Tag.ResTagList>[] = [
     search: { el: "input" },
   },
   {
+    prop: "tagColor",
+    label: "标签颜色",
+    render: scope => {
+      return (
+        <div style={{ display: "flex", justifyContent: "center" }}>{scope.row.tagColor ? <div style={{ width: "20px", height: "20px", backgroundColor: scope.row.tagColor }} /> : "未设置"}</div>
+      );
+    }
+  },
+  {
     prop: "createdAt",
     label: "创建时间",
     width: 180,

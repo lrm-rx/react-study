@@ -21,7 +21,8 @@
 				<span>{{ ruleForm.role === 1 ? "管理员" : "普通用户" }}</span>
 			</el-form-item>
 			<el-form-item label="用户头像" prop="avatar">
-				<UploadImg v-model:imageUrl="ruleForm.avatar" width="135px" height="135px" :file-size="1" userId="2">
+				<UploadImg v-model:imageUrl="ruleForm.avatar" width="135px" height="135px" :file-size="1" @delImage="delImage"
+					:userId="ruleForm.id">
 					<template #empty>
 						<el-icon>
 							<Avatar />
@@ -39,7 +40,7 @@
 		<template #footer>
 			<span class="dialog-footer">
 				<el-button @click="dialogVisible = false">取消</el-button>
-				<el-button v-if="editVisible" type="primary" @click="changeInfo">修改</el-button>
+				<el-button v-if="editVisible" type="primary" @click="changeInfo">修改昵称</el-button>
 				<el-button v-else type="primary" @click="comfirm">确认</el-button>
 			</span>
 		</template>
@@ -48,6 +49,7 @@
 
 <script setup lang="ts">
 import { ref, reactive, onMounted } from "vue";
+import { ElMessage } from "element-plus";
 import UploadImg from "@/components/Upload/Img.vue";
 import { GlobalStore } from "@/store";
 import { editUser } from "@/api/modules/user";
@@ -78,9 +80,20 @@ onMounted(() => {
 const changeInfo = () => {
 	editVisible.value = false;
 }
+const delImage = async () => {
+	// const data = await editUser(ruleForm.value)
+}
 const comfirm = async () => {
 	const data = await editUser(ruleForm.value)
-	dialogVisible.value = false
+	if (Number(data.code) === 200) {
+		ElMessage({
+			message: data.msg,
+			type: 'success',
+		})
+		dialogVisible.value = false
+		return;
+	}
+	ElMessage.error(data.msg)
 }
 // openDialog
 const openDialog = () => {

@@ -5,6 +5,9 @@
       <el-form-item label="标签名称" prop="name">
         <el-input v-model="drawerProps.rowData!.name" placeholder="请填写标签名称" clearable></el-input>
       </el-form-item>
+      <el-form-item label="标签颜色" prop="tagColor">
+        <el-color-picker v-model="drawerProps.rowData!.tagColor" />
+      </el-form-item>
     </el-form>
     <template #footer>
       <el-button @click="drawerVisible = false">取消</el-button>
@@ -19,6 +22,7 @@ import { ElMessage, FormInstance } from "element-plus";
 
 const rules = reactive({
   name: [{ required: true, message: "请填写标签名称" }],
+  tagColor: [{ required: true, message: "请选择标签颜色" }],
 });
 
 interface DrawerProps {

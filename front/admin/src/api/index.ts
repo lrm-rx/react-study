@@ -62,7 +62,7 @@ class RequestHttp {
         const globalStore = GlobalStore();
         // * 在请求结束后，并关闭请求 loading
         tryHideFullScreenLoading();
-        // * 登陆失效（code == 401）
+        // * 登陆失效（code == 403）
         if (data.code == ResultEnum.OVERDUE) {
           ElMessage.error(data.msg);
           globalStore.setToken("");

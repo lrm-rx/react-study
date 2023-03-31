@@ -25,7 +25,7 @@ const MyArticle = memo(() => {
         isCheck: false,
       };
     });
-    setList(newList);
+    newList.length > 0 && setList(newList);
   };
   useEffect(() => {
     articleList();

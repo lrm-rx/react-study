@@ -4,6 +4,8 @@ import { FloatButton } from "antd";
 import classnames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
 import { getUserInfoAction } from "@store/modules/userSlice";
+import { getAllCategoriesAction } from "@store/modules/categorySlice";
+import { getAllTagsAction } from "@store/modules/tagsSlice";
 import Header from "../Header";
 import Footer from "../Footer";
 import { headerLinks } from "@common/local-data";
@@ -25,6 +27,10 @@ const Layout = memo(() => {
     if (isLogin && Number(userId) !== 0) {
       // 获取用户信息
       dispatch(getUserInfoAction(userId));
+      // 获取所有的分类
+      dispatch(getAllCategoriesAction());
+      // 获取所有的标签
+      dispatch(getAllTagsAction());
     }
   }, [isLogin, userId]);
   useEffect(() => {

@@ -105,7 +105,7 @@ const handleLogin = () => {
         duration: 3000
       });
     } catch (error) {
-      console.error(error);
+      throw new Error(error as any);
     } finally {
       loading.value = false;
     }

@@ -19,12 +19,12 @@
 						</el-icon>
 						<span>查看</span>
 					</div>
-					<div class="handle-icon" @click="deleteImg" v-if="!self_disabled">
+					<!-- <div class="handle-icon" @click="deleteImg" v-if="!self_disabled">
 						<el-icon>
 							<Delete />
 						</el-icon>
 						<span>删除</span>
-					</div>
+					</div> -->
 				</div>
 			</template>
 			<template v-else>
@@ -114,6 +114,7 @@ const self_disabled = computed(() => {
 interface UploadEmits {
 	(e: "update:imageUrl", value: string): void;
 	(e: "check-validate"): void;
+	(e: "delImage"): void;
 }
 const globalStore = GlobalStore();
 const emit = defineEmits<UploadEmits>();
@@ -143,6 +144,7 @@ const handleHttpUpload = async (options: UploadRequestOptions) => {
  * */
 const deleteImg = () => {
 	emit("update:imageUrl", "");
+	emit("delImage");
 };
 
 /**

@@ -107,6 +107,7 @@ export namespace Tag {
   export interface ResTagList {
     id: string;
     name: string;
+    tagColor: string;
     createdAt: string;
     updatedAt: string;
     children?: ResTagList[];

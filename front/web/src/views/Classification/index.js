@@ -18,13 +18,8 @@ const Category = memo(() => {
         return;
       }
       const originalList = result.data || [];
-      // 只取前4项
       const sliceList = originalList.slice(0, 4);
-      const list = sliceList.map((item, index) => ({
-        ...item,
-        imgUrl: `c${index + 1}`,
-      }));
-      setCategories(list);
+      setCategories(sliceList);
     })();
   }, []);
 
@@ -44,7 +39,7 @@ const Category = memo(() => {
             </div>
           ))
         ) : (
-          <div>暂无分类数据</div>
+          <div className="category-no-data">暂无分类数据!</div>
         )}
       </div>
     </CategoryWraper>

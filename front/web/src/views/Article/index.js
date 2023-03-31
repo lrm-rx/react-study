@@ -34,8 +34,8 @@ const Article = memo(() => {
       });
       return;
     }
-    setTotal(result.data.total);
-    setList(result.data.list);
+    result?.data?.total && setTotal(result.data.total);
+    result?.data?.list && setList(result.data.list);
   };
   useEffect(() => {
     articleList();

@@ -1,7 +1,7 @@
 import { memo, useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import md5 from "js-md5";
-import { message } from "antd";
+import { Button, message, Tooltip } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginAction } from "@store/modules/userSlice";
 import logo from "@assets/images/logo.svg";
@@ -16,8 +16,15 @@ const Header = memo((props) => {
   const navigate = useNavigate();
   const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
-  const [count, setCount] = useState(0);
+  const [disabledWriteBtn, setDisabledWriteBtn] = useState(true);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
+  const categories = useSelector((state) => state.categoryInfo.list);
+  const tags = useSelector((state) => state.TagsInfo.list);
+  useEffect(() => {
+    if (categories.length > 0 && tags.length > 0) {
+      setDisabledWriteBtn(false);
+    }
+  }, [categories, tags]);
   const dispatch = useDispatch();
   const handleUserLogin = (data) => {
     const params = {
@@ -78,9 +85,20 @@ const Header = memo((props) => {
           </NavLink>
         ))}
         <div className="nav-options">
-          <div className="writing-btn" onClick={() => clickWriteArticle()}>
-            写文章
-          </div>
+          <Tooltip
+            title={disabledWriteBtn ? "数据未维护,请联系管理员进行维护!" : ""}
+            placement="bottom"
+            color="#66c4ff"
+          >
+            <Button
+              type="primary"
+              className="writing-btn"
+              disabled={disabledWriteBtn}
+              onClick={clickWriteArticle}
+            >
+              写文章
+            </Button>
+          </Tooltip>
           {isLogin ? (
             <NicknameAvatar />
           ) : (

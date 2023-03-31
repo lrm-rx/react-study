@@ -37,6 +37,11 @@ export const CategoryWraper = styled.div`
         /* transform: scale(1.1); */
       }
     }
+    .category-no-data {
+      font-size: 20px;
+      font-weight: 700;
+      color: #000;
+    }
   }
 
   /* 3D文字 */
