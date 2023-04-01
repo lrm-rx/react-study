@@ -13,6 +13,7 @@
 <script setup lang="ts">
 import { computed, defineAsyncComponent, type Component, onMounted } from "vue"
 import { GlobalStore } from "@/store"
+import { TabsAndCatecoryStore } from "@/store/modules/tabsAndCatecory"
 import Loading from "@/components/Loading/index.vue";
 import ThemeDrawer from "./components/ThemeDrawer/index.vue";
 import { getUserById } from "@/api/modules/user";
@@ -22,11 +23,14 @@ const LayoutComponents: { [key: string]: Component } = {
   transverse: defineAsyncComponent(() => import("./LayoutTransverse/index.vue"))
 };
 const globalStore = GlobalStore()
+const tabsAndCatecoryStore = TabsAndCatecoryStore();
 
 const themeConfig = computed(() => globalStore.themeConfig);
 
 onMounted(() => {
   getUserInfo()
+  tabsAndCatecoryStore.setCatecoriesList && tabsAndCatecoryStore.setCatecoriesList();
+  tabsAndCatecoryStore.setTabsList && tabsAndCatecoryStore.setTabsList();
 })
 
 const getUserInfo = async () => {

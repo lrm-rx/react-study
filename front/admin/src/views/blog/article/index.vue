@@ -4,7 +4,10 @@
       :dataCallback="dataCallback">
       <!-- 表格 header 按钮 -->
       <template #tableHeader="scope">
-        <el-button type="primary" :icon="CirclePlus" @click="openNewPage('add')" v-auth="'add'">写文章</el-button>
+        <el-tooltip effect="light" :content="disabledWriteBtn ? '请先维护分类和标签数据!' : ''" placement="bottom">
+          <el-button type="primary" :icon="CirclePlus" @click="openNewPage('add')" :disabled="disabledWriteBtn"
+            v-auth="'add'">写文章</el-button>
+        </el-tooltip>
         <el-button type="danger" :icon="Delete" plain @click="batchDelete(scope.selectedListIds)" v-auth="'batchDelete'"
           :disabled="!scope.isSelected">
           批量删除文章
@@ -22,13 +25,14 @@
 </template>
 
 <script setup lang="tsx" name="category">
-import { ref, reactive } from "vue";
+import { ref, reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import { Article } from "@/api/interface";
 import { ColumnProps } from "@/components/ProTable/interface";
 import { useHandleData } from "@/hooks/useHandleData";
 import { useAuthButtons } from "@/hooks/useAuthButtons";
 import ProTable from "@/components/ProTable/index.vue";
+import { TabsAndCatecoryStore } from "@/store/modules/tabsAndCatecory"
 import { CirclePlus, Delete, EditPen, View } from "@element-plus/icons-vue";
 import {
   getArticleList,
@@ -36,6 +40,9 @@ import {
 } from "@/api/modules/article";
 
 const router = useRouter();
+const tabsAndCatecoryStore = TabsAndCatecoryStore();
+const disabledWriteBtn = computed(() => (tabsAndCatecoryStore.tabsList.length > 0 && tabsAndCatecoryStore.catecoriesList.length > 0) ? false : true)
+
 
 // 获取 ProTable 元素，调用其获取刷新数据方法（还能获取到当前查询参数，方便导出携带参数）
 const proTable = ref();
