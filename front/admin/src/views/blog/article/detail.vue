@@ -6,13 +6,15 @@
           <span class="row-style">{{ articleDetail.detail?.title }}</span>
         </el-form-item>
         <el-form-item label="分类: ">
-          <el-tag>{{ articleDetail.detail?.category?.name }} </el-tag>
+          <el-tag round>{{ articleDetail.detail?.category?.name }} </el-tag>
         </el-form-item>
         <el-form-item label="标签">
-          <el-tag v-for="tag in articleDetail.detail?.tags" :key="tag.id">{{ tag.name }} </el-tag>
+          <el-tag class="header-area-tag" v-for="tag in articleDetail.detail?.tags" :key="tag.id" round
+            :color="tag.tagColor">{{ tag.name }}
+          </el-tag>
         </el-form-item>
-        <el-form-item label="最近更新时间">
-          <span class="row-style">{{ articleDetail.detail?.updatedAt }}</span>
+        <el-form-item label="创建时间">
+          <span class="row-style">{{ articleDetail.detail?.createdAt }}</span>
         </el-form-item>
         <el-form-item>
           <el-button type="primary" @click="handleBack">返回</el-button>
@@ -20,14 +22,13 @@
       </el-form>
     </header>
     <main class="md-content">
-      <v-md-preview-html :html="articleDetail.detail?.contentHtml"
-        preview-class="vuepress-markdown-body"></v-md-preview-html>
+      <v-md-preview :text="articleDetail.detail?.contentText"></v-md-preview>
     </main>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, reactive } from "vue";
+import { onMounted, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { ElMessage, FormInstance, ElMessageBox } from "element-plus";
 import { getArticleById } from "@/api/modules/article";
@@ -48,7 +49,6 @@ const detailDataInit = async (id: number) => {
   const aricleRes = await getArticleById({ id })
   if (Number(aricleRes.code) === 200) {
     articleDetail.detail = aricleRes?.data as any;
-    console.log("articleDetail.detail:", articleDetail.detail);
   } else {
     ElMessage.error({ message: "获取文章失败!", duration: 1000 });
   }
@@ -67,6 +67,10 @@ onMounted(() => {
   .header-area {
     display: flex;
     justify-content: center;
+
+    .header-area-tag {
+      color: #fff;
+    }
 
     .row-style {
       font-size: 16px;

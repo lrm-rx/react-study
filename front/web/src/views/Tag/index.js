@@ -17,7 +17,7 @@ const ArticleTag = memo(() => {
         });
         return;
       }
-      (await result?.data) && setTags(result.data);
+      result?.data && setTags(result.data);
     })();
   }, []);
   // 不把事件绑定到tag上, 使用事件委托
@@ -41,7 +41,7 @@ const ArticleTag = memo(() => {
             key={item.id}
             color={item.tagColor}
           >
-            {item.name}
+            {item.name}({item.articleCount})
           </Tag>
         ))}
       </div>

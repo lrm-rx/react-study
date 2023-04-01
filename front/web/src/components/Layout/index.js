@@ -27,12 +27,15 @@ const Layout = memo(() => {
     if (isLogin && Number(userId) !== 0) {
       // 获取用户信息
       dispatch(getUserInfoAction(userId));
-      // 获取所有的分类
-      dispatch(getAllCategoriesAction());
-      // 获取所有的标签
-      dispatch(getAllTagsAction());
     }
   }, [isLogin, userId]);
+  useEffect(() => {
+    // 获取所有的分类
+    dispatch(getAllCategoriesAction());
+    // 获取所有的标签
+    dispatch(getAllTagsAction());
+  }, []);
+
   useEffect(() => {
     // console.log("windowWidth:", windowWidth);
   }, [windowWidth]);

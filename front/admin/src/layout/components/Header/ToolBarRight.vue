@@ -2,7 +2,7 @@
 	<div class="tool-bar-ri">
 		<div class="header-icon">
 			<!-- <AssemblySize id="assemblySize" /> -->
-			<Language id="language" />
+			<!-- <Language id="language" /> -->
 			<!-- <SearchMenu id="searchMenu" /> -->
 			<ThemeSetting id="themeSetting" />
 			<!-- <Message id="message" /> -->

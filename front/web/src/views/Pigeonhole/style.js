@@ -23,6 +23,7 @@ export const PigeonholeWraper = styled.div`
       color: #000;
     }
     .archives-navlink-div {
+      color: #000;
       cursor: pointer;
     }
     .archives-no-data {

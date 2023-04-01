@@ -89,6 +89,10 @@ const columns: ColumnProps<Tag.ResTagList>[] = [
     }
   },
   {
+    prop: "articleCount",
+    label: "被引用",
+  },
+  {
     prop: "createdAt",
     label: "创建时间",
     width: 180,
