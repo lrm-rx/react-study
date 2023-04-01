@@ -7,3 +7,14 @@ export function getAllCategories() {
     params: {},
   });
 }
+
+// 查询分类下的文章
+export function getCategoryBelowArticle(id) {
+  return request({
+    url: "/category/categorybelowarticle",
+    method: "POST",
+    data: {
+      id,
+    },
+  });
+}

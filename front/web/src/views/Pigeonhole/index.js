@@ -38,7 +38,7 @@ const Pigeonhole = memo(() => {
   return (
     <PigeonholeWraper pigeonholeBg={pigeonholeBgImg}>
       <canvas id="snow-canvas"></canvas>
-      <div className="pigeonhole-time-line">
+      <div className="pigeonhole-time-line global-scrollbar-style">
         {items.length > 0 ? (
           <Timeline
             mode="alternate"

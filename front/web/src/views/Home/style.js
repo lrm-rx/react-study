@@ -64,9 +64,4 @@ export const HomeWraper = styled.div`
       }
     }
   }
-
-  /* 去除滚动条 */
-  .overlay::-webkit-scrollbar {
-    width: 0;
-  }
 `;

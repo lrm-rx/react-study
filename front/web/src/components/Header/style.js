@@ -30,6 +30,15 @@ export const HeaderWraper = styled.div`
     display: flex;
     font-size: 14px;
 
+    .global-search {
+      margin-right: 10px;
+      line-height: 60px;
+      font-size: 20px;
+      .search-icon {
+        cursor: pointer;
+      }
+    }
+
     a {
       display: inline-block;
       width: 60px;

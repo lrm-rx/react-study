@@ -6,12 +6,19 @@ import { userReducer } from "./modules/userSlice";
 import { articleReducer } from "./modules/articleSlice";
 import { tagsReducer } from "./modules/tagsSlice";
 import { categoryReducer } from "./modules/categorySlice";
+import { globalReducer } from "./modules/globalSlice";
 
 const rootPersistConfig = {
   key: "root",
   storage,
   // whiteList: ["userInfo"],
-  blacklist: ["articleInfo", "userInfo", "TagsInfo", "categoryInfo"],
+  blacklist: [
+    "articleInfo",
+    "userInfo",
+    "TagsInfo",
+    "categoryInfo",
+    "globalInfo",
+  ],
   stateReconciler: autoMergeLevel2,
 };
 
@@ -26,6 +33,7 @@ const rootReducer = combineReducers({
   articleInfo: articleReducer,
   TagsInfo: tagsReducer,
   categoryInfo: categoryReducer,
+  globalInfo: globalReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

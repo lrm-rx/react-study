@@ -1,10 +1,17 @@
 import { useState, useEffect, memo } from "react";
 import { Tag, message } from "antd";
+import { useDispatch } from "react-redux";
 import { getAllTags } from "@service/tags";
+import {
+  getArticleByTagAction,
+  inputValChange,
+  openModal,
+} from "@store/modules/globalSlice";
 import { TagWraper } from "./style";
 import tagBgImg from "@assets/images/bg3.jpg";
 
 const ArticleTag = memo(() => {
+  const dispatch = useDispatch();
   const [tags, setTags] = useState([]);
 
   useEffect(() => {
@@ -20,26 +27,37 @@ const ArticleTag = memo(() => {
       result?.data && setTags(result.data);
     })();
   }, []);
-  // 不把事件绑定到tag上, 使用事件委托
-  // const clickTag = (id) => {
-  //   return () => {
-  //     console.log("id:", id);
-  //   };
-  // };
 
-  const clickTag = (e) => {
-    if (!e.target.getAttribute("data-tag-id")) return;
+  const clickTag = (id, count, name) => {
+    return async () => {
+      if (count === 0) {
+        message.warning({
+          content: "没有文章引用该标签!",
+          duration: 1,
+        });
+        return;
+      }
+      const content = `${name}(${count})`;
+      await dispatch(inputValChange(content));
+      dispatch(
+        openModal({
+          isSearchInput: false,
+          open: true,
+        })
+      );
+      dispatch(getArticleByTagAction([id]));
+    };
   };
 
   return (
     <TagWraper tagBg={tagBgImg}>
-      <div className="tagcloud-all" onClick={clickTag}>
+      <div className="tagcloud-all">
         {tags.map((item) => (
           <Tag
-            data-tag-id={item.id}
             className="child-node"
             key={item.id}
             color={item.tagColor}
+            onClick={clickTag(item.id, item.articleCount, item.name)}
           >
             {item.name}({item.articleCount})
           </Tag>

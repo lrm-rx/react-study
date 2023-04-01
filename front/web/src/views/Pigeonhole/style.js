@@ -16,9 +16,6 @@ export const PigeonholeWraper = styled.div`
     left: 50%;
     transform: translate(-50%, -50%);
     overflow: scroll;
-    &::-webkit-scrollbar {
-      width: 0;
-    }
     .archives-navlink {
       color: #000;
     }

@@ -47,3 +47,14 @@ export function getArchives() {
     params: {},
   });
 }
+
+// 通过关键词获取文章
+export function getArticleByKeyword(keyword) {
+  return request({
+    url: "/article/keyword",
+    method: "POST",
+    data: {
+      keyword,
+    },
+  });
+}

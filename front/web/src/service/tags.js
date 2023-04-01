@@ -7,3 +7,14 @@ export function getAllTags() {
     params: {},
   });
 }
+
+// 查询标签下的文章
+export function getTagBelowArticle(id) {
+  return request({
+    url: "/tag/tagbelowarticle",
+    method: "POST",
+    data: {
+      id,
+    },
+  });
+}

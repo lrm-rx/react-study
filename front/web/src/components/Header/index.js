@@ -2,8 +2,10 @@ import { memo, useState, useEffect } from "react";
 import { NavLink, useNavigate, useLocation } from "react-router-dom";
 import md5 from "js-md5";
 import { Button, message, Tooltip } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import { userLoginAction } from "@store/modules/userSlice";
+import { openModal } from "@store/modules/globalSlice";
 import logo from "@assets/images/logo.svg";
 import { newUserRegister } from "@service/user";
 import { HeaderWraper } from "./style";
@@ -68,6 +70,14 @@ const Header = memo((props) => {
     }
     navigate("/article/writing");
   };
+  const searchArticle = () => {
+    dispatch(
+      openModal({
+        isSearchInput: true,
+        open: true,
+      })
+    );
+  };
   return (
     <HeaderWraper>
       <div className="logo">
@@ -75,6 +85,9 @@ const Header = memo((props) => {
         博客
       </div>
       <div className="header-right">
+        <div className="global-search">
+          <SearchOutlined onClick={searchArticle} className="search-icon" />
+        </div>
         {props.headerLinks.map((item) => (
           <NavLink
             key={item.link}
