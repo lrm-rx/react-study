@@ -19,6 +19,7 @@ import { mdText } from "@common/local-data";
 import { GLOBAL_HEADER_TO_TOP } from "@common/contants";
 import { useViewWidth } from "@hooks/useViewWidth";
 import { useScrollTop } from "@hooks/useScrollTop";
+import { Comment } from "@components/comment";
 
 const ArticleDetail = memo(() => {
   const navRef = useRef();
@@ -45,6 +46,7 @@ const ArticleDetail = memo(() => {
   }, [scrollTop]);
 
   const [articleTitle, setArticleTitle] = useState("");
+  const [author, setAuthor] = useState("");
   const [category, setCategory] = useState("");
   const [tags, setTags] = useState([]);
   const [createdAt, setCreatedAt] = useState("");
@@ -61,6 +63,7 @@ const ArticleDetail = memo(() => {
       }
       const detail = result.data || {};
       setArticleTitle(detail.title);
+      setAuthor(detail.user.username);
       setCategory(detail.category.name);
       setTags(detail.tags);
       setCreatedAt(detail.createdAt);
@@ -75,12 +78,15 @@ const ArticleDetail = memo(() => {
     >
       <h3 className="article-title">{articleTitle}</h3>
       <Row justify="center" className="article-info">
-        <Col span={6}>分类: {category}</Col>
+        <Col span={3}>作者: {author}</Col>
+        <Col span={3}>分类: {category}</Col>
         <Col span={8}>
-          标签:
+          <span className="article-info-tag">标签:</span>
           <Space>
             {tags.map((item) => (
-              <Tag key={item.id}>{item.name}</Tag>
+              <Tag key={item.id} color={item.tagColor}>
+                {item.name}
+              </Tag>
             ))}
           </Space>
         </Col>
@@ -106,6 +112,8 @@ const ArticleDetail = memo(() => {
           </ReactMarkdown>
         </div>
       </div>
+      {/* 评论 */}
+      <Comment />
     </ArticleDetailWraper>
   );
 });

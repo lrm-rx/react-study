@@ -9,6 +9,9 @@ export const ArticleDetailWraper = styled.div`
   }
   .article-info {
     font-weight: 700;
+    .article-info-tag {
+      margin-right: 6px;
+    }
   }
   .article-detail {
     width: 90%;

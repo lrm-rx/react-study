@@ -57,7 +57,6 @@ const globalSlice = createSlice({
       state.modal.searchContent = action.payload;
     },
     setContentList: (state, action) => {
-      console.log(" action.payload:", action.payload);
       state.modal.contentList = action.payload;
     },
   },
