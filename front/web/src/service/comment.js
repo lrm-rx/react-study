@@ -14,3 +14,20 @@ export function createComment({ articleId, content }) {
     },
   });
 }
+
+// 通过文章id获取评论
+export function getCommentListByArticleId({
+  articleId,
+  pageNum = 1,
+  pageSize = 10,
+}) {
+  return request({
+    url: "/comment/listbyarticleid",
+    method: "POST",
+    data: {
+      articleId,
+      pageNum,
+      pageSize,
+    },
+  });
+}

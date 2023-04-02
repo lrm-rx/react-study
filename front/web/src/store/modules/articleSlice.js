@@ -6,17 +6,16 @@ export const getArticleListAction = createAsyncThunk(
   async (payload, { dispatch, getState }) => {}
 );
 
+const initialState = {
+  list: [],
+};
 const articleSlice = createSlice({
   name: "articleInfo",
-  initialState: {
-    list: [],
-  },
+  initialState,
   // 同步
   reducers: {
     // 重置数据
-    resetArticleData: (state, action) => {
-      state.list = []
-    },
+    resetArticleData: () => initialState,
   },
   // 异步操作
   extraReducers: (builder) => {},

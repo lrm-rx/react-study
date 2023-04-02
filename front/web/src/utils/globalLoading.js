@@ -11,16 +11,16 @@ export function showLoading() {
     const loadingDom = document.createElement("div");
     loadingDom.setAttribute("id", "global-loading");
     document.body.appendChild(loadingDom);
-    const loadingRoot = ReactDOM.createRoot(
-      document.getElementById("global-loading")
+    ReactDOM.createRoot(loadingDom).render(
+      <Spin tip="加载中..." size="large" />
     );
-    loadingRoot.render(<Spin tip="加载中..." size="large" />);
   }
   requestCount++;
 }
 
 // 隐藏loading
 export function hideLoading() {
+  if (requestCount <= 0) return;
   requestCount--;
   if (requestCount === 0) {
     document.body.removeChild(document.getElementById("global-loading"));

@@ -8,7 +8,7 @@ export const getAllArticlesAction = createAsyncThunk(
   async (payload, { dispatch, getState }) => {
     const result = await getArticleByKeyword(payload);
     if (Number(result.code) === 200) {
-      return result.data;
+      return result.data || [];
     }
     message.error({
       context: result.msg,
@@ -34,6 +34,7 @@ export const getArticleByTagAction = createAsyncThunk(
 const globalSlice = createSlice({
   name: "globalInfo",
   initialState: {
+    prevPosition: 0,
     modal: {
       isSearchInput: true,
       open: false,
@@ -44,28 +45,32 @@ const globalSlice = createSlice({
   },
   // 同步
   reducers: {
+    // 设置滚动的位置
+    setPrevPosition(state, action) {
+      state.prevPosition = action.payload;
+    },
     // 控制登录弹窗的显示与隐藏
-    setShowLoginModal: (state, action) => {
+    setShowLoginModal(state, action) {
       state.showLoginModal = action.payload;
     },
     // 打开全局搜索弹窗
-    openModal: (state, action) => {
+    openModal(state, action) {
       state.modal.isSearchInput = action.payload.isSearchInput;
       state.modal.open = action.payload.open;
     },
     // 关闭全局搜索弹窗
-    closeModal: (state) => {
+    closeModal(state) {
       state.modal.isSearchInput = true;
       state.modal.open = false;
       state.modal.contentList = [];
       state.modal.searchContent = "";
     },
     // 修改全局搜索输入框的值
-    inputValChange: (state, action) => {
+    inputValChange(state, action) {
       state.modal.searchContent = action.payload;
     },
     // 设置输入框的值
-    setContentList: (state, action) => {
+    setContentList(state, action) {
       state.modal.contentList = action.payload;
     },
   },
@@ -82,6 +87,7 @@ const globalSlice = createSlice({
 });
 
 export const {
+  setPrevPosition,
   openModal,
   closeModal,
   inputValChange,

@@ -107,6 +107,7 @@ export const ListWraper = styled.div`
         }
         .btn-hover {
           padding: 0 5px;
+          margin-left: 20px;
           border-radius: 4px;
           cursor: pointer;
           &:hover {

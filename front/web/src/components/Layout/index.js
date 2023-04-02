@@ -18,8 +18,8 @@ import { headerLinks } from "@common/local-data";
 import "@common/common.scss";
 import { LayoutWraper } from "./style";
 import { GLOBAL_HEADER_TO_TOP } from "@common/contants";
-import { useViewWidth } from "@hooks/useViewWidth";
-import { useScrollTop } from "@hooks/useScrollTop";
+import { useViewWidth } from "@hooks";
+import { useScrollTop } from "@hooks";
 
 const Layout = memo(() => {
   const location = useLocation();

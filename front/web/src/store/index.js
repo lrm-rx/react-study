@@ -7,6 +7,7 @@ import { articleReducer } from "./modules/articleSlice";
 import { tagsReducer } from "./modules/tagsSlice";
 import { categoryReducer } from "./modules/categorySlice";
 import { globalReducer } from "./modules/globalSlice";
+import { commentReducer } from "./modules/commentSlice";
 
 const rootPersistConfig = {
   key: "root",
@@ -18,6 +19,7 @@ const rootPersistConfig = {
     "TagsInfo",
     "categoryInfo",
     "globalInfo",
+    "comment",
   ],
   stateReconciler: autoMergeLevel2,
 };
@@ -34,6 +36,7 @@ const rootReducer = combineReducers({
   TagsInfo: tagsReducer,
   categoryInfo: categoryReducer,
   globalInfo: globalReducer,
+  comment: commentReducer,
 });
 
 const persistedReducer = persistReducer(rootPersistConfig, rootReducer);

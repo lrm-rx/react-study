@@ -88,14 +88,16 @@ export const userLogoutAction = createAsyncThunk(
   }
 );
 
+const initialState = {
+  userId: 0,
+  token: "",
+  isLogin: false,
+  basicInfo: null,
+};
+
 const userSlice = createSlice({
   name: "userInfo",
-  initialState: {
-    userId: 0,
-    token: "",
-    isLogin: false,
-    basicInfo: null,
-  },
+  initialState,
   // 同步
   reducers: {
     // 设置已登录标记
@@ -103,12 +105,7 @@ const userSlice = createSlice({
       state.isLogin = action.payload;
     },
     // 退出重置数据
-    resetUserInfoData: (state, action) => {
-      state.userId = 0;
-      state.token = "";
-      state.isLogin = false;
-      state.basicInfo = null;
-    },
+    resetUserInfoData: () => initialState,
     // 刷新基本信息
     refreshBasicInfo: (state, action) => {
       state.basicInfo = action.payload;

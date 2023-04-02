@@ -1,8 +1,10 @@
 import originAxios from "axios";
+import React from "react";
+import { Spin } from "antd";
+import ReactDOM from "react-dom/client";
 import { store } from "@store";
 import { userLogoutAction, resetUserInfoData } from "@store/modules/userSlice";
 import { addPending, removePending } from "@utils/cancelRequest";
-import { showLoading, hideLoading } from "@utils/globalLoading";
 
 export default function request(option) {
   return new Promise((resolve, reject) => {
@@ -91,4 +93,30 @@ export default function request(option) {
         reject(err);
       });
   });
+}
+
+// 当前正在请求的数量
+let requestCount = 0;
+
+// 显示loading
+function showLoading() {
+  let a = requestCount;
+  if (requestCount === 0) {
+    const loadingDom = document.createElement("div");
+    loadingDom.setAttribute("id", "global-loading");
+    document.body.appendChild(loadingDom);
+    ReactDOM.createRoot(loadingDom).render(
+      <Spin tip="加载中..." size="large" />
+    );
+  }
+  requestCount++;
+}
+
+// 隐藏loading
+export function hideLoading() {
+  if (requestCount <= 0) return;
+  requestCount--;
+  if (requestCount === 0) {
+    document.body.removeChild(document.getElementById("global-loading"));
+  }
 }

@@ -7,7 +7,7 @@ export const getAllCategoriesAction = createAsyncThunk(
   async (_, { dispatch, getState }) => {
     const result = await getAllCategories();
     if (Number(result.code) === 200) {
-      return result.data;
+      return result.data || [];
     }
     message.error({
       content: result.msg,
@@ -16,17 +16,17 @@ export const getAllCategoriesAction = createAsyncThunk(
   }
 );
 
+const initialState = {
+  list: [],
+};
+
 const categorySlice = createSlice({
   name: "categoryInfo",
-  initialState: {
-    list: [],
-  },
+  initialState,
   // 同步
   reducers: {
     // 重置数据
-    resetArticleData: (state, action) => {
-      state.list = [];
-    },
+    resetArticleData: () => initialState,
   },
   // 异步操作
   extraReducers: (builder) => {

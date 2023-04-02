@@ -13,7 +13,7 @@ import { debounce } from "@utils/common";
 import { createArticle } from "@service/article";
 import NicknameAvatar from "@components/NicknameAvatar";
 import Footer from "@components/Footer";
-import { useScrollTop } from "@hooks/useScrollTop";
+import { useScrollTop } from "@hooks";
 import { ARTICLE_HEADER_TO_TOP } from "@common/contants";
 import { WriteArticleWraper } from "./style";
 

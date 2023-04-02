@@ -1,10 +1,10 @@
 import { memo } from "react";
 import { CountWraper } from "./style";
 
-export const Count = memo(() => {
+export const Count = memo((props) => {
   return (
     <CountWraper>
-      <span>99+ 评论</span>
+      <span>{props.total} 评论</span>
     </CountWraper>
   );
 });
