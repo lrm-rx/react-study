@@ -40,22 +40,31 @@ const globalSlice = createSlice({
       searchContent: "",
       contentList: [],
     },
+    showLoginModal: false,
   },
   // 同步
   reducers: {
+    // 控制登录弹窗的显示与隐藏
+    setShowLoginModal: (state, action) => {
+      state.showLoginModal = action.payload;
+    },
+    // 打开全局搜索弹窗
     openModal: (state, action) => {
       state.modal.isSearchInput = action.payload.isSearchInput;
       state.modal.open = action.payload.open;
     },
+    // 关闭全局搜索弹窗
     closeModal: (state) => {
       state.modal.isSearchInput = true;
       state.modal.open = false;
       state.modal.contentList = [];
       state.modal.searchContent = "";
     },
+    // 修改全局搜索输入框的值
     inputValChange: (state, action) => {
       state.modal.searchContent = action.payload;
     },
+    // 设置输入框的值
     setContentList: (state, action) => {
       state.modal.contentList = action.payload;
     },
@@ -72,7 +81,12 @@ const globalSlice = createSlice({
   },
 });
 
-export const { openModal, closeModal, inputValChange, setContentList } =
-  globalSlice.actions;
+export const {
+  openModal,
+  closeModal,
+  inputValChange,
+  setContentList,
+  setShowLoginModal,
+} = globalSlice.actions;
 
 export const globalReducer = globalSlice.reducer;
