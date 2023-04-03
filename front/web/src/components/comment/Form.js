@@ -15,11 +15,11 @@ export const Form = memo(
   forwardRef((props, ref) => {
     const avatarUrl = useSelector((state) => state.userInfo.basicInfo?.avatar);
     // 使用上下文，因为传入的是对象，则接受也应该是对象
-    const { addComment } = useContext(articleComent);
+    // const { addComment } = useContext(articleComent);
     const formRef = useRef();
     const [commentText, setCommentText] = useState("");
     const commentSubmit = () => {
-      addComment(commentText);
+      props.addComment && props.addComment(commentText);
     };
     useImperativeHandle(
       ref,

@@ -15,6 +15,20 @@ export function createComment({ articleId, content }) {
   });
 }
 
+// 删除评论
+export function deleteComment(id) {
+  return request({
+    url: "/comment/singledelete",
+    method: "POST",
+    headers: {
+      isAuth: true,
+    },
+    data: {
+      id,
+    },
+  });
+}
+
 // 通过文章id获取评论
 export function getCommentListByArticleId({
   articleId,

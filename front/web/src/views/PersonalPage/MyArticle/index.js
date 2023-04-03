@@ -107,13 +107,15 @@ const MyArticle = memo(() => {
         </Space>
       </div>
       {list.length ? (
-        list.map((item) => (
-          <MyAritcleItem
-            selectCheckBox={selectCheckBox}
-            sourceData={item}
-            key={item.id}
-          />
-        ))
+        <div className="item-content-area global-scrollbar-style">
+          {list.map((item) => (
+            <MyAritcleItem
+              selectCheckBox={selectCheckBox}
+              sourceData={item}
+              key={item.id}
+            />
+          ))}
+        </div>
       ) : (
         <div className="list-no-data">
           <div className="content-tip">

@@ -41,7 +41,7 @@ export const WriteArticleWraper = styled.div`
   }
   .article-write {
     width: 90%;
-    min-height: calc(100vh - 120px);
+    min-height: calc(100vh - 162px);
     margin: 20px auto;
     display: flex;
     border: 2px solid #ccc;

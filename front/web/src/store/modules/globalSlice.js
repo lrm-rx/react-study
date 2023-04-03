@@ -34,7 +34,6 @@ export const getArticleByTagAction = createAsyncThunk(
 const globalSlice = createSlice({
   name: "globalInfo",
   initialState: {
-    prevPosition: 0,
     modal: {
       isSearchInput: true,
       open: false,
@@ -45,10 +44,6 @@ const globalSlice = createSlice({
   },
   // 同步
   reducers: {
-    // 设置滚动的位置
-    setPrevPosition(state, action) {
-      state.prevPosition = action.payload;
-    },
     // 控制登录弹窗的显示与隐藏
     setShowLoginModal(state, action) {
       state.showLoginModal = action.payload;
@@ -87,7 +82,6 @@ const globalSlice = createSlice({
 });
 
 export const {
-  setPrevPosition,
   openModal,
   closeModal,
   inputValChange,

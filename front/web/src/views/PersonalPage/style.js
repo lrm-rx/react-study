@@ -7,7 +7,7 @@ export const PersonalPageWraper = styled.div`
   background-size: cover; */
   .personal-home-page {
     margin: 10px auto;
-    padding: 20px;
+    padding: 10px 20px;
     height: calc(100vh - 140px);
     border: 1px solid #ccc;
     border-radius: 10px;

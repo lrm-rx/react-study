@@ -36,6 +36,14 @@ const commnetSlice = createSlice({
   reducers: {
     // 重置数据
     resetCommentData: () => initialState,
+    // 重置分页
+    resetPaging(state, action) {
+      return {
+        ...state,
+        pageNum: 1,
+        pageSize: 10,
+      };
+    },
   },
   // 异步操作
   extraReducers: (builder) => {
@@ -49,6 +57,6 @@ const commnetSlice = createSlice({
   },
 });
 
-export const { resetCommentData } = commnetSlice.actions;
+export const { resetCommentData, resetPaging } = commnetSlice.actions;
 
 export const commentReducer = commnetSlice.reducer;

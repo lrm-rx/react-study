@@ -9,4 +9,9 @@ export const MyArticleWraper = styled.div`
       margin-right: 10px;
     }
   }
+  .item-content-area {
+    margin-top: 10px;
+    height: calc(100vh - 270px);
+    overflow-y: scroll;
+  }
 `;

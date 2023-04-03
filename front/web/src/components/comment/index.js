@@ -15,10 +15,10 @@ export const Comment = memo(
           <Count total={total} />
 
           {/* 发表评论区 */}
-          <Form ref={ref} />
+          <Form addComment={props.addComment} ref={ref} />
 
           {/* 评论列表区 */}
-          <List commentList={commentList} />
+          <List commentList={commentList} delComment={props.delComment} />
         </div>
       </CommentWraper>
     );

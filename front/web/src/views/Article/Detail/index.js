@@ -22,7 +22,7 @@ import {
 } from "react-router-dom";
 import { message, Row, Col, Space, Tag } from "antd";
 import { getArticleDetail } from "@service/article";
-import { createComment } from "@service/comment";
+import { createComment, deleteComment } from "@service/comment";
 import { ArticleDetailWraper } from "./style";
 import { mdText } from "@common/local-data";
 import { GLOBAL_HEADER_TO_TOP } from "@common/contants";
@@ -31,10 +31,10 @@ import { useScrollTop } from "@hooks";
 import { usePrevious } from "@hooks";
 import { debounce } from "@utils/common";
 import { Comment } from "@components/comment";
-import { setShowLoginModal, setPrevPosition } from "@store/modules/globalSlice";
+import { setShowLoginModal } from "@store/modules/globalSlice";
 import {
   getCommentListByArticleIdAction,
-  resetCommentData,
+  resetPaging,
 } from "@store/modules/commentSlice";
 
 // 创造一个上下文
@@ -49,7 +49,6 @@ const ArticleDetail = memo(() => {
   const commentList = useSelector((state) => state.comment.list);
   const comment = useSelector((state) => state.comment);
   const commentTotal = useSelector((state) => state.comment.total);
-  const scrollPosition = useSelector((state) => state.globalInfo.prevPosition);
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
@@ -118,8 +117,6 @@ const ArticleDetail = memo(() => {
       });
       return;
     }
-    alert(prevPosition);
-    dispatch(setPrevPosition(window.pageYOffset));
     const data = { articleId: articleIdRef.current, content };
     const result = await createComment(data);
     if (Number(result.code) !== 200) {
@@ -131,17 +128,32 @@ const ArticleDetail = memo(() => {
     }
     commentRef.current.removeCommentText();
     // 重置数据
-    await dispatch(resetCommentData());
+    await dispatch(resetPaging());
     // 获取评论
     dispatch(getCommentListByArticleIdAction({ articleId: Number(params.id) }));
-    // 返回原来的位置
-    console.log("scrollPosition:", scrollPosition);
-    console.log("window.pageYOffset:", window.pageYOffset);
+    message.success({
+      content: result.msg,
+      duration: 1,
+    });
+  };
 
-    if (window.pageYOffset !== scrollPosition) {
-      alert("1");
-      window.scrollTo(0, scrollPosition);
+  const delComment = async (id) => {
+    const result = await deleteComment([id]);
+    if (Number(result.code) !== 200) {
+      message.error({
+        content: result.msg,
+        duration: 1,
+      });
+      return;
     }
+    message.success({
+      content: "删除成功!",
+      duration: 1,
+    });
+    // 重置数据
+    await dispatch(resetPaging());
+    // 获取评论
+    dispatch(getCommentListByArticleIdAction({ articleId: Number(params.id) }));
     message.success({
       content: result.msg,
       duration: 1,
@@ -153,14 +165,7 @@ const ArticleDetail = memo(() => {
       navWidth={markNavWidth}
       navOffsetLet={markNavOffsetLeft}
     >
-      <h3
-        className="article-title"
-        onClick={() => {
-          window.scrollTo(0, 500);
-        }}
-      >
-        {articleTitle}
-      </h3>
+      <h3 className="article-title">{articleTitle}</h3>
       <Row justify="center" className="article-info">
         <Col span={3}>作者: {author}</Col>
         <Col span={3}>分类: {category}</Col>
@@ -197,13 +202,15 @@ const ArticleDetail = memo(() => {
         </div>
       </div>
       {/* 评论, 练习Context跨组件通过 */}
-      <articleComent.Provider value={{ addComment }}>
-        <Comment
-          total={commentTotal}
-          commentList={commentList}
-          ref={commentRef}
-        />
-      </articleComent.Provider>
+      {/* <articleComent.Provider value={{ addComment }}> */}
+      <Comment
+        addComment={addComment}
+        delComment={delComment}
+        total={commentTotal}
+        commentList={commentList}
+        ref={commentRef}
+      />
+      {/* </articleComent.Provider> */}
     </ArticleDetailWraper>
   );
 });
