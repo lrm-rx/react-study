@@ -7,3 +7,9 @@ export const USER_PASSWORD_REG =
 export const USER_EMAIL = /\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*/; // 邮箱匹配正则
 export const EASY_TYPER_URL = "https://api.xygeng.cn/one";
 // "https://api.uomg.com/api/rand.qinghua?format=json";
+
+export const LOADING_ID = "list-loading";
+export const PAGE = {
+  pageNum: 1,
+  pageSize: 10,
+};

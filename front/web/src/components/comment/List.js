@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { useSelector } from "react-redux";
+import { ShowLoading } from "@components/ShowLoading";
 import { ListWraper } from "./style";
 import avatar from "@assets/images/avatar.png";
 
@@ -37,6 +38,7 @@ export const List = memo((props) => {
             </div>
           </div>
         ))}
+      <ShowLoading showLoading={props?.showLoading} />
     </ListWraper>
   );
 });

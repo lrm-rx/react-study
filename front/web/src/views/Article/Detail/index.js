@@ -26,9 +26,7 @@ import { createComment, deleteComment } from "@service/comment";
 import { ArticleDetailWraper } from "./style";
 import { mdText } from "@common/local-data";
 import { GLOBAL_HEADER_TO_TOP } from "@common/contants";
-import { useViewWidth } from "@hooks";
-import { useScrollTop } from "@hooks";
-import { usePrevious } from "@hooks";
+import { useViewWidth, useScrollTop, usePrevious, useObserver } from "@hooks";
 import { debounce } from "@utils/common";
 import { Comment } from "@components/comment";
 import { setShowLoginModal } from "@store/modules/globalSlice";
@@ -49,6 +47,7 @@ const ArticleDetail = memo(() => {
   const commentList = useSelector((state) => state.comment.list);
   const comment = useSelector((state) => state.comment);
   const commentTotal = useSelector((state) => state.comment.total);
+  const showLoading = useSelector((state) => state.house.showLoading);
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
@@ -208,6 +207,7 @@ const ArticleDetail = memo(() => {
         delComment={delComment}
         total={commentTotal}
         commentList={commentList}
+        showLoading={true}
         ref={commentRef}
       />
       {/* </articleComent.Provider> */}

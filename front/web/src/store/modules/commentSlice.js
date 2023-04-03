@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import { message } from "antd";
 import { getCommentListByArticleId } from "@service/comment";
+import { PAGE } from "@/common/contants";
 // 通过文章id获取评论
 export const getCommentListByArticleIdAction = createAsyncThunk(
   "comment/list",
@@ -13,6 +14,10 @@ export const getCommentListByArticleIdAction = createAsyncThunk(
     };
     const result = await getCommentListByArticleId(data);
     if (Number(result.code) === 200) {
+      dispatch({
+        type: "comment/setShowLoading",
+        payload: result?.data?.commentList?.length ? true : false,
+      });
       return result.data;
     }
     message.error({
@@ -24,8 +29,10 @@ export const getCommentListByArticleIdAction = createAsyncThunk(
 
 const initialState = {
   list: [],
-  pageNum: 1,
-  pageSize: 10,
+  pageNum: PAGE.pageNum,
+  pageSize: PAGE.pageSize,
+  showLoading: true,
+  relaodCommentsNum: 0,
   total: 0,
 };
 
@@ -40,8 +47,21 @@ const commnetSlice = createSlice({
     resetPaging(state, action) {
       return {
         ...state,
-        pageNum: 1,
-        pageSize: 10,
+        pageNum: PAGE.pageNum,
+        pageSize: PAGE.pageSize,
+      };
+    },
+    setShowLoading(state, action) {
+      state.showLoading = action.payload;
+    },
+    reloadComments(state, action) {
+      return {
+        ...state,
+        relaodCommentsNum: state.relaodCommentsNum + 1,
+        page: {
+          ...PAGE,
+          pageNum: state.pageNum + 1,
+        },
       };
     },
   },

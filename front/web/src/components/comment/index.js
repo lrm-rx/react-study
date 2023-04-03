@@ -18,7 +18,11 @@ export const Comment = memo(
           <Form addComment={props.addComment} ref={ref} />
 
           {/* 评论列表区 */}
-          <List commentList={commentList} delComment={props.delComment} />
+          <List
+            commentList={commentList}
+            delComment={props.delComment}
+            showLoading={props?.showLoading}
+          />
         </div>
       </CommentWraper>
     );
