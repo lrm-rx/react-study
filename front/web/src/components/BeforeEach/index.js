@@ -29,7 +29,7 @@ export default function BeforeEach(props) {
       document.title = `${prefix}-个人主页`;
       break;
     default:
-      document.title = `${prefix}`;
+      document.title = `${prefix}-详情`;
       break;
   }
   // 全局路由守卫

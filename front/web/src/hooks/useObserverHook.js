@@ -1,10 +1,11 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 
 let observer;
-const useObserver = (ele, callback, wathc = []) => {
+const useObserverHook = (ele, callback, watch = []) => {
   useEffect(() => {
     const node = document.querySelector(ele);
     if (node) {
+      console.log("object");
       observer = new IntersectionObserver((entries) => {
         callback && callback(entries);
       });
@@ -18,7 +19,7 @@ const useObserver = (ele, callback, wathc = []) => {
         observer.disconnect();
       }
     };
-  }, wathc);
+  }, watch);
 };
 
-export default useObserver;
+export default useObserverHook;

@@ -77,6 +77,7 @@ const commnetSlice = createSlice({
   },
 });
 
-export const { resetCommentData, resetPaging } = commnetSlice.actions;
+export const { resetCommentData, resetPaging, setShowLoading, reloadComments } =
+  commnetSlice.actions;
 
 export const commentReducer = commnetSlice.reducer;

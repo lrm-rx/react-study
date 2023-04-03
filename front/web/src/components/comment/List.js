@@ -38,7 +38,7 @@ export const List = memo((props) => {
             </div>
           </div>
         ))}
-      <ShowLoading showLoading={props?.showLoading} />
+      {/* <ShowLoading showLoading={props?.showLoading} /> */}
     </ListWraper>
   );
 });

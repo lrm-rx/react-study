@@ -26,13 +26,20 @@ import { createComment, deleteComment } from "@service/comment";
 import { ArticleDetailWraper } from "./style";
 import { mdText } from "@common/local-data";
 import { GLOBAL_HEADER_TO_TOP } from "@common/contants";
-import { useViewWidth, useScrollTop, usePrevious, useObserver } from "@hooks";
+import {
+  useViewWidth,
+  useScrollTop,
+  usePrevious,
+  useObserverHook,
+} from "@hooks";
+import { LOADING_ID } from "@common/contants";
 import { debounce } from "@utils/common";
 import { Comment } from "@components/comment";
 import { setShowLoginModal } from "@store/modules/globalSlice";
 import {
   getCommentListByArticleIdAction,
   resetPaging,
+  reloadComments,
 } from "@store/modules/commentSlice";
 
 // 创造一个上下文
@@ -47,7 +54,7 @@ const ArticleDetail = memo(() => {
   const commentList = useSelector((state) => state.comment.list);
   const comment = useSelector((state) => state.comment);
   const commentTotal = useSelector((state) => state.comment.total);
-  const showLoading = useSelector((state) => state.house.showLoading);
+  const showLoading = useSelector((state) => state.comment.showLoading);
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
@@ -59,6 +66,27 @@ const ArticleDetail = memo(() => {
   const [markNavWidth, setMarkNavWidth] = useState(0);
   const [markNavOffsetLeft, setMarkNavOffsetLeft] = useState(0);
   const { windowWidth } = useViewWidth();
+  /**
+   * 1. 监听loading是否展示出来
+   * 2. 发出reload, 修改分页
+   * 3. 监听reload变化, 重新请求接口
+   * 4. 拼装数据
+   */
+  useObserverHook(
+    `#${LOADING_ID}`,
+    (entries) => {
+      console.log("showLoading^^^^^^^^");
+      if (
+        commentList &&
+        commentList.length &&
+        showLoading &&
+        entries[0].isIntersecting
+      ) {
+        dispatch(reloadComments());
+      }
+    },
+    [commentList, showLoading]
+  );
   useEffect(() => {
     // setMarkNavWidth(navRef.current.getBoundingClientRect().width);
     // setMarkNavOffsetLeft(navRef.current.getBoundingClientRect().x);
@@ -207,9 +235,10 @@ const ArticleDetail = memo(() => {
         delComment={delComment}
         total={commentTotal}
         commentList={commentList}
-        showLoading={true}
+        showLoading={showLoading}
         ref={commentRef}
       />
+      <div id={LOADING_ID}>11111111111111</div>
       {/* </articleComent.Provider> */}
     </ArticleDetailWraper>
   );
