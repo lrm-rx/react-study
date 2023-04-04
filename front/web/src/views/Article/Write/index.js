@@ -10,21 +10,47 @@ import { Button, Form, Input, Select, message } from "antd";
 import classnames from "classnames";
 import { useSelector } from "react-redux";
 import { debounce } from "@utils/common";
-import { createArticle } from "@service/article";
+import {
+  createArticle,
+  getArticleDetail,
+  updateArticle,
+} from "@service/article";
 import NicknameAvatar from "@components/NicknameAvatar";
 import Footer from "@components/Footer";
-import { useScrollTop, useTitle } from "@hooks";
+import { useScrollTop } from "@hooks";
 import { ARTICLE_HEADER_TO_TOP } from "@common/contants";
 import { WriteArticleWraper } from "./style";
 
 const WriteArticle = memo(() => {
   const navigate = useNavigate();
+  const params = useParams();
+  const detail = useSelector((state) => state.articleInfo.detail);
+  const [form] = Form.useForm();
+  const [markdown, setMarkdown] = useState("");
+  const [search, setSearch] = useSearchParams();
+  if (!(params.type === "create" || params.type === "update")) {
+    navigate("/404");
+  }
+  useEffect(() => {
+    document.title = params.type === "create" ? "博客-写文章" : "博客-编辑文章";
+    if (params.type === "update") {
+      form.setFieldsValue({
+        title: detail?.title,
+        categoryId: detail?.categoryId,
+        tagIds: detail?.tags?.map((item) => item.id),
+      });
+      setMarkdown(detail?.contentText);
+    }
+    return () => {
+      form.resetFields();
+      setMarkdown("");
+    };
+  }, [params.type, detail]);
   const categories = useSelector((state) => state.categoryInfo.list);
   const tags = useSelector((state) => state.TagsInfo.list);
 
   const { scrollTop } = useScrollTop();
   const [fixArticleHeader, setFixArticleHeader] = useState(false);
-  useTitle("博客-写文章");
   useEffect(() => {
     if (scrollTop >= ARTICLE_HEADER_TO_TOP) {
       setFixArticleHeader(true);
@@ -32,8 +58,6 @@ const WriteArticle = memo(() => {
       setFixArticleHeader(false);
     }
   }, [scrollTop]);
-  const [form] = Form.useForm();
-  const [markdown, setMarkdown] = useState("");
 
   const writeFinish = async (values) => {
     if (!markdown?.trim()) {
@@ -47,8 +71,10 @@ const WriteArticle = memo(() => {
       ...values,
       contentText: markdown?.trim(),
     };
-
-    const result = await createArticle(data);
+    const result =
+      params.type === "create"
+        ? await createArticle(data)
+        : await updateArticle(search.get("id"), data);
     if (Number(result.code) === 200) {
       message.success({
         content: result.msg,
@@ -104,7 +130,6 @@ const WriteArticle = memo(() => {
             >
               <Select
                 className="category-select"
-                // defaultValue="lucy"
                 fieldNames={{
                   value: "id",
                   label: "name",
@@ -127,7 +152,6 @@ const WriteArticle = memo(() => {
             >
               <Select
                 className="tag-select"
-                // defaultValue="lucy"
                 mode="tags"
                 maxTagCount={2}
                 fieldNames={{
@@ -156,7 +180,7 @@ const WriteArticle = memo(() => {
         <MarkdownEditor
           className="article-write-md"
           value={markdown}
-          visible={true}
+          visible={false}
           onChange={(editor, data, value) => debounce(setMarkdown(editor), 300)}
         />
       </div>

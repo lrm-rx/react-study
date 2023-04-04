@@ -13,6 +13,7 @@ const Category = lazy(() => import("@views/Classification"));
 const ArticleTag = lazy(() => import("@views/Tag"));
 const About = lazy(() => import("@views/About"));
 const PersonalPage = lazy(() => import("@views/PersonalPage"));
+const NoAuth = lazy(() => import("../views/NoAuth"));
 const NotFound = lazy(() => import("../views/NotFound"));
 
 const lazyLoad = (children) => {
@@ -92,9 +93,21 @@ export const routes = [
     ],
   },
   {
-    path: "/article/writing",
+    path: "/article/:type", // type: create添加, update: 更新
     name: "writing",
-    element: lazyLoad(<WriteArticle />),
+    element: lazyLoad(
+      <BeforeEach>
+        <WriteArticle />
+      </BeforeEach>
+    ),
+    // loader: async () => {
+    //   // 局部路由守卫
+    //   return null;
+    // },
+  },
+  {
+    path: "/401",
+    element: lazyLoad(<NoAuth />),
   },
   {
     path: "/404",

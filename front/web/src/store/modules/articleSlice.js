@@ -8,6 +8,7 @@ export const getArticleListAction = createAsyncThunk(
 
 const initialState = {
   list: [],
+  detail: {},
 };
 const articleSlice = createSlice({
   name: "articleInfo",
@@ -16,11 +17,14 @@ const articleSlice = createSlice({
   reducers: {
     // 重置数据
     resetArticleData: () => initialState,
+    setArticleDetail(state, action) {
+      state.detail = action.payload;
+    },
   },
   // 异步操作
   extraReducers: (builder) => {},
 });
 
-export const { resetArticleData } = articleSlice.actions;
+export const { resetArticleData, setArticleDetail } = articleSlice.actions;
 
 export const articleReducer = articleSlice.reducer;

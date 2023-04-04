@@ -4,7 +4,7 @@ export const ArticleWraper = styled.div`
   padding: 20px 0;
   .article-area {
     min-height: calc(100vh - 216px);
-    padding-left: 10px;
+    padding: 10px;
     border: 2px solid #ccc;
     border-radius: 10px;
     display: flex;
@@ -12,7 +12,7 @@ export const ArticleWraper = styled.div`
       width: 66%;
     }
     .article-right {
-      padding: 20px 10px;
+      padding-left: 10px;
       width: 33%;
       .current-date-time {
         margin: 10px 0;

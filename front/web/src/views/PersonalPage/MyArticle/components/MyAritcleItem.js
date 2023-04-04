@@ -29,7 +29,7 @@ const MyAritcleItem = memo((props) => {
       <div
         className="right"
         onClick={() => {
-          alert("查看");
+          props.readArticle && props.readArticle(sourceData?.id);
         }}
       >
         <div className="title text-nowrap">{sourceData?.title}</div>
@@ -46,7 +46,7 @@ const MyAritcleItem = memo((props) => {
             }}
           >
             <CommentOutlined style={{ marginRight: "6px" }} />
-            评论(99)
+            评论({sourceData?.comments?.length})
           </li>
           <li>
             <FieldTimeOutlined style={{ marginRight: "6px" }} />{" "}
@@ -76,7 +76,7 @@ const MyAritcleItem = memo((props) => {
           <EditOutlined
             className="edit-icon"
             onClick={() => {
-              alert("编辑");
+              props.updateArticle && props.updateArticle(sourceData?.id);
             }}
           />
           <DeleteOutlined

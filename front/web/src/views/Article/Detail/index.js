@@ -33,7 +33,6 @@ import {
   useObserverHook,
 } from "@hooks";
 import { LOADING_ID } from "@common/contants";
-import { debounce } from "@utils/common";
 import { Comment } from "@components/comment";
 import { setShowLoginModal } from "@store/modules/globalSlice";
 import {
@@ -49,7 +48,6 @@ export const articleComent = createContext(null);
 const ArticleDetail = memo(() => {
   const relaodCommentsNumRef = useRef();
   const prevPosition = usePrevious(window.pageYOffset);
-  const navRef = useRef();
   const commentRef = useRef();
   const articleIdRef = useRef();
   const isLogin = useSelector((state) => state.userInfo.isLogin);
@@ -66,7 +64,6 @@ const ArticleDetail = memo(() => {
   const navigate = useNavigate();
   const [mdContent, setMdContent] = useState("");
   const { scrollTop } = useScrollTop();
-  const [fixMarkNav, setFixMarkNav] = useState(false);
   const [markNavWidth, setMarkNavWidth] = useState(0);
   const [markNavOffsetLeft, setMarkNavOffsetLeft] = useState(0);
   const { windowWidth } = useViewWidth();
@@ -90,17 +87,6 @@ const ArticleDetail = memo(() => {
     },
     [commentList, showLoading]
   );
-  useEffect(() => {
-    // setMarkNavWidth(navRef.current.getBoundingClientRect().width);
-    // setMarkNavOffsetLeft(navRef.current.getBoundingClientRect().x);
-  }, [windowWidth]);
-  useEffect(() => {
-    if (scrollTop >= GLOBAL_HEADER_TO_TOP) {
-      setFixMarkNav(true);
-      return;
-    }
-    setFixMarkNav(false);
-  }, [scrollTop]);
 
   const [articleTitle, setArticleTitle] = useState("");
   const [author, setAuthor] = useState("");
@@ -217,9 +203,8 @@ const ArticleDetail = memo(() => {
         <Col span={5}>创建时间: {createdAt}</Col>
       </Row>
       <div className="article-detail">
-        <div className="article-nav global-scrollbar-style" ref={navRef}>
+        <div className="article-nav global-scrollbar-style">
           <MarkNav
-            className={classnames({ ["article-mark-nav"]: fixMarkNav })}
             source={mdContent}
             headingTopOffset={40} //离顶部的距离
             ordered={false} //是否显示标题题号1,2等

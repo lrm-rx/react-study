@@ -1,18 +1,31 @@
 import { useState, useEffect, useRef, memo } from "react";
 import MyAritcleItem from "./components/MyAritcleItem";
 import { Button, Input, Space, message } from "antd";
+import { useNavigate } from "react-router-dom";
 import { SearchOutlined, InboxOutlined } from "@ant-design/icons";
-import { getArticleList, delArticle } from "@service/article";
+import { ShowLoading } from "@components/ShowLoading";
+import { getMyArticleList, delArticle } from "@service/article";
 import { ARTICLEDEL } from "@common/contants";
+import { useObserverHook } from "@hooks";
+import { LOADING_ID } from "@common/contants";
 import { MyArticleWraper } from "./style";
 const MyArticle = memo(() => {
   const chageFlagRef = useRef();
+  const navigate = useNavigate();
   const [showCheckBox, setShowCheckBox] = useState(false);
   const [list, setList] = useState([]);
   const [delIds, setDelIds] = useState([]);
   const [selectAllFlag, setSelectAllFlag] = useState(true);
+  const [showLoading, setShowLoading] = useState(true);
+  const [pageNum, setPageNum] = useState(1);
+  const [keyword, setKeyword] = useState("");
+  const [relaodListsNum, setRelaodListsNum] = useState(0);
   const articleList = async () => {
-    const result = await getArticleList();
+    const result = await getMyArticleList({
+      keyword,
+      pageNum,
+      pageSize: 10,
+    });
     if (Number(result.code) !== 200) {
       message.error({
         content: result.msg || "出错啦!",
@@ -20,17 +33,27 @@ const MyArticle = memo(() => {
       });
       return;
     }
+    result.data.list.length > 0 ? setShowLoading(true) : setShowLoading(false);
     const newList = result.data.list.map((item) => {
       return {
         ...item,
         isCheck: false,
       };
     });
-    newList.length > 0 && setList(newList);
+    newList.length > 0 && setList([...list, ...newList]);
   };
   useEffect(() => {
     articleList();
-  }, []);
+  }, [pageNum]);
+  useObserverHook(
+    `#${LOADING_ID}`,
+    (entries) => {
+      if (list && list.length && showLoading && entries[0].isIntersecting) {
+        setPageNum((prePageNum) => prePageNum + 1);
+      }
+    },
+    [list, showLoading]
+  );
   const delMyArticle = async (ids, type) => {
     let delIds = ids;
     if (type === ARTICLEDEL.BATCHDEL && !ids.length) {
@@ -51,6 +74,8 @@ const MyArticle = memo(() => {
       });
       return;
     }
+    setList([]);
+    setPageNum(1);
     message.success({
       content: result.msg,
       duration: 1,
@@ -102,6 +127,14 @@ const MyArticle = memo(() => {
     }
   }, [delIds]);
 
+  const updateArticle = (id) => {
+    navigate(`/article/update?id=${id}`);
+  };
+
+  const readArticle = (id) => {
+    navigate(`/article/detail/${id}`);
+  };
+
   return (
     <MyArticleWraper>
       <div className="list-header">
@@ -110,7 +143,9 @@ const MyArticle = memo(() => {
           placeholder="搜索我的文章"
           prefix={<SearchOutlined />}
           onPressEnter={(e) => {
-            alert(e.target.value);
+            setKeyword(e.target.value);
+            setList([]);
+            setPageNum(1);
           }}
         />
         <Space>
@@ -133,9 +168,12 @@ const MyArticle = memo(() => {
               selectCheckBox={selectCheckBox}
               sourceData={item}
               delArticle={delMyArticle}
+              updateArticle={updateArticle}
+              readArticle={readArticle}
               key={item.id}
             />
           ))}
+          <ShowLoading showLoading={showLoading} />
         </div>
       ) : (
         <div className="list-no-data">

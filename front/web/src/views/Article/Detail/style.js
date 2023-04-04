@@ -26,14 +26,6 @@ export const ArticleDetailWraper = styled.div`
       max-height: 100vh;
       flex: 1;
       border-right: 4px solid #ccc;
-      .article-mark-nav {
-        width: calc(${(props) => props.navWidth}px - 4px);
-        position: fixed;
-        top: 70px;
-        left: ${(props) => props.navOffsetLet};
-        z-index: 100;
-        animation: navAnimation 0.5s ease;
-      }
     }
     .article-main-content {
       max-height: 100vh;

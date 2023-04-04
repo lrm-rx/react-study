@@ -27,6 +27,19 @@ export const LayoutWraper = styled.div`
   .main-content-area {
     min-height: calc(100vh - 120px);
   }
+  @keyframes fixanimationTop {
+    0% {
+      margin-top: 0;
+    }
+    100% {
+      margin-top: 60px;
+    }
+  }
+
+  .fix-header-top {
+    margin-top: 60px;
+    animation: fixanimationTop 0.5s ease;
+  }
   .layout-footer {
     width: 100%;
     position: fixed;

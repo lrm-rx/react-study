@@ -34,7 +34,7 @@ export const ArticleItem = memo((props) => {
             </li>
             <li className="common-cout">
               <CommentOutlined style={{ marginRight: "6px" }} />
-              评论(99)
+              评论({sourceData?.comments?.length})
             </li>
             <li>
               <FieldTimeOutlined style={{ marginRight: "6px" }} />

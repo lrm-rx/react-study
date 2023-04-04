@@ -9,6 +9,19 @@ export function getArticleList(data) {
   });
 }
 
+// 获取文章
+export function getMyArticleList(data) {
+  return request({
+    url: "/article/myarticlelist",
+    method: "POST",
+    headers: {
+      isAuth: true,
+      isShowLoading: false,
+    },
+    data,
+  });
+}
+
 // 写文章
 export function createArticle(data) {
   return request({
@@ -47,10 +60,23 @@ export function delArticle(id) {
   });
 }
 
-// 通过id查找文章
+// 通过id查找文章(+阅读数)
 export function getArticleDetail(id) {
   return request({
     url: "/article/detail",
+    params: {
+      id,
+    },
+  });
+}
+
+// 通过id查找文章(+阅读数)
+export function getArticleDetailToUpdate(id) {
+  return request({
+    url: "/article/detailandupdate",
+    headers: {
+      isAuth: true,
+    },
     params: {
       id,
     },

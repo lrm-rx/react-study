@@ -73,7 +73,7 @@ const Header = memo((props) => {
       dispatch(setShowLoginModal(true));
       return;
     }
-    navigate("/article/writing");
+    navigate("/article/create");
   };
   const searchArticle = () => {
     dispatch(

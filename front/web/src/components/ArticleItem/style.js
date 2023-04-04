@@ -1,6 +1,9 @@
 import styled from "styled-components";
 
 export const ArticleItemWraper = styled.div`
+  &:first-child {
+    margin-top: 0;
+  }
   margin-top: 20px;
   .article-card {
     display: flex;

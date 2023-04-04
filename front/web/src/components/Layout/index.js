@@ -4,14 +4,11 @@ import { FloatButton, Modal, Input } from "antd";
 import { SearchOutlined, InboxOutlined } from "@ant-design/icons";
 import classnames from "classnames";
 import { useDispatch, useSelector } from "react-redux";
-import { getUserInfoAction } from "@store/modules/userSlice";
-import { getAllCategoriesAction } from "@store/modules/categorySlice";
 import {
   closeModal,
   inputValChange,
   getAllArticlesAction,
 } from "@store/modules/globalSlice";
-import { getAllTagsAction } from "@store/modules/tagsSlice";
 import Header from "../Header";
 import Footer from "../Footer";
 import { headerLinks } from "@common/local-data";
@@ -23,25 +20,11 @@ import { useViewWidth, useScrollTop } from "@hooks";
 const Layout = memo(() => {
   const location = useLocation();
   const navigate = useNavigate();
-  const isLogin = useSelector((state) => state.userInfo.isLogin);
-  const userId = useSelector((state) => state.userInfo.userId);
   const globalModalInfo = useSelector((state) => state.globalInfo.modal);
   const dispatch = useDispatch();
   const [fixHeaderAndFooter, setFixHeaderAndFooter] = useState(true);
   const [fixHeader, setFixHeader] = useState(false);
   const { windowWidth } = useViewWidth();
-  useEffect(() => {
-    if (isLogin && Number(userId) !== 0) {
-      // 获取用户信息
-      dispatch(getUserInfoAction(userId));
-    }
-  }, [isLogin, userId]);
-  useEffect(() => {
-    // 获取所有的分类
-    dispatch(getAllCategoriesAction());
-    // 获取所有的标签
-    dispatch(getAllTagsAction());
-  }, []);
 
   useEffect(() => {
     // console.log("windowWidth:", windowWidth);
@@ -84,7 +67,10 @@ const Layout = memo(() => {
         <Header headerLinks={headerLinks} />
       </header>
       <main
-        className={classnames({ ["main-content-area"]: fixHeaderAndFooter })}
+        className={classnames({
+          ["main-content-area"]: fixHeaderAndFooter,
+          ["fix-header-top"]: fixHeader,
+        })}
       >
         <Outlet />
       </main>
