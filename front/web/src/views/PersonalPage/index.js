@@ -5,9 +5,6 @@ import BasicInfo from "./BasicInfo";
 import { PersonalPageWraper } from "./style";
 
 const PersonalPage = memo(() => {
-  const onChange = (key) => {
-    console.log(key);
-  };
   return (
     <PersonalPageWraper>
       <div className="wrap-v1 personal-home-page">
@@ -25,7 +22,6 @@ const PersonalPage = memo(() => {
               children: <BasicInfo />,
             },
           ]}
-          onChange={onChange}
         />
       </div>
     </PersonalPageWraper>

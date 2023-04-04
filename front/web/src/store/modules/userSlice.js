@@ -27,7 +27,7 @@ export const userLoginAction = createAsyncThunk(
       payload: false,
     });
     message.error({
-      content: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   }
@@ -41,7 +41,7 @@ export const getUserInfoAction = createAsyncThunk(
       return result.data;
     }
     message.error({
-      content: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   }
@@ -60,7 +60,7 @@ export const userUpdatePasswordAction = createAsyncThunk(
       return;
     }
     message.error({
-      content: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   }
@@ -82,7 +82,7 @@ export const userLogoutAction = createAsyncThunk(
       return;
     }
     message.error({
-      content: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   }

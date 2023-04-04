@@ -11,7 +11,7 @@ export const getAllArticlesAction = createAsyncThunk(
       return result.data || [];
     }
     message.error({
-      context: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   }
@@ -25,7 +25,7 @@ export const getArticleByTagAction = createAsyncThunk(
       return result.data[0]?.articles || [];
     }
     message.error({
-      context: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   }

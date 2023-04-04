@@ -19,7 +19,7 @@ const ArticleTag = memo(() => {
       const result = await getAllTags();
       if (Number(result.code) !== 200) {
         message.error({
-          content: result.msg,
+          content: result.msg || "出错啦!",
           duration: 1,
         });
         return;

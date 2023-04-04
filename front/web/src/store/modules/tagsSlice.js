@@ -10,7 +10,7 @@ export const getAllTagsAction = createAsyncThunk(
       return result.data || [];
     }
     message.error({
-      context: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   }

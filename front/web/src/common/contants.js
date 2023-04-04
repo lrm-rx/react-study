@@ -13,3 +13,8 @@ export const PAGE = {
   pageNum: 1,
   pageSize: 10,
 };
+
+export const ARTICLEDEL = {
+  BATCHDEL: "batch-del",
+  SINGGLEDEL: "single-del",
+};

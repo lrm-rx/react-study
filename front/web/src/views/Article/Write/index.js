@@ -58,7 +58,7 @@ const WriteArticle = memo(() => {
       return;
     }
     message.error({
-      content: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   };

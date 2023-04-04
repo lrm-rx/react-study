@@ -9,6 +9,7 @@ import {
   DeleteOutlined,
 } from "@ant-design/icons";
 import { Space } from "antd";
+import { ARTICLEDEL } from "@common/contants";
 import { MyAritcleItemWraper } from "./style";
 import c2 from "@assets/images/bg2.jpg";
 
@@ -81,7 +82,8 @@ const MyAritcleItem = memo((props) => {
           <DeleteOutlined
             className="delete-icon"
             onClick={() => {
-              alert("删除");
+              props.delArticle &&
+                props.delArticle(sourceData?.id, ARTICLEDEL.SINGGLEDEL);
             }}
           />
         </Space>

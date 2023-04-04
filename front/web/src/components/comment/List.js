@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { useSelector } from "react-redux";
+import { InboxOutlined } from "@ant-design/icons";
 import { ShowLoading } from "@components/ShowLoading";
 import { ListWraper } from "./style";
 import avatar from "@assets/images/avatar.png";
@@ -38,7 +39,16 @@ export const List = memo((props) => {
             </div>
           </div>
         ))}
-      {/* <ShowLoading showLoading={props?.showLoading} /> */}
+      {commentList.length > 0 ? (
+        <ShowLoading showLoading={props?.showLoading} />
+      ) : (
+        <div className="list-no-data">
+          <div className="content-tip">
+            <InboxOutlined className="no-data-icon" />
+            <span>暂无数据</span>
+          </div>
+        </div>
+      )}
     </ListWraper>
   );
 });

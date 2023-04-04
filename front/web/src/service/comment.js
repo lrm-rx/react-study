@@ -38,6 +38,9 @@ export function getCommentListByArticleId({
   return request({
     url: "/comment/listbyarticleid",
     method: "POST",
+    headers: {
+      isShowLoading: false,
+    },
     data: {
       articleId,
       pageNum,

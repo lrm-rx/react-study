@@ -26,7 +26,24 @@ export function updateArticle(id, data) {
   return request({
     url: `/article/update/${id}`,
     method: "POST",
+    headers: {
+      isAuth: true,
+    },
     data,
+  });
+}
+
+// 删除文章
+export function delArticle(id) {
+  return request({
+    url: `/article/delete`,
+    method: "POST",
+    headers: {
+      isAuth: true,
+    },
+    data: {
+      id,
+    },
   });
 }
 

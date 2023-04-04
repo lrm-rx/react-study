@@ -10,7 +10,7 @@ export const getAllCategoriesAction = createAsyncThunk(
       return result.data || [];
     }
     message.error({
-      content: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   }

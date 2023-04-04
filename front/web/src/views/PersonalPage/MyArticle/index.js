@@ -2,7 +2,8 @@ import { useState, useEffect, useRef, memo } from "react";
 import MyAritcleItem from "./components/MyAritcleItem";
 import { Button, Input, Space, message } from "antd";
 import { SearchOutlined, InboxOutlined } from "@ant-design/icons";
-import { getArticleList } from "@service/article";
+import { getArticleList, delArticle } from "@service/article";
+import { ARTICLEDEL } from "@common/contants";
 import { MyArticleWraper } from "./style";
 const MyArticle = memo(() => {
   const chageFlagRef = useRef();
@@ -14,7 +15,7 @@ const MyArticle = memo(() => {
     const result = await getArticleList();
     if (Number(result.code) !== 200) {
       message.error({
-        content: result.msg,
+        content: result.msg || "出错啦!",
         duration: 1,
       });
       return;
@@ -30,15 +31,30 @@ const MyArticle = memo(() => {
   useEffect(() => {
     articleList();
   }, []);
-  const batchDel = () => {
-    if (!delIds.length) {
+  const delMyArticle = async (ids, type) => {
+    let delIds = ids;
+    if (type === ARTICLEDEL.BATCHDEL && !ids.length) {
       message.warning({
         content: "请选择需要删除的文章!",
         duration: 1,
       });
       return;
     }
-    console.log("delIds:", delIds);
+    if (type === ARTICLEDEL.SINGGLEDEL) {
+      delIds = [ids];
+    }
+    const result = await delArticle(delIds);
+    if (Number(result.code) !== 200) {
+      message.error({
+        content: result.msg || "出错啦!",
+        duration: 1,
+      });
+      return;
+    }
+    message.success({
+      content: result.msg,
+      duration: 1,
+    });
   };
   const selectCheckBox = (id) => {
     const newList = list.map((item) => {
@@ -101,7 +117,11 @@ const MyArticle = memo(() => {
           <Button type="primary" onClick={selectAll} ref={chageFlagRef}>
             {selectAllFlag ? "全选" : "取消全选"}
           </Button>
-          <Button type="primary" danger onClick={batchDel}>
+          <Button
+            type="primary"
+            danger
+            onClick={() => delMyArticle(delIds, ARTICLEDEL.BATCHDEL)}
+          >
             批量删除
           </Button>
         </Space>
@@ -112,6 +132,7 @@ const MyArticle = memo(() => {
             <MyAritcleItem
               selectCheckBox={selectCheckBox}
               sourceData={item}
+              delArticle={delMyArticle}
               key={item.id}
             />
           ))}

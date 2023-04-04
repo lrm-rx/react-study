@@ -29,7 +29,7 @@ const Article = memo(() => {
     const result = await getArticleList({ pageNum, pageSize });
     if (Number(result.code) !== 200) {
       message.error({
-        content: result.msg,
+        content: result.msg || "出错啦!",
         duration: 1,
       });
       return;

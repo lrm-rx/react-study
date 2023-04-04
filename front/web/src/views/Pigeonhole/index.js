@@ -17,7 +17,7 @@ const Pigeonhole = memo(() => {
       const result = await getArchives();
       if (Number(result.code) !== 200) {
         message.error({
-          content: result.msg,
+          content: result.msg || "出错啦!",
           duration: 1,
         });
         return;

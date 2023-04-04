@@ -6,7 +6,7 @@ import { PAGE } from "@/common/contants";
 export const getCommentListByArticleIdAction = createAsyncThunk(
   "comment/list",
   async (payload, { dispatch, getState }) => {
-    const { pageNum, pageSize } = getState().comment;
+    const { list, pageNum, pageSize } = getState().comment;
     const data = {
       ...payload,
       pageNum,
@@ -16,12 +16,15 @@ export const getCommentListByArticleIdAction = createAsyncThunk(
     if (Number(result.code) === 200) {
       dispatch({
         type: "comment/setShowLoading",
-        payload: result?.data?.commentList?.length ? true : false,
+        payload: result.data?.commentList?.length ? true : false,
       });
-      return result.data;
+      return {
+        ...result.data,
+        commentList: [...list, ...result.data?.commentList],
+      };
     }
     message.error({
-      context: result.msg,
+      content: result.msg || "出错啦!",
       duration: 1,
     });
   }
@@ -47,6 +50,7 @@ const commnetSlice = createSlice({
     resetPaging(state, action) {
       return {
         ...state,
+        relaodCommentsNum: 0,
         pageNum: PAGE.pageNum,
         pageSize: PAGE.pageSize,
       };
@@ -55,14 +59,12 @@ const commnetSlice = createSlice({
       state.showLoading = action.payload;
     },
     reloadComments(state, action) {
-      return {
+      const data = {
         ...state,
         relaodCommentsNum: state.relaodCommentsNum + 1,
-        page: {
-          ...PAGE,
-          pageNum: state.pageNum + 1,
-        },
+        pageNum: state.pageNum + 1,
       };
+      return data;
     },
   },
   // 异步操作

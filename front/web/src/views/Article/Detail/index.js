@@ -40,21 +40,25 @@ import {
   getCommentListByArticleIdAction,
   resetPaging,
   reloadComments,
+  resetCommentData,
 } from "@store/modules/commentSlice";
 
 // 创造一个上下文
 export const articleComent = createContext(null);
 
 const ArticleDetail = memo(() => {
+  const relaodCommentsNumRef = useRef();
   const prevPosition = usePrevious(window.pageYOffset);
   const navRef = useRef();
   const commentRef = useRef();
   const articleIdRef = useRef();
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const commentList = useSelector((state) => state.comment.list);
-  const comment = useSelector((state) => state.comment);
   const commentTotal = useSelector((state) => state.comment.total);
   const showLoading = useSelector((state) => state.comment.showLoading);
+  const relaodCommentsNum = useSelector(
+    (state) => state.comment.relaodCommentsNum
+  );
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
   const location = useLocation();
@@ -75,7 +79,6 @@ const ArticleDetail = memo(() => {
   useObserverHook(
     `#${LOADING_ID}`,
     (entries) => {
-      console.log("showLoading^^^^^^^^");
       if (
         commentList &&
         commentList.length &&
@@ -110,7 +113,7 @@ const ArticleDetail = memo(() => {
       const result = await getArticleDetail(Number(params.id));
       if (Number(result.code) !== 200) {
         message.error({
-          content: result.msg,
+          content: result.msg || "出错啦!",
           duration: 1,
         });
         return;
@@ -124,12 +127,17 @@ const ArticleDetail = memo(() => {
       setTags(detail.tags);
       setCreatedAt(detail.createdAt);
       setMdContent(detail.contentText);
-      // 获取评论
-      dispatch(
-        getCommentListByArticleIdAction({ articleId: Number(params.id) })
-      );
     })();
+    return () => {
+      // 重置数据
+      dispatch(resetCommentData());
+    };
   }, [params.id]);
+
+  useEffect(() => {
+    // 获取评论
+    dispatch(getCommentListByArticleIdAction({ articleId: Number(params.id) }));
+  }, [relaodCommentsNum]);
 
   const addComment = async (content) => {
     // 判断是否已经登录
@@ -148,7 +156,7 @@ const ArticleDetail = memo(() => {
     const result = await createComment(data);
     if (Number(result.code) !== 200) {
       message.error({
-        content: result.msg,
+        content: result.msg || "出错啦!",
         duration: 1,
       });
       return;
@@ -168,7 +176,7 @@ const ArticleDetail = memo(() => {
     const result = await deleteComment([id]);
     if (Number(result.code) !== 200) {
       message.error({
-        content: result.msg,
+        content: result.msg || "出错啦!",
         duration: 1,
       });
       return;
@@ -238,7 +246,6 @@ const ArticleDetail = memo(() => {
         showLoading={showLoading}
         ref={commentRef}
       />
-      <div id={LOADING_ID}>11111111111111</div>
       {/* </articleComent.Provider> */}
     </ArticleDetailWraper>
   );

@@ -134,7 +134,7 @@ const houseSlice = createSlice({
       //   pageNum: state.page.pageNum + 1,
       // };
       return {
-        ...state, // 会重新触发getHouseCommentAction
+        ...state,
         relaodCommentsNum: state.relaodCommentsNum + 1,
         page: {
           ...CommonEnum.PAGE,

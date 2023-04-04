@@ -19,7 +19,7 @@ const Category = memo(() => {
       const result = await getAllCategories();
       if (Number(result.code) !== 200) {
         message.error({
-          content: result.msg,
+          content: result.msg || "出错啦!",
           duration: 1,
         });
         return;
@@ -46,7 +46,7 @@ const Category = memo(() => {
         return;
       }
       message.error({
-        content: result.msg,
+        content: result.msg || "出错啦!",
         duration: 1,
       });
     };
