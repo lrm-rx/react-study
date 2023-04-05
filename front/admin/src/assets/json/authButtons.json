@@ -4,7 +4,8 @@
     "accountManage": ["add", "batchDelete", "edit", "delete", "reset"],
     "category": ["add", "batchDelete", "edit", "delete"],
     "tag": ["add", "batchDelete", "edit", "delete"],
-    "article": ["add", "batchDelete", "edit", "delete"]
+    "article": ["add", "batchDelete", "edit", "delete"],
+    "comment": ["batchDelete", "delete"]
   },
   "msg": "成功"
 }

@@ -23,6 +23,34 @@ export const getCommentListByArticleIdAction = createAsyncThunk(
         commentList: [...list, ...result.data?.commentList],
       };
     }
+    // 取消请求时会返回, 不用提示出错
+    if (result.code === "ERR_CANCELED") return;
+    message.error({
+      content: result.msg || "出错啦!",
+      duration: 1,
+    });
+  }
+);
+
+export const reloadCommentListByArticleIdAction = createAsyncThunk(
+  "comment/list/reload",
+  async (payload, { dispatch, getState }) => {
+    const { list, pageNum, pageSize } = getState().comment;
+    const data = {
+      ...payload,
+      pageNum,
+      pageSize,
+    };
+    const result = await getCommentListByArticleId(data);
+    if (Number(result.code) === 200) {
+      dispatch({
+        type: "comment/setShowLoading",
+        payload: result.data?.commentList?.length ? true : false,
+      });
+      return result.data;
+    }
+    // 取消请求时会返回, 不用提示出错
+    if (result.code === "ERR_CANCELED") return;
     message.error({
       content: result.msg || "出错啦!",
       duration: 1,
@@ -69,13 +97,18 @@ const commnetSlice = createSlice({
   },
   // 异步操作
   extraReducers: (builder) => {
-    builder.addCase(
-      getCommentListByArticleIdAction.fulfilled,
-      (state, action) => {
-        state.list = action.payload.commentList || [];
-        state.total = action.payload.total;
-      }
-    );
+    builder
+      .addCase(getCommentListByArticleIdAction.fulfilled, (state, action) => {
+        state.list = action.payload?.commentList || [];
+        state.total = action.payload?.total;
+      })
+      .addCase(
+        reloadCommentListByArticleIdAction.fulfilled,
+        (state, action) => {
+          state.list = action.payload?.commentList || [];
+          state.total = action.payload?.total;
+        }
+      );
   },
 });
 

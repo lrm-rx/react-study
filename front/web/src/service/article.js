@@ -101,3 +101,12 @@ export function getArticleByKeyword(keyword) {
     },
   });
 }
+
+// 上传封面
+export function uploadCoverImage(data) {
+  return request({
+    url: "/upload/coverimage",
+    method: "POST",
+    data,
+  });
+}

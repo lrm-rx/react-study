@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef, memo } from "react";
 import MyAritcleItem from "./components/MyAritcleItem";
 import { Button, Input, Space, message } from "antd";
+import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SearchOutlined, InboxOutlined } from "@ant-design/icons";
 import { ShowLoading } from "@components/ShowLoading";
@@ -12,6 +13,7 @@ import { MyArticleWraper } from "./style";
 const MyArticle = memo(() => {
   const chageFlagRef = useRef();
   const navigate = useNavigate();
+  const isLogin = useSelector((state) => state.userInfo.isLogin);
   const [showCheckBox, setShowCheckBox] = useState(false);
   const [list, setList] = useState([]);
   const [delIds, setDelIds] = useState([]);
@@ -19,6 +21,8 @@ const MyArticle = memo(() => {
   const [showLoading, setShowLoading] = useState(true);
   const [pageNum, setPageNum] = useState(1);
   const [keyword, setKeyword] = useState("");
+  const [total, setTotal] = useState(0);
+  const [showselected, setShowselected] = useState(false);
   const [relaodListsNum, setRelaodListsNum] = useState(0);
   const articleList = async () => {
     const result = await getMyArticleList({
@@ -33,6 +37,7 @@ const MyArticle = memo(() => {
       });
       return;
     }
+    setTotal(result.data.total);
     result.data.list.length > 0 ? setShowLoading(true) : setShowLoading(false);
     const newList = result.data.list.map((item) => {
       return {
@@ -43,6 +48,7 @@ const MyArticle = memo(() => {
     newList.length > 0 && setList([...list, ...newList]);
   };
   useEffect(() => {
+    if (!isLogin) return;
     articleList();
   }, [pageNum]);
   useObserverHook(
@@ -120,11 +126,10 @@ const MyArticle = memo(() => {
   }, [list]);
 
   useEffect(() => {
-    if (delIds.length === list.length) {
-      setSelectAllFlag(false);
-    } else {
-      setSelectAllFlag(true);
-    }
+    delIds.length > 0 ? setShowselected(true) : setShowselected(false);
+    delIds.length === list.length
+      ? setSelectAllFlag(false)
+      : setSelectAllFlag(true);
   }, [delIds]);
 
   const updateArticle = (id) => {
@@ -137,44 +142,48 @@ const MyArticle = memo(() => {
 
   return (
     <MyArticleWraper>
-      <div className="list-header">
-        <Input
-          className="header-search"
-          placeholder="搜索我的文章"
-          prefix={<SearchOutlined />}
-          onPressEnter={(e) => {
-            setKeyword(e.target.value);
-            setList([]);
-            setPageNum(1);
-          }}
-        />
-        <Space>
-          <Button type="primary" onClick={selectAll} ref={chageFlagRef}>
-            {selectAllFlag ? "全选" : "取消全选"}
-          </Button>
-          <Button
-            type="primary"
-            danger
-            onClick={() => delMyArticle(delIds, ARTICLEDEL.BATCHDEL)}
-          >
-            批量删除
-          </Button>
-        </Space>
-      </div>
       {list.length ? (
-        <div className="item-content-area global-scrollbar-style">
-          {list.map((item) => (
-            <MyAritcleItem
-              selectCheckBox={selectCheckBox}
-              sourceData={item}
-              delArticle={delMyArticle}
-              updateArticle={updateArticle}
-              readArticle={readArticle}
-              key={item.id}
+        <>
+          <div className="list-header">
+            <Input
+              className="header-search"
+              placeholder="搜索我的文章"
+              prefix={<SearchOutlined />}
+              onPressEnter={(e) => {
+                setKeyword(e.target.value);
+                setList([]);
+                setPageNum(1);
+              }}
             />
-          ))}
-          <ShowLoading showLoading={showLoading} />
-        </div>
+            <Space>
+              <Button type="primary" onClick={selectAll} ref={chageFlagRef}>
+                {selectAllFlag ? "全选" : "取消全选"}
+              </Button>
+              <Button
+                type="primary"
+                danger
+                onClick={() => delMyArticle(delIds, ARTICLEDEL.BATCHDEL)}
+              >
+                批量删除
+              </Button>
+              <div>共 {total} 篇文章</div>
+              {showselected && <div>已选中:{delIds.length}篇文章</div>}
+            </Space>
+          </div>
+          <div className="item-content-area global-scrollbar-style">
+            {list.map((item) => (
+              <MyAritcleItem
+                selectCheckBox={selectCheckBox}
+                sourceData={item}
+                delArticle={delMyArticle}
+                updateArticle={updateArticle}
+                readArticle={readArticle}
+                key={item.id}
+              />
+            ))}
+            <ShowLoading showLoading={showLoading} />
+          </div>
+        </>
       ) : (
         <div className="list-no-data">
           <div className="content-tip">

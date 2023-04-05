@@ -30,7 +30,7 @@
 <script setup lang="ts">
 import { onMounted, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import { ElMessage, FormInstance, ElMessageBox } from "element-plus";
+import { ElMessage } from "element-plus";
 import { getArticleById } from "@/api/modules/article";
 
 const router = useRouter();

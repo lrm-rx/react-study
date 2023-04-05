@@ -11,7 +11,7 @@ import {
   message,
 } from "antd";
 import md5 from "js-md5";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { updatePassword } from "@service/user";
 import { useDispatch, useSelector } from "react-redux";
 import { userLogoutAction, resetUserInfoData } from "@store/modules/userSlice";
@@ -50,6 +50,7 @@ const { confirm } = Modal;
 const NicknameAvatar = memo(() => {
   const [form] = Form.useForm();
   const navigate = useNavigate();
+  const location = useLocation();
   const nickname = useSelector((state) => state.userInfo.basicInfo?.nickname);
   const avatar = useSelector((state) => state.userInfo.basicInfo?.avatar);
   const dispatch = useDispatch();
@@ -79,6 +80,13 @@ const NicknameAvatar = memo(() => {
   const logout = () => {
     dispatch(resetUserInfoData());
     dispatch(userLogoutAction());
+    if (
+      location.pathname === "/personalhomepage" ||
+      location.pathname === "/article/create" ||
+      location.pathname.includes("/article/update")
+    ) {
+      navigate("/home");
+    }
   };
   // Dropdown Menu
   const menuItems = () => (

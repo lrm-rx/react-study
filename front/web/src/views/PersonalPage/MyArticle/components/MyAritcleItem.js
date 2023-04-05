@@ -38,13 +38,7 @@ const MyAritcleItem = memo((props) => {
             <EyeOutlined style={{ marginRight: "6px" }} />
             查看({sourceData?.viewCount})
           </li>
-          <li
-            className="common-cout"
-            onClick={(e) => {
-              e.stopPropagation();
-              alert("评论");
-            }}
-          >
+          <li className="common-cout">
             <CommentOutlined style={{ marginRight: "6px" }} />
             评论({sourceData?.comments?.length})
           </li>

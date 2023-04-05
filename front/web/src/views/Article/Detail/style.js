@@ -1,6 +1,18 @@
 import styled from "styled-components";
 
 export const ArticleDetailWraper = styled.div`
+  .comment-icon-fix {
+    position: fixed;
+    right: 20px;
+    top: 160px;
+    .comment-icon {
+      font-size: 36px;
+      &:hover {
+        cursor: pointer;
+        color: #528bff;
+      }
+    }
+  }
   .article-title {
     height: 60px;
     line-height: 60px;

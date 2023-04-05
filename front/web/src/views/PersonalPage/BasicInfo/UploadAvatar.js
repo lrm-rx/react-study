@@ -42,6 +42,7 @@ const UploadAvatar = memo((props) => {
   const handleChange = ({ fileList: newFileList }) => setFileList(newFileList);
   const handleUpload = async (options) => {
     const { onSuccess, onError, file, onProgress } = options;
+    // 1M
     if (file.size > 1048576) {
       setFileList([
         {

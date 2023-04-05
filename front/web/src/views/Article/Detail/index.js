@@ -6,6 +6,7 @@ import {
   useRef,
   memo,
 } from "react";
+import { CommentOutlined } from "@ant-design/icons";
 import { useDispatch, useSelector } from "react-redux";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm"; // 划线、表、任务列表和直接url等的语法扩展
@@ -37,6 +38,7 @@ import { Comment } from "@components/comment";
 import { setShowLoginModal } from "@store/modules/globalSlice";
 import {
   getCommentListByArticleIdAction,
+  reloadCommentListByArticleIdAction,
   resetPaging,
   reloadComments,
   resetCommentData,
@@ -48,6 +50,7 @@ export const articleComent = createContext(null);
 const ArticleDetail = memo(() => {
   const relaodCommentsNumRef = useRef();
   const prevPosition = usePrevious(window.pageYOffset);
+  const commentTopRef = useRef();
   const commentRef = useRef();
   const articleIdRef = useRef();
   const isLogin = useSelector((state) => state.userInfo.isLogin);
@@ -151,7 +154,9 @@ const ArticleDetail = memo(() => {
     // 重置数据
     await dispatch(resetPaging());
     // 获取评论
-    dispatch(getCommentListByArticleIdAction({ articleId: Number(params.id) }));
+    dispatch(
+      reloadCommentListByArticleIdAction({ articleId: Number(params.id) })
+    );
     message.success({
       content: result.msg,
       duration: 1,
@@ -174,11 +179,9 @@ const ArticleDetail = memo(() => {
     // 重置数据
     await dispatch(resetPaging());
     // 获取评论
-    dispatch(getCommentListByArticleIdAction({ articleId: Number(params.id) }));
-    message.success({
-      content: result.msg,
-      duration: 1,
-    });
+    dispatch(
+      reloadCommentListByArticleIdAction({ articleId: Number(params.id) })
+    );
   };
 
   return (
@@ -186,6 +189,14 @@ const ArticleDetail = memo(() => {
       navWidth={markNavWidth}
       navOffsetLet={markNavOffsetLeft}
     >
+      <div
+        className="comment-icon-fix"
+        onClick={() => {
+          window.scrollTo(0, commentTopRef.current.offsetTop - 60);
+        }}
+      >
+        <CommentOutlined className="comment-icon" />
+      </div>
       <h3 className="article-title">{articleTitle}</h3>
       <Row justify="center" className="article-info">
         <Col span={3}>作者: {author}</Col>
@@ -223,6 +234,7 @@ const ArticleDetail = memo(() => {
       </div>
       {/* 评论, 练习Context跨组件通过 */}
       {/* <articleComent.Provider value={{ addComment }}> */}
+      <div ref={commentTopRef}></div>
       <Comment
         addComment={addComment}
         delComment={delComment}

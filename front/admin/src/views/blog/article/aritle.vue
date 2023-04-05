@@ -5,6 +5,15 @@
         <el-form-item label="文章标题" prop="title">
           <el-input @change="handleChnage" v-model="formData.title" placeholder="请输入" class="article-title" />
         </el-form-item>
+        <el-form-item label="文章封面" prop="coverImage">
+          <el-upload accept=".png,.jpg,.jpeg,.gif" :before-upload="beforeUpload" :show-file-list="false" :limit="1">
+            <template #trigger>
+              <el-tooltip class="box-item" effect="light" content="图片大小不能大于2M!" placement="bottom">
+                <el-button type="primary">选择封面</el-button>
+              </el-tooltip>
+            </template>
+          </el-upload>
+        </el-form-item>
         <el-form-item label="分类" prop="categoryId">
           <el-select v-model="formData.categoryId" @change="handleChnage" placeholder="请选择">
             <el-option v-for="item in categoryData" :key="item.id" :label="item.name" :value="item.id" />
@@ -33,13 +42,14 @@
 import { ref, onMounted, reactive } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import { ElMessage, FormInstance, ElMessageBox } from "element-plus";
+import type { UploadRawFile } from "element-plus";
 import { Category, Tag } from "@/api/interface";
 import { getAllCategory } from "@/api/modules/category";
 import { getAllTag } from "@/api/modules/tag";
 import { addArticle, getArticleById, editArticle } from "@/api/modules/article";
+import { uploadCoverImg } from "@/api/modules/upload";
 export interface mdDataType {
   contentText: string
-  contentHtml: string
 }
 const router = useRouter();
 const route = useRoute();
@@ -55,17 +65,44 @@ const formData = reactive({
   categoryId: "",
   tagIds: [],
   contentText: "",
-  contentHtml: ""
+  coverImage: ""
 })
 
 const rules = reactive({
   title: [{ required: true, message: "请填写文章标题" }],
+  coverImage: [{ required: true, message: "请上传文章封面" }],
   categoryId: [{ required: true, message: "请选择分类" }],
   tagIds: [{ required: true, message: "请选择标签" }],
 });
 const handleSave = (text: string, html: string) => {
   formData.contentText = text;
-  formData.contentHtml = html;
+}
+
+const beforeUpload = async (rawFile: UploadRawFile) => {
+  // 大于2M 2097152字节
+  if (rawFile.size > 2097152) {
+    ElMessage.warning("图片大小不能大于2M!");
+    return false;
+  }
+  if (!["image/jpeg", "image/png", "image/gif", "image/jpg"].includes(rawFile.type)) {
+    ElMessage.warning("图片格式只能为[.jpeg,.jpg,.png,.gif]");
+    return false;
+  }
+  try {
+    let coverFormData = new FormData();
+    coverFormData.append("coverImage", rawFile);
+    const result = await uploadCoverImg(coverFormData)
+    if (Number(result.code) !== 200) {
+      ElMessage.error(result.msg);
+      return;
+    }
+    formData.coverImage = result.data as any;
+    ElMessage.success(result.msg);
+  } catch (error) {
+    ElMessage.error("出错啦!");
+  } finally {
+    return false; // 防止调用action报404
+  }
 }
 
 // 提交数据（新增/编辑）
@@ -128,14 +165,15 @@ const handleCancel = () => {
 const editDataInit = async (id: number) => {
   const aricleRes = await getArticleById({ id })
   if (Number(aricleRes.code) === 200) {
-    const { title, tags, category, contentText } = aricleRes?.data as any;
+    const { title, tags = [], category, contentText, coverImage } = aricleRes?.data as any;
     const tagIds = tags.map((item: any) => {
       return item.id
     })
     formData.title = title;
-    formData.categoryId = category.id;
+    formData.categoryId = category?.id;
     formData.tagIds = tagIds;
     formData.contentText = contentText;
+    formData.coverImage = coverImage;
     mdText.value = contentText;
   } else {
     ElMessage.error({ message: "获取文章失败!", duration: 1000 });

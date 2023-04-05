@@ -6,7 +6,8 @@ import {
   useSearchParams,
   useParams,
 } from "react-router-dom";
-import { Button, Form, Input, Select, message } from "antd";
+import { Button, Form, Input, Select, message, Upload } from "antd";
+import { UploadOutlined } from "@ant-design/icons";
 import classnames from "classnames";
 import { useSelector } from "react-redux";
 import { debounce } from "@utils/common";
@@ -14,6 +15,7 @@ import {
   createArticle,
   getArticleDetail,
   updateArticle,
+  uploadCoverImage,
 } from "@service/article";
 import NicknameAvatar from "@components/NicknameAvatar";
 import Footer from "@components/Footer";
@@ -36,6 +38,7 @@ const WriteArticle = memo(() => {
     if (params.type === "update") {
       form.setFieldsValue({
         title: detail?.title,
+        coverImage: detail?.coverImage,
         categoryId: detail?.categoryId,
         tagIds: detail?.tags?.map((item) => item.id),
       });
@@ -89,6 +92,32 @@ const WriteArticle = memo(() => {
     });
   };
 
+  const handleUpload = async (options) => {
+    const { file } = options;
+    // 2M
+    if (file.size > 1048576 * 2) {
+      message.error({
+        content: "图片大小不能超过2M, 请重新上传!",
+        duration: 1,
+      });
+      return;
+    }
+    const formData = new FormData();
+    formData.append("coverImage", file);
+    const result = await uploadCoverImage(formData);
+    if (Number(result.code) === 200) {
+      message.success({
+        content: "上传封面成功!",
+        duration: 1,
+      });
+      return;
+    }
+    message.error({
+      content: result.msg || "出错啦!",
+      duration: 1,
+    });
+  };
+
   return (
     <WriteArticleWraper>
       <div
@@ -116,6 +145,17 @@ const WriteArticle = memo(() => {
               ]}
             >
               <Input autoComplete="off" className="article-title-input" />
+            </Form.Item>
+
+            <Form.Item name="coverImage" label="文章封面">
+              <Upload
+                customRequest={handleUpload}
+                accept=".jpg,.gif,.png,.jpeg"
+                maxCount={1}
+                showUploadList={false}
+              >
+                <Button icon={<UploadOutlined />}>上传封面</Button>
+              </Upload>
             </Form.Item>
 
             <Form.Item

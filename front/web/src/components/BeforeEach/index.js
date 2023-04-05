@@ -13,6 +13,7 @@ import { getUserInfoAction } from "@store/modules/userSlice";
 import { getAllCategoriesAction } from "@store/modules/categorySlice";
 import { getAllTagsAction } from "@store/modules/tagsSlice";
 import { setArticleDetail } from "@store/modules/articleSlice";
+import { setShowLoginModal } from "@store/modules/globalSlice";
 
 // 全局路由守卫
 export default function BeforeEach(props) {
@@ -23,6 +24,18 @@ export default function BeforeEach(props) {
   const userId = useSelector((state) => state.userInfo.userId);
   const [search, setSearch] = useSearchParams();
   const navigate = useNavigate();
+  useEffect(() => {
+    if (
+      (location.pathname === "/personalhomepage" ||
+        location.pathname === "/article/create" ||
+        location.pathname.includes("/article/update")) &&
+      !isLogin
+    ) {
+      navigate("/home");
+      dispatch(setShowLoginModal(true));
+    }
+  }, [location.pathname]);
+
   useEffect(() => {
     let articleId;
     if (params.id && location.pathname.includes("/article/detail")) {
@@ -41,9 +54,9 @@ export default function BeforeEach(props) {
             });
             return;
           }
-          // if (res.data.userId !== userId) {
-          //   navigate("/401");
-          // }
+          if (res.data.userId !== userId) {
+            navigate("/401");
+          }
           dispatch(setArticleDetail(res.data));
         })
         .catch((error) => {

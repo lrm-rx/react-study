@@ -140,3 +140,23 @@ export namespace Article {
     children?: ResArticleList[];
   }
 }
+
+// * 评论管理模块
+export namespace Comment {
+  export interface ReqCommentParams extends ReqPage {
+    id: number;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+  }
+  export interface ReqCommentParamId {
+    id: number;
+  }
+  export interface ResCommentList {
+    id: string;
+    content: string;
+    createdAt: string;
+    updatedAt: string;
+    children?: ResCommentList[];
+  }
+}
