@@ -52,9 +52,10 @@ const logout = () => {
 	}).then(async () => {
 		// 1.调用退出登录接口
 		await logoutApi();
-		// 2.清除 Token
+		// 2.清除 Token和userid,role
 		globalStore.setToken("");
 		globalStore.setUserId(-1);
+		globalStore.setUserRole(0);
 		// 3.重定向到登陆页
 		router.replace(LOGIN_URL);
 		ElMessage.success("退出登录成功！");

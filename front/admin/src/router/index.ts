@@ -7,7 +7,7 @@ import { staticRouter, errorRouter } from "@/router/modules/staticRouter";
 import NProgress from "@/config/nprogress";
 
 /**
- * @description 动态路由参数配置简介 📚
+ * @description 动态路由参数配置简介
  * @param path ==> 菜单路径
  * @param name ==> 菜单别名
  * @param redirect ==> 重定向地址

@@ -10,7 +10,8 @@ export const GlobalStore = defineStore(
   () => {
     const token = ref<GlobalState["token"]>("");
     const userInfo = ref<GlobalState["userInfo"]>(null);
-    const userId = ref(0);
+    const userId = ref(-1);
+    const userRole = ref(0);
     // element组件大小
     const assemblySize = ref<GlobalState["assemblySize"]>("default");
     const language = ref<GlobalState["language"]>("");
@@ -40,6 +41,11 @@ export const GlobalStore = defineStore(
       // 页脚
       footer: true,
     });
+
+    // setUserRole
+    const setUserRole = (payload: number) => {
+      userRole.value = payload;
+    };
 
     // setUserId
     const setUserId = (payload: number) => {
@@ -71,6 +77,7 @@ export const GlobalStore = defineStore(
       userId,
       token,
       userInfo,
+      userRole,
       assemblySize,
       language,
       themeConfig,
@@ -80,12 +87,20 @@ export const GlobalStore = defineStore(
       updateLanguage,
       setThemeConfig,
       setUserId,
+      setUserRole,
     };
   },
   {
     persist: piniaPersistConfig({
       key: "GlobalState",
-      paths: ["assemblySize", "language", "themeConfig", "token", "userId"],
+      paths: [
+        "assemblySize",
+        "language",
+        "themeConfig",
+        "token",
+        "userId",
+        "userRole",
+      ],
     }),
   }
 );

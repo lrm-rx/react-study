@@ -90,6 +90,16 @@ const handleLogin = () => {
       const { data } = await loginApi({ ...loginForm, password: md5(loginForm.password) });
       globalStore.setToken(data.token);
       globalStore.setUserId(data.id);
+      globalStore.setUserRole(data.role);
+      if (Number(data.role) !== 1) {
+        ElNotification({
+          title: "温馨提示",
+          message: "您暂无权限访问博客后台!!!",
+          type: "warning",
+          duration: 3000
+        });
+        return;
+      }
       // globalStore.setUserInfo(data)
       // 2.添加动态路由
       await initDynamicRouter();

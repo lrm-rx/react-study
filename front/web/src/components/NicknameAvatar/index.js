@@ -78,15 +78,7 @@ const NicknameAvatar = memo(() => {
     });
   };
   const logout = () => {
-    dispatch(resetUserInfoData());
-    dispatch(userLogoutAction());
-    if (
-      location.pathname === "/personalhomepage" ||
-      location.pathname === "/article/create" ||
-      location.pathname.includes("/article/update")
-    ) {
-      navigate("/home");
-    }
+    setIsModalOpen(true);
   };
   // Dropdown Menu
   const menuItems = () => (
@@ -108,12 +100,31 @@ const NicknameAvatar = memo(() => {
         },
         {
           key: "3",
-          label: <span className="dropdown-item">退出登录</span>,
+          label: <span className="dropdown-item">注销登录</span>,
           onClick: logout,
         },
       ]}
     ></Menu>
   );
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const handleOk = () => {
+    dispatch(resetUserInfoData());
+    dispatch(userLogoutAction());
+    setIsModalOpen(false);
+    if (
+      location.pathname === "/personalhomepage" ||
+      location.pathname === "/article/create" ||
+      location.pathname.includes("/article/update")
+    ) {
+      navigate("/home");
+    }
+  };
+
+  const handleCancel = () => {
+    setIsModalOpen(false);
+  };
 
   return (
     <NicknameAvatarWraper>
@@ -242,6 +253,19 @@ const NicknameAvatar = memo(() => {
             </div>
           </Form.Item>
         </Form>
+      </Modal>
+      {/* 注销登录 */}
+      <Modal
+        title="温馨提示"
+        open={isModalOpen}
+        onOk={handleOk}
+        onCancel={handleCancel}
+        className="logout-comfirm-modal"
+        mask={false}
+        maskClosable={false}
+        width={400}
+      >
+        <p style={{ textAlign: "center" }}>您确定要注销登录吗?</p>
       </Modal>
     </NicknameAvatarWraper>
   );

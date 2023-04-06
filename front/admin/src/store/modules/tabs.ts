@@ -1,4 +1,4 @@
-import { ref, computed } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { TabsState, TabsMenuProps } from "@/store/interface";
 import piniaPersistConfig from "@/config/piniaPersist";

@@ -21,7 +21,7 @@ import {
   useSearchParams,
   useParams,
 } from "react-router-dom";
-import { message, Row, Col, Space, Tag } from "antd";
+import { message, Row, Col, Space, Tag, Tooltip } from "antd";
 import { getArticleDetail } from "@service/article";
 import { createComment, deleteComment } from "@service/comment";
 import { ArticleDetailWraper } from "./style";
@@ -195,7 +195,14 @@ const ArticleDetail = memo(() => {
           window.scrollTo(0, commentTopRef.current.offsetTop - 60);
         }}
       >
-        <CommentOutlined className="comment-icon" />
+        <Tooltip
+          placement="left"
+          title="滚动到评论区"
+          color="#fff"
+          overlayInnerStyle={{ color: "#000" }}
+        >
+          <CommentOutlined className="comment-icon" />
+        </Tooltip>
       </div>
       <h3 className="article-title">{articleTitle}</h3>
       <Row justify="center" className="article-info">

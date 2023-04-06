@@ -1,5 +1,6 @@
 import { memo } from "react";
 import { useSelector } from "react-redux";
+import { Popconfirm } from "antd";
 import { InboxOutlined } from "@ant-design/icons";
 import { ShowLoading } from "@components/ShowLoading";
 import { ListWraper } from "./style";
@@ -31,9 +32,15 @@ export const List = memo((props) => {
               <div className="info">
                 <span className="time">{item.createdAt}</span>
                 {item.user.id === userId && (
-                  <span onClick={delComment(item.id)} className="btn-hover">
-                    删除
-                  </span>
+                  <Popconfirm
+                    title="温馨提示"
+                    description="您确定要删除吗?"
+                    onConfirm={delComment(item.id)}
+                    okText="确定"
+                    cancelText="取消"
+                  >
+                    <span className="btn-hover">删除</span>
+                  </Popconfirm>
                 )}
               </div>
             </div>

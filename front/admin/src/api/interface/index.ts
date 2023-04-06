@@ -41,6 +41,7 @@ export namespace Login {
     veritycode: string;
   }
   export interface ResLogin {
+    role: number;
     token: string;
     id: number;
   }

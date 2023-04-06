@@ -111,9 +111,10 @@ const comfirmChangePassword = async () => {
 			timer = setTimeout(async () => {
 				// 1.调用退出登录接口
 				await logoutApi();
-				// 2.清除 Token和userid
+				// 2.清除 Token和userid/role
 				globalStore.setToken("");
 				globalStore.setUserId(-1);
+				globalStore.setUserRole(0);
 				// 3. 重定向到登录页
 				router.push(LOGIN_URL);
 			}, 5000);

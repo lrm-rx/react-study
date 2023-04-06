@@ -8,7 +8,7 @@ import {
   EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
-import { Space } from "antd";
+import { Space, Popconfirm } from "antd";
 import { ARTICLEDEL } from "@common/contants";
 import { MyAritcleItemWraper } from "./style";
 import c2 from "@assets/images/bg2.jpg";
@@ -73,13 +73,18 @@ const MyAritcleItem = memo((props) => {
               props.updateArticle && props.updateArticle(sourceData?.id);
             }}
           />
-          <DeleteOutlined
-            className="delete-icon"
-            onClick={() => {
+          <Popconfirm
+            title="温馨提示"
+            description="您确定要删除吗?"
+            onConfirm={() => {
               props.delArticle &&
                 props.delArticle(sourceData?.id, ARTICLEDEL.SINGGLEDEL);
             }}
-          />
+            okText="确定"
+            cancelText="取消"
+          >
+            <DeleteOutlined className="delete-icon" />
+          </Popconfirm>
         </Space>
       </div>
     </MyAritcleItemWraper>

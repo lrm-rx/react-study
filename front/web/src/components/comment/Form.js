@@ -43,7 +43,7 @@ export const Form = memo(
               onChange={(e) => setCommentText(e.target.value)}
               cols="80"
               rows="5"
-              placeholder="发条友善的评论"
+              placeholder="发条友善的评论吧!"
               className="ipt-txt"
             />
             <button onClick={commentSubmit} className="comment-submit">

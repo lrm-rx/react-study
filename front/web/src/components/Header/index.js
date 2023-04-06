@@ -85,7 +85,13 @@ const Header = memo((props) => {
   };
   return (
     <HeaderWraper>
-      <div className="logo">
+      <div
+        className="logo"
+        onClick={(e) => {
+          e.stopPropagation();
+          navigate("/home");
+        }}
+      >
         <img src={logo} alt="logo" />
         博客
       </div>

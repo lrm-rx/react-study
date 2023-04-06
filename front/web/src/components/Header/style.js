@@ -20,6 +20,9 @@ export const HeaderWraper = styled.div`
     margin-left: 20px;
     font-size: 18px;
     font-weight: 700;
+    &:hover {
+      cursor: pointer;
+    }
 
     img {
       width: 30px;
