@@ -10,11 +10,14 @@ import {
 } from "@ant-design/icons";
 import { Space, Popconfirm } from "antd";
 import { ARTICLEDEL } from "@common/contants";
+import { useImgHook } from "@hooks";
 import { MyAritcleItemWraper } from "./style";
 import c2 from "@assets/images/bg2.jpg";
+import blank from "@assets/images/blank.png";
 
 const MyAritcleItem = memo((props) => {
   const { sourceData = {}, selectCheckBox } = props;
+  useImgHook(".item-img", (enties) => {}, null);
   return (
     <MyAritcleItemWraper>
       <div className="left">
@@ -24,7 +27,12 @@ const MyAritcleItem = memo((props) => {
           type="checkbox"
           checked={sourceData?.isCheck}
         />
-        <img src={c2} alt="" />
+        <img
+          src={blank}
+          data-src={sourceData?.coverImage || c2}
+          className="item-img"
+          alt="文章封面"
+        />
       </div>
       <div
         className="right"

@@ -107,6 +107,9 @@ export function uploadCoverImage(data) {
   return request({
     url: "/upload/coverimage",
     method: "POST",
+    headers: {
+      isAuth: true,
+    },
     data,
   });
 }

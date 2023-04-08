@@ -7,8 +7,10 @@ import {
   TagsOutlined,
 } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { useImgHook } from "@hooks";
 import { ArticleItemWraper } from "./style";
 import c2 from "@assets/images/bg2.jpg";
+import blank from "@assets/images/blank.png";
 
 export const ArticleItem = memo((props) => {
   const { sourceData = {}, selectCheckBox } = props;
@@ -16,6 +18,7 @@ export const ArticleItem = memo((props) => {
   const goArticleDetail = (id) => {
     navigate(`/article/detail/${id}`);
   };
+  useImgHook(".item-img", (enties) => {}, null);
   return (
     <ArticleItemWraper>
       <div
@@ -23,7 +26,12 @@ export const ArticleItem = memo((props) => {
         onClick={() => goArticleDetail(sourceData?.id)}
       >
         <div className="left">
-          <img src={c2} alt="" />
+          <img
+            src={blank}
+            data-src={sourceData?.coverImage || c2}
+            className="item-img"
+            alt="文章封面"
+          />
         </div>
         <div className="right">
           <div className="title text-nowrap">{sourceData?.title}</div>

@@ -29,6 +29,7 @@ const WriteArticle = memo(() => {
   const detail = useSelector((state) => state.articleInfo.detail);
   const [form] = Form.useForm();
   const [markdown, setMarkdown] = useState("");
+  const [coverImg, setCoverImg] = useState("");
   const [search, setSearch] = useSearchParams();
   if (!(params.type === "create" || params.type === "update")) {
     navigate("/404");
@@ -73,6 +74,7 @@ const WriteArticle = memo(() => {
     const data = {
       ...values,
       contentText: markdown?.trim(),
+      coverImage: coverImg,
     };
     const result =
       params.type === "create"
@@ -110,6 +112,8 @@ const WriteArticle = memo(() => {
         content: "上传封面成功!",
         duration: 1,
       });
+      const imgUrl = result.data || "";
+      setCoverImg(imgUrl);
       return;
     }
     message.error({

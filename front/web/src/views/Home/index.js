@@ -70,12 +70,12 @@ const Home = memo(() => {
   return (
     <HomeWraper bgUrl={bgImg}>
       <canvas></canvas>
-      {output && (
+      {/* {output && (
         <div className="note" onClick={changeSentence}>
           {output}
           <span className="easy-typed-cursor">|</span>
         </div>
-      )}
+      )} */}
     </HomeWraper>
   );
 });
