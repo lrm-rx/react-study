@@ -1,4 +1,5 @@
 import { type ConfigEnv, type UserConfigExport, loadEnv } from "vite";
+import { createHtmlPlugin } from "vite-plugin-html";
 import path, { resolve } from "path";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
@@ -36,6 +37,24 @@ export default (configEnv: ConfigEnv): UserConfigExport => {
         },
       },
     },
-    plugins: [vue(), vueJsx()],
+    plugins: [
+      vue(),
+      vueJsx(),
+      createHtmlPlugin({
+        inject: {
+          data: {
+            title: viteEnv.VITE_GLOB_APP_TITLE,
+          },
+        },
+      }),
+    ],
+    // * 打包去除 console.log && debugger
+    esbuild: {
+      pure: viteEnv.VITE_DROP_CONSOLE ? ["console.log", "debugger"] : [],
+    },
+    build: {
+      outDir: "dist",
+      minify: "esbuild",
+    },
   };
 };
