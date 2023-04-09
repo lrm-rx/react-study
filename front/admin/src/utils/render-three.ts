@@ -4,7 +4,7 @@ import { GUI } from "three/examples/jsm/libs/lil-gui.module.min.js";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls.js";
 // import Stats from "three/examples/jsm/libs/stats.module.js";
 import _ from "lodash-es";
-import { require } from "./require";
+import { getImageUrl } from "./require";
 // 容器
 let container: any;
 // 声明视口宽度
@@ -67,18 +67,15 @@ const initScene = () => {
 
 // 初始化背景（盒模型背景，视角在盒子里面，看到的是盒子内部）
 const initSceneBg = () => {
-  new THREE.TextureLoader().load(
-    require("@/assets/images/login/sky.png"),
-    (texture: any) => {
-      const geometry = new THREE.BoxGeometry(width, height, depth); // 创建一个球形几何体 SphereGeometry
-      const material = new THREE.MeshBasicMaterial({
-        map: texture,
-        side: THREE.BackSide,
-      }); // 创建基础为网格基础材料
-      const mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
-    }
-  );
+  new THREE.TextureLoader().load(getImageUrl("sky"), (texture: any) => {
+    const geometry = new THREE.BoxGeometry(width, height, depth); // 创建一个球形几何体 SphereGeometry
+    const material = new THREE.MeshBasicMaterial({
+      map: texture,
+      side: THREE.BackSide,
+    }); // 创建基础为网格基础材料
+    const mesh = new THREE.Mesh(geometry, material);
+    scene.add(mesh);
+  });
 };
 
 // 初始化轨道控制器
@@ -150,9 +147,7 @@ const initLight = () => {
 const initSphereModal = () => {
   //材质
   let material = new THREE.MeshPhongMaterial();
-  material.map = new THREE.TextureLoader().load(
-    require("@/assets/images/login/earth_bg.png")
-  );
+  material.map = new THREE.TextureLoader().load(getImageUrl("earth_bg"));
   material.blendDstAlpha = 1;
   //几何体
   sphereGeometry = new THREE.SphereGeometry(50, 64, 32);
@@ -188,9 +183,7 @@ const initTubeRoute = (
 
   const clondGeometry = new THREE.PlaneGeometry(geometryWidth, geometryHeigh);
   const textureLoader = new THREE.TextureLoader();
-  const cloudTexture = textureLoader.load(
-    require("@/assets/images/login/cloud.png")
-  );
+  const cloudTexture = textureLoader.load(getImageUrl("cloud"));
   const clondMaterial = new THREE.MeshBasicMaterial({
     map: cloudTexture,
     blending: THREE.AdditiveBlending,
@@ -211,12 +204,8 @@ const initSceneStar = (initZposition: number): any => {
   const vertices: number[] = [];
   const pointsGeometry: any[] = [];
   const textureLoader = new THREE.TextureLoader();
-  const sprite1 = textureLoader.load(
-    require("@/assets/images/login/starflake1.png")
-  );
-  const sprite2 = textureLoader.load(
-    require("@/assets/images/login/starflake2.png")
-  );
+  const sprite1 = textureLoader.load(getImageUrl("starflake1"));
+  const sprite2 = textureLoader.load(getImageUrl("starflake2"));
   parameters = [
     [[0.6, 100, 0.75], sprite1, 50],
     [[0, 0, 1], sprite2, 20],
