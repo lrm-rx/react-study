@@ -27,7 +27,7 @@ const Header = memo((props) => {
     (state) => state.globalInfo.showLoginModal
   );
   useEffect(() => {
-    if (categories.length > 0 && tags.length > 0) {
+    if (categories?.length > 0 && tags?.length > 0) {
       setDisabledWriteBtn(false);
     }
   }, [categories, tags]);
