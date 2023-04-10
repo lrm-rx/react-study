@@ -31,7 +31,6 @@ export default function request(option) {
         }
         // 3.对请求的参数进行序列化(看服务器是否需要序列化)
         // config.data = qs.stringify(config.data)
-        // console.log(config);
 
         // 4. 取消请求
         removePending(config);

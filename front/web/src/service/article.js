@@ -70,7 +70,7 @@ export function getArticleDetail(id) {
   });
 }
 
-// 通过id查找文章(+阅读数)
+// 通过id查找文章(不加阅读数)
 export function getArticleDetailToUpdate(id) {
   return request({
     url: "/article/detailandupdate",

@@ -30,7 +30,6 @@ const Pigeonhole = memo(() => {
   // const clickTimeLine = (e) => {
   //   // 这里使用到了事件委托
   //   const aid = e.target.getAttribute("data-article-id");
-  //   console.log("aid:", aid);
   //   if (!aid) return;
   //   navigate(`/article/detail/${aid}`);
   // };

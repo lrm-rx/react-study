@@ -53,4 +53,23 @@ export const ArticleDetailWraper = styled.div`
       }
     }
   }
+  .up-and-down-pages {
+    display: flex;
+    justify-content: center;
+    .pages-ul {
+      width: 740px;
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      li {
+        margin: 6px 0;
+        &:hover {
+          color: #528bff;
+        }
+      }
+      .pages-nav:hover {
+        color: #528bff;
+      }
+    }
+  }
 `;

@@ -20,6 +20,7 @@ import {
   useNavigate,
   useSearchParams,
   useParams,
+  NavLink,
 } from "react-router-dom";
 import { message, Row, Col, Space, Tag, Tooltip } from "antd";
 import { getArticleDetail } from "@service/article";
@@ -49,6 +50,7 @@ export const articleComent = createContext(null);
 
 const ArticleDetail = memo(() => {
   const relaodCommentsNumRef = useRef();
+  const aidRef = useRef();
   const prevPosition = usePrevious(window.pageYOffset);
   const commentTopRef = useRef();
   const commentRef = useRef();
@@ -70,6 +72,7 @@ const ArticleDetail = memo(() => {
   const [markNavWidth, setMarkNavWidth] = useState(0);
   const [markNavOffsetLeft, setMarkNavOffsetLeft] = useState(0);
   const { windowWidth } = useViewWidth();
+  aidRef.current = params?.id || 0;
   /**
    * 1. 监听loading是否展示出来
    * 2. 发出reload, 修改分页
@@ -96,6 +99,7 @@ const ArticleDetail = memo(() => {
   const [category, setCategory] = useState("");
   const [tags, setTags] = useState([]);
   const [createdAt, setCreatedAt] = useState("");
+  const [pagesInfo, setPagesInfo] = useState([]);
 
   useEffect(() => {
     (async () => {
@@ -107,15 +111,17 @@ const ArticleDetail = memo(() => {
         });
         return;
       }
-      const detail = result.data || {};
+      const detail = result?.data?.article || {};
+      const pagesInfoRes = result?.data?.pageInfo || [];
+      setPagesInfo(pagesInfoRes);
       // useRef有记忆功能
-      articleIdRef.current = detail.id;
-      setArticleTitle(detail.title);
-      setAuthor(detail.user.nickname);
-      setCategory(detail.category.name);
-      setTags(detail.tags);
-      setCreatedAt(detail.createdAt);
-      setMdContent(detail.contentText);
+      articleIdRef.current = detail?.id;
+      setArticleTitle(detail?.title);
+      setAuthor(detail?.user?.nickname);
+      setCategory(detail?.category?.name);
+      setTags(detail?.tags);
+      setCreatedAt(detail?.createdAt);
+      setMdContent(detail?.contentText);
     })();
     return () => {
       // 重置数据
@@ -250,6 +256,46 @@ const ArticleDetail = memo(() => {
         showLoading={showLoading}
         ref={commentRef}
       />
+      <div className="up-and-down-pages">
+        <ul className="pages-ul">
+          {pagesInfo.length > 1 ? (
+            <>
+              <li className="text-nowrap">
+                &lt;&lt;上一篇:
+                <NavLink
+                  className="pages-nav"
+                  to={`/article/detail/${pagesInfo[1]?.id}`}
+                >
+                  {pagesInfo[1]?.title}
+                </NavLink>
+              </li>
+              <li className="text-nowrap">
+                &gt;&gt;下一篇:
+                <NavLink
+                  className="pages-nav"
+                  to={`/article/detail/${pagesInfo[0]?.id}`}
+                >
+                  {pagesInfo[0]?.title}
+                </NavLink>
+              </li>
+            </>
+          ) : (
+            <li className="text-nowrap">
+              {pagesInfo[0]?.id < aidRef.current ? (
+                <>&gt;&gt;下一篇:</>
+              ) : (
+                <>&lt;&lt;上一篇:</>
+              )}
+              <NavLink
+                className="pages-nav"
+                to={`/article/detail/${pagesInfo[0]?.id}`}
+              >
+                {pagesInfo[0]?.title}
+              </NavLink>
+            </li>
+          )}
+        </ul>
+      </div>
       {/* </articleComent.Provider> */}
     </ArticleDetailWraper>
   );

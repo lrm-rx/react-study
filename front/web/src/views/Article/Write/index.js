@@ -13,7 +13,6 @@ import { useSelector } from "react-redux";
 import { debounce } from "@utils/common";
 import {
   createArticle,
-  getArticleDetail,
   updateArticle,
   uploadCoverImage,
 } from "@service/article";
