@@ -15,6 +15,7 @@ import { computed, defineAsyncComponent, type Component, onMounted } from "vue"
 import { ElNotification } from "element-plus";
 import { useRouter } from "vue-router"
 import { GlobalStore } from "@/store"
+import { LOGIN_URL } from "@/config/config";
 import { TabsAndCatecoryStore } from "@/store/modules/tabsAndCatecory"
 import Loading from "@/components/Loading/index.vue";
 import ThemeDrawer from "./components/ThemeDrawer/index.vue";
@@ -37,6 +38,16 @@ onMounted(() => {
 })
 
 const getUserInfo = async () => {
+  if (!globalStore.token) {
+    ElNotification({
+      title: "温馨提示",
+      message: "您尚未登录,请先登录!!!",
+      type: "warning",
+      duration: 3000
+    });
+    router.push(LOGIN_URL);
+    return;
+  }
   if (globalStore.userRole && globalStore.userRole !== 1) {
     router.push("/403");
     ElNotification({
