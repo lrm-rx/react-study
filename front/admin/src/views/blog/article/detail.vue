@@ -47,8 +47,10 @@ const handleBack = () => {
 
 const detailDataInit = async (id: number) => {
   const aricleRes = await getArticleById({ id })
+  console.log("aricleRes?.data:", aricleRes?.data);
   if (Number(aricleRes.code) === 200) {
-    articleDetail.detail = aricleRes?.data as any;
+    // @ts-ignore
+    articleDetail.detail = aricleRes?.data?.article as any;
   } else {
     ElMessage.error({ message: "获取文章失败!", duration: 1000 });
   }

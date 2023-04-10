@@ -70,7 +70,6 @@ const formData = reactive({
 
 const rules = reactive({
   title: [{ required: true, message: "请填写文章标题" }],
-  coverImage: [{ required: true, message: "请上传文章封面" }],
   categoryId: [{ required: true, message: "请选择分类" }],
   tagIds: [{ required: true, message: "请选择标签" }],
 });
@@ -165,7 +164,8 @@ const handleCancel = () => {
 const editDataInit = async (id: number) => {
   const aricleRes = await getArticleById({ id })
   if (Number(aricleRes.code) === 200) {
-    const { title, tags = [], category, contentText, coverImage } = aricleRes?.data as any;
+    // @ts-ignore
+    const { title, tags = [], category, contentText, coverImage } = aricleRes?.data?.article as any;
     const tagIds = tags.map((item: any) => {
       return item.id
     })
