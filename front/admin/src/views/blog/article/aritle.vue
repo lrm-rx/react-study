@@ -151,13 +151,13 @@ const handleReset = () => {
 // 取消
 const handleCancel = () => {
   if (isChange.value) {
-    ElMessageBox.confirm(`是否要保存并发布文章?`, "温馨提示", {
+    ElMessageBox.confirm(`是否要退出该页面?`, "温馨提示", {
       confirmButtonText: "确定",
       cancelButtonText: "取消",
       type: "warning",
       draggable: true,
     }).then(async () => {
-      handleSubmit()
+      router.push("/blog/articles")
     });
   }
 }

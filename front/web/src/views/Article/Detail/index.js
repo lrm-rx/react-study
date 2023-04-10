@@ -221,7 +221,7 @@ const ArticleDetail = memo(() => {
         <Col span={5}>创建时间: {createdAt}</Col>
       </Row>
       <div className="article-detail">
-        <div className="article-nav global-scrollbar-style">
+        <div className="article-nav">
           <MarkNav
             source={mdContent}
             headingTopOffset={40} //离顶部的距离
@@ -229,7 +229,7 @@ const ArticleDetail = memo(() => {
             updateHashAuto={false}
           />
         </div>
-        <div className="article-main-content global-scrollbar-style">
+        <div className="article-main-content">
           <ReactMarkdown
             remarkPlugins={[remarkGfm]}
             rehypePlugins={[rehypeRaw]}

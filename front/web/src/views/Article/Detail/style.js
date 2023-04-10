@@ -35,12 +35,12 @@ export const ArticleDetailWraper = styled.div`
     border-radius: 6px;
     background-color: #fff;
     .article-nav {
-      max-height: 100vh;
+      min-height: 100vh;
       flex: 1;
       border-right: 4px solid #ccc;
     }
     .article-main-content {
-      max-height: 100vh;
+      min-height: 100vh;
       padding: 10px;
       flex: 3;
     }

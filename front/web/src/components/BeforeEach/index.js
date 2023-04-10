@@ -44,7 +44,11 @@ export default function BeforeEach(props) {
     if (search.get("id") && location.pathname.includes("/article/update")) {
       articleId = search.get("id");
     }
-    if (articleId && isLogin) {
+    if (
+      articleId &&
+      isLogin &&
+      !location.pathname.includes("/article/detail")
+    ) {
       getArticleDetailToUpdate(articleId)
         .then((res) => {
           if (Number(res.code) !== 200) {

@@ -23,6 +23,20 @@ export const AboutWraper = styled.div`
     .content {
       padding-top: 20px;
       font-size: 16px;
+      .site-explain {
+        display: flex;
+        ul {
+          width: 50%;
+          li {
+            margin: 6px 0;
+          }
+        }
+        .site-address {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+        }
+      }
     }
   }
 `;

@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef, memo } from "react";
 import MyAritcleItem from "./components/MyAritcleItem";
-import { Button, Input, Space, message } from "antd";
+import { Button, Input, Space, message, Popconfirm } from "antd";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { SearchOutlined, InboxOutlined } from "@ant-design/icons";
@@ -23,7 +23,7 @@ const MyArticle = memo(() => {
   const [keyword, setKeyword] = useState("");
   const [total, setTotal] = useState(0);
   const [showselected, setShowselected] = useState(false);
-  const [relaodListsNum, setRelaodListsNum] = useState(0);
+  const [refreshCount, setRefreshCount] = useState(false);
   const articleList = async () => {
     const result = await getMyArticleList({
       keyword,
@@ -50,7 +50,7 @@ const MyArticle = memo(() => {
   useEffect(() => {
     if (!isLogin) return;
     articleList();
-  }, [pageNum]);
+  }, [pageNum, refreshCount]);
   useObserverHook(
     `#${LOADING_ID}`,
     (entries) => {
@@ -62,13 +62,6 @@ const MyArticle = memo(() => {
   );
   const delMyArticle = async (ids, type) => {
     let delIds = ids;
-    if (type === ARTICLEDEL.BATCHDEL && !ids.length) {
-      message.warning({
-        content: "请选择需要删除的文章!",
-        duration: 1,
-      });
-      return;
-    }
     if (type === ARTICLEDEL.SINGGLEDEL) {
       delIds = [ids];
     }
@@ -81,7 +74,11 @@ const MyArticle = memo(() => {
       return;
     }
     setList([]);
-    setPageNum(1);
+    if (pageNum === 1) {
+      setRefreshCount((preRefreshCount) => preRefreshCount + 1);
+    } else {
+      setPageNum(1);
+    }
     message.success({
       content: result.msg,
       duration: 1,
@@ -140,50 +137,68 @@ const MyArticle = memo(() => {
     navigate(`/article/detail/${id}`);
   };
 
+  const seachInputEnter = (value) => {
+    setKeyword(value);
+    setList([]);
+    if (pageNum === 1) {
+      setRefreshCount((preRefreshCount) => preRefreshCount + 1);
+      return;
+    }
+    setPageNum(1);
+  };
+
   return (
     <MyArticleWraper>
+      <div className="list-header">
+        <Input
+          className="header-search"
+          placeholder="搜索我的文章"
+          prefix={<SearchOutlined />}
+          onPressEnter={(e) => {
+            seachInputEnter(e.target.value);
+          }}
+        />
+
+        <Space>
+          <Button
+            type="primary"
+            onClick={selectAll}
+            ref={chageFlagRef}
+            disabled={list.length === 0}
+          >
+            {selectAllFlag ? "全选" : "取消全选"}
+          </Button>
+          <Popconfirm
+            title="温馨提示"
+            description="您确定要删除吗?"
+            onConfirm={() => delMyArticle(delIds, ARTICLEDEL.BATCHDEL)}
+            disabled={delIds.length === 0}
+            okText="确定"
+            cancelText="取消"
+          >
+            <Button type="primary" danger disabled={delIds.length === 0}>
+              批量删除
+            </Button>
+          </Popconfirm>
+
+          <div>共 {total} 篇文章</div>
+          {showselected && <div>已选中:{delIds.length}篇文章</div>}
+        </Space>
+      </div>
       {list.length ? (
-        <>
-          <div className="list-header">
-            <Input
-              className="header-search"
-              placeholder="搜索我的文章"
-              prefix={<SearchOutlined />}
-              onPressEnter={(e) => {
-                setKeyword(e.target.value);
-                setList([]);
-                setPageNum(1);
-              }}
+        <div className="item-content-area global-scrollbar-style">
+          {list.map((item) => (
+            <MyAritcleItem
+              selectCheckBox={selectCheckBox}
+              sourceData={item}
+              delArticle={delMyArticle}
+              updateArticle={updateArticle}
+              readArticle={readArticle}
+              key={item.id}
             />
-            <Space>
-              <Button type="primary" onClick={selectAll} ref={chageFlagRef}>
-                {selectAllFlag ? "全选" : "取消全选"}
-              </Button>
-              <Button
-                type="primary"
-                danger
-                onClick={() => delMyArticle(delIds, ARTICLEDEL.BATCHDEL)}
-              >
-                批量删除
-              </Button>
-              <div>共 {total} 篇文章</div>
-              {showselected && <div>已选中:{delIds.length}篇文章</div>}
-            </Space>
-          </div>
-          <div className="item-content-area global-scrollbar-style">
-            {list.map((item) => (
-              <MyAritcleItem
-                selectCheckBox={selectCheckBox}
-                sourceData={item}
-                delArticle={delMyArticle}
-                updateArticle={updateArticle}
-                readArticle={readArticle}
-                key={item.id}
-              />
-            ))}
-            <ShowLoading showLoading={showLoading} />
-          </div>
-        </>
+          ))}
+          <ShowLoading showLoading={showLoading} />
+        </div>
       ) : (
         <div className="list-no-data">
           <div className="content-tip">
