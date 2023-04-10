@@ -22,7 +22,7 @@ const Header = memo((props) => {
   const [disabledWriteBtn, setDisabledWriteBtn] = useState(true);
   const isLogin = useSelector((state) => state.userInfo.isLogin);
   const categories = useSelector((state) => state.categoryInfo.list);
-  const tags = useSelector((state) => state.TagsInfo.list);
+  const tags = useSelector((state) => state.tagsInfo.list);
   const showLoginModal = useSelector(
     (state) => state.globalInfo.showLoginModal
   );

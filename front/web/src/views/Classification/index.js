@@ -1,6 +1,6 @@
 import { useState, useEffect, memo } from "react";
 import { message } from "antd";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getAllCategories, getCategoryBelowArticle } from "@service/category";
 import {
   inputValChange,
@@ -14,28 +14,20 @@ import c5 from "@assets/images/c5.jpg";
 const Category = memo(() => {
   const dispatch = useDispatch();
   const [categories, setCategories] = useState([]);
+  const categoriesList = useSelector((state) => state.categoryInfo.list);
   useEffect(() => {
-    (async () => {
-      const result = await getAllCategories();
-      if (Number(result.code) !== 200) {
-        message.error({
-          content: result.msg || "出错啦!",
-          duration: 1,
-        });
-        return;
-      }
-      const originalList = result.data || [];
-      const sliceList = originalList.slice(0, 4);
-      setCategories(sliceList);
-    })();
-  }, []);
+    const sliceList = categoriesList.slice(0, 4);
+    setCategories(sliceList);
+  }, [categoriesList]);
 
   const clickCard = (id, name) => {
     return async () => {
       const result = await getCategoryBelowArticle([id]);
       if (Number(result.code) === 200) {
         let list = result.data[0]?.articles || [];
-        await dispatch(inputValChange(name));
+        const count = result.data[0]?.articleCount || 0;
+        const content = `${name}(${count})`;
+        await dispatch(inputValChange(content));
         await dispatch(
           openModal({
             isSearchInput: false,

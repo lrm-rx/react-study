@@ -1,7 +1,6 @@
 import { useState, useEffect, memo } from "react";
 import { Tag, message } from "antd";
-import { useDispatch } from "react-redux";
-import { getAllTags } from "@service/tags";
+import { useDispatch, useSelector } from "react-redux";
 import {
   getArticleByTagAction,
   inputValChange,
@@ -12,21 +11,7 @@ import tagBgImg from "@assets/images/bg3.jpg";
 
 const ArticleTag = memo(() => {
   const dispatch = useDispatch();
-  const [tags, setTags] = useState([]);
-
-  useEffect(() => {
-    (async () => {
-      const result = await getAllTags();
-      if (Number(result.code) !== 200) {
-        message.error({
-          content: result.msg || "出错啦!",
-          duration: 1,
-        });
-        return;
-      }
-      result?.data && setTags(result.data);
-    })();
-  }, []);
+  const tags = useSelector((state) => state.tagsInfo.list);
 
   const clickTag = (id, count, name) => {
     return async () => {

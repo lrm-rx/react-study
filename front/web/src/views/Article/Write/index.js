@@ -51,7 +51,7 @@ const WriteArticle = memo(() => {
     };
   }, [params.type, detail]);
   const categories = useSelector((state) => state.categoryInfo.list);
-  const tags = useSelector((state) => state.TagsInfo.list);
+  const tags = useSelector((state) => state.tagsInfo.list);
 
   const { scrollTop } = useScrollTop();
   const [fixArticleHeader, setFixArticleHeader] = useState(false);

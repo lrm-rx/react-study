@@ -16,7 +16,7 @@ const rootPersistConfig = {
   blacklist: [
     "articleInfo",
     "userInfo",
-    "TagsInfo",
+    "tagsInfo",
     "categoryInfo",
     "globalInfo",
     "comment",
@@ -33,7 +33,7 @@ const userInfoPersistConfig = {
 const rootReducer = combineReducers({
   userInfo: persistReducer(userInfoPersistConfig, userReducer),
   articleInfo: articleReducer,
-  TagsInfo: tagsReducer,
+  tagsInfo: tagsReducer,
   categoryInfo: categoryReducer,
   globalInfo: globalReducer,
   comment: commentReducer,

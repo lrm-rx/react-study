@@ -103,7 +103,9 @@ const Layout = memo(() => {
               prefix={<SearchOutlined />}
             />
           ) : (
-            <div className="global-search-article">技术(18)</div>
+            <div className="global-search-article">
+              {globalModalInfo?.searchContent || ""}
+            </div>
           )}
           <ul
             className="global-search-article-ul global-scrollbar-style"
