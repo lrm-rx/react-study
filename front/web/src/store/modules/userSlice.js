@@ -121,8 +121,8 @@ const userSlice = createSlice({
   extraReducers: (builder) => {
     builder
       .addCase(userLoginAction.fulfilled, (state, action) => {
-        state.userId = action.payload.id;
-        state.token = action.payload.token;
+        state.userId = action.payload?.id;
+        state.token = action.payload?.token;
       })
       .addCase(getUserInfoAction.fulfilled, (state, action) => {
         state.basicInfo = action.payload;

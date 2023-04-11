@@ -73,7 +73,7 @@ export default function BeforeEach(props) {
   }, [location.pathname, params, search.get("id")]);
 
   useEffect(() => {
-    if (isLogin && Number(userId) !== 0) {
+    if (isLogin && userId && typeof userId === "number" && userId !== 0) {
       // 获取用户信息
       dispatch(getUserInfoAction(userId));
     }
