@@ -1,5 +1,4 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { message } from "antd";
 // 获取文章列表
 export const getArticleListAction = createAsyncThunk(
   "article/list",

@@ -17,8 +17,8 @@ import NicknameAvatar from "../NicknameAvatar";
 const Header = memo((props) => {
   const location = useLocation();
   const navigate = useNavigate();
-  const LoginModalRef = useRef();
-  const RegisterModelRef = useRef();
+  const loginModalRef = useRef();
+  const registerModelRef = useRef();
   // const [showLoginModal, setShowLoginModal] = useState(false);
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [disabledWriteBtn, setDisabledWriteBtn] = useState(true);
@@ -40,8 +40,10 @@ const Header = memo((props) => {
       password: md5(data?.password),
     };
     // 去调用接口
-    await dispatch(userLoginAction(params));
-    LoginModalRef.current.removeFormData();
+    const result = await dispatch(userLoginAction(params));
+    if (result.payload) {
+      loginModalRef.current.removeFormData();
+    }
   };
   useEffect(() => {
     if (isLogin) {
@@ -65,7 +67,7 @@ const Header = memo((props) => {
     }
     message.success(`用户 ${result.data.username} 注册成功!`, 2);
     setShowRegisterModal(false);
-    RegisterModelRef.current.removeRegisterFormData();
+    registerModelRef.current.removeRegisterFormData();
   };
   const handleCancelRegister = (value) => {
     setShowRegisterModal(value);
@@ -152,14 +154,14 @@ const Header = memo((props) => {
         isShowLoginModal={showLoginModal}
         cancelLogin={handleCancelLogin}
         userLogin={handleUserLogin}
-        ref={LoginModalRef}
+        ref={loginModalRef}
       />
       {/* 注册弹窗 */}
       <RegisterModel
         isShowRegisterModal={showRegisterModal}
         cancelRegister={handleCancelRegister}
         userRegister={handleUserRegister}
-        ref={RegisterModelRef}
+        ref={registerModelRef}
       />
     </HeaderWraper>
   );
