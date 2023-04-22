@@ -4,6 +4,7 @@ import router from "@/router";
 import VMdEditor from "@kangc/v-md-editor";
 import vuepressTheme from "@kangc/v-md-editor/lib/theme/vuepress.js";
 import { loadPlugins } from "@/plugins";
+import * as ElementPlusIconsVue from "@element-plus/icons-vue";
 
 import VMdPreview from "@kangc/v-md-editor/lib/preview";
 import "@kangc/v-md-editor/lib/style/preview.css";
@@ -53,6 +54,16 @@ app.config.errorHandler = errorHandler;
 // 加载插件
 loadPlugins(app);
 
+import { toLine } from "./utils/index";
+import RmUI from "./components/custom";
+// el-icon-xxx
+for (const i in ElementPlusIconsVue) {
+  if (Object.prototype.hasOwnProperty.call(ElementPlusIconsVue, i)) {
+    // 注册全部组件
+    app.component(`el-icon-${toLine(i)}`, (ElementPlusIconsVue as any)[i]);
+  }
+}
+
 app
   .use(router)
   .use(I18n)
@@ -60,4 +71,5 @@ app
   .use(directives)
   .use(VMdEditor)
   .use(VMdPreview)
+  .use(RmUI)
   .mount("#app");

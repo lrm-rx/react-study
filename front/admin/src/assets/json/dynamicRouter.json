@@ -116,6 +116,162 @@
           }
         }
       ]
+    },
+    {
+      "path": "/custom",
+      "name": "custom",
+      "redirect": "/custom/selecticon",
+      "meta": {
+        "icon": "Connection",
+        "title": "组件二次封装",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      },
+      "children": [
+        {
+          "path": "/custom/selecticon",
+          "name": "selecticon",
+          "component": "/custom/selecticon/index",
+          "meta": {
+            "icon": "Coin",
+            "title": "图标选择器",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/custom/selectcity",
+          "name": "selectcity",
+          "component": "/custom/selectcity/index",
+          "meta": {
+            "icon": "OfficeBuilding",
+            "title": "城市选择组件",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/custom/selectarea",
+          "name": "selectcity",
+          "component": "/custom/selectArea/index",
+          "meta": {
+            "icon": "document",
+            "title": "地区选择组件",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/custom/trend",
+          "name": "trend",
+          "component": "/custom/trend/index",
+          "meta": {
+            "icon": "Sort",
+            "title": "趋势组件",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/custom/notification",
+          "name": "notification",
+          "component": "/custom/notification/index",
+          "meta": {
+            "icon": "Bell",
+            "title": "通知组件",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/custom/selecttime",
+          "name": "selecttime",
+          "component": "/custom/selectTime/index",
+          "meta": {
+            "icon": "Clock",
+            "title": "时间组件",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/custom/table",
+          "name": "table",
+          "component": "/custom/table/index",
+          "meta": {
+            "icon": "Grid",
+            "title": "表格组件",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/custom/form",
+          "name": "form",
+          "component": "/custom/form/index",
+          "meta": {
+            "icon": "Collection",
+            "title": "表单组件",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        },
+        {
+          "path": "/custom/modelform",
+          "name": "modelform",
+          "component": "/custom/modelForm/index",
+          "meta": {
+            "icon": "Collection",
+            "title": "模态框表单组件",
+            "isLink": "",
+            "isHide": false,
+            "isFull": false,
+            "isAffix": false,
+            "isKeepAlive": true
+          }
+        }
+      ]
+    },
+    {
+      "path": "/luckydraw",
+      "name": "luckydraw",
+      "component": "/luckydraw/index",
+      "meta": {
+        "icon": "GobletSquare",
+        "title": "抽奖",
+        "isLink": "",
+        "isHide": false,
+        "isFull": false,
+        "isAffix": false,
+        "isKeepAlive": true
+      }
     }
   ],
   "msg": "成功"

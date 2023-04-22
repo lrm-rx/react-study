@@ -5,7 +5,7 @@
 			<!-- <Language id="language" /> -->
 			<!-- <SearchMenu id="searchMenu" /> -->
 			<ThemeSetting id="themeSetting" />
-			<!-- <Message id="message" /> -->
+			<Message id="message" />
 			<Fullscreen id="fullscreen" />
 		</div>
 		<span class="username">{{ globalStore.userInfo?.nickname || "昵称" }}</span>
