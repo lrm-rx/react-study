@@ -1,6 +1,6 @@
 <template>
 	<div class="footer flx-center">
-		<a href="https://github.com/HalseySpicy" target="_blank"> 2023 © Blog-Admin By admin Technology. </a>
+		<a href="https://github.com/HalseySpicy" target="_blank"> Blog-Admin demo </a>
 	</div>
 </template>
 

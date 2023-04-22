@@ -8,7 +8,8 @@
         <!-- 上传组件 -->
         <el-upload v-if="item.type === 'upload'" v-bind="item.uploadAttrs" :on-preview="onPreview" :on-remove="onRemove"
           :on-success="onSuccess" :on-error="onError" :on-progress="onProgress" :on-change="onChange"
-          :before-upload="beforeUpload" :before-remove="beforeRemove" :http-request="httpRequest" :on-exceed="onExceed">
+          :before-upload="beforeUpload" :before-remove="beforeRemove" :http-request="httpRequest as UploadRequestHandler"
+          :on-exceed="onExceed">
           <slot name="uploadArea"></slot>
           <slot name="uploadTip"></slot>
         </el-upload>
@@ -28,9 +29,11 @@
 <script lang="ts" setup>
 import { PropType, ref, onMounted, watch, nextTick } from 'vue'
 import { FormOptions, FormInstance } from './types/types'
+import { type UploadFile, UploadFiles, UploadRawFile, UploadUserFile, UploadRequestHandler } from "element-plus"
 import cloneDeep from 'lodash/cloneDeep'
 import '@wangeditor/editor/dist/css/style.css'
 import { createEditor, createToolbar, IEditorConfig, IDomEditor } from '@wangeditor/editor'
+import { Awaitable } from 'element-plus/es/utils/typescript'
 
 
 let props = defineProps({
@@ -46,8 +49,8 @@ let props = defineProps({
 })
 
 let emits = defineEmits([
-  'on-preview', 'on-remove', 'on-success', 'on-error', 
-  'on-progress', 'on-change', 'before-upload', 'before-remove','on-exceed'
+  'on-preview', 'on-remove', 'on-success', 'on-error',
+  'on-progress', 'on-change', 'before-upload', 'before-remove', 'on-exceed'
 ])
 
 let model = ref<any>(null)
@@ -58,24 +61,20 @@ let form = ref<FormInstance | null>()
 
 // 初始化表单方法
 let initForm = () => {
-  if(props.options && props.options.length){
-    let m: any = {username: '', password: ''}
+  if (props.options && props.options.length) {
+    let m: any = { username: '', password: '' }
     let r: any = {}
     props.options.map((item: FormOptions) => {
       m[item.prop!] = item.value
       r[item.prop!] = item.rules
       // 初始化富文本编辑器
-      if(item.type === 'editor'){
-        nextTick(()=> {
-          if(document.getElementById('editor') && document.getElementById('toolbar')){
+      if (item.type === 'editor') {
+        nextTick(() => {
+          if (document.getElementById('editor') && document.getElementById('toolbar')) {
             const editorConfig: Partial<IEditorConfig> = {}
             editorConfig.placeholder = item.placeholder!
             editorConfig.onChange = (editor: IDomEditor) => {
               // 当编辑器选区、内容变化时，即触发
-              // console.log('content', editor.children)
-              // console.log('html', editor.getHtml())
-              // console.log('text', editor.getText());
-              
               model.value[item.prop!] = editor.getHtml()
             }
 
@@ -109,7 +108,7 @@ let resetFields = () => {
   // 1、重置element-plus 的表单
   form.value!.resetFields()
   // 2、重置富文本编辑器的内容
-  if(props.options && props.options.length){
+  if (props.options && props.options.length) {
     // 清空富文本内容
     edit.value.clear()
   }
@@ -135,45 +134,55 @@ defineExpose({
 // 监听父组件传递过来的options
 watch(() => props.options, () => {
   initForm()
-},{ deep: true })
+}, { deep: true })
 
 // 上传组件的所以方法
-let onPreview = (file: File) => {
+let onPreview = (file: UploadFile) => {
   emits('on-preview', file)
 }
 
-let onRemove = (file: File, fileList: FileList) => {
+let onRemove = (file: UploadFile, fileList: UploadFiles) => {
   emits('on-remove', { file, fileList })
 }
 
-let onSuccess = (response: any, file: File, fileList: FileList) => {
+let onSuccess = (response: any, file: UploadFile, fileList: UploadFiles) => {
   // 上传图片成功， 给表单上传项赋值
   let uploadItem = props.options.find(item => item.type === 'upload')!
   model.value[uploadItem.prop!] = { response, file, fileList }
-  emits('on-success', { response, file, fileList})
+  emits('on-success', { response, file, fileList })
 }
 
-let onError = (err: any, file: File, fileList: FileList) => {
+let onError = (err: any, file: UploadFile, fileList: UploadFiles) => {
   emits('on-error', { err, file, fileList })
 }
 
-let onProgress = (event: any, file: File, fileList: FileList) => {
+let onProgress = (event: any, file: UploadFile, fileList: UploadFiles) => {
   emits('on-progress', { event, file, fileList })
 }
 
-let onChange = (file: File, fileList: FileList) => {
+let onChange = (file: UploadFile, fileList: UploadFiles) => {
   emits('on-change', { file, fileList })
 }
 
-let beforeUpload = (file: File) => {
+let beforeUpload = (file: UploadRawFile) => {
   emits('before-upload', file)
 }
 
-let beforeRemove = (file: File, fileList: FileList) => {
-  emits('before-remove', { file, fileList})
+type beforeRemoveType = (file: UploadFile, fileList: UploadFiles) => Awaitable<boolean>
+// @ts-ignore
+let beforeRemove: beforeRemoveType = (file, fileList) => {
+  return new Promise((resolve, reject) => {
+    if (file && fileList.length > 0) {
+      resolve({ file, fileList });
+      emits('before-remove', { file, fileList })
+    }
+    reject()
+  }).catch(error => {
+    return new Error(error);
+  })
 }
 
-let onExceed = (file: File, fileList: FileList) => {
+let onExceed = (file: File[], fileList: UploadUserFile[]) => {
   emits('on-exceed', { file, fileList })
 }
 

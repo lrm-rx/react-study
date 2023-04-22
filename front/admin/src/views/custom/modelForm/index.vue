@@ -1,14 +1,8 @@
 <template>
-  <div>
+  <div class="table-box card">
     <el-button type="primary" @click='open'>编辑</el-button>
-    <model-form
-      title="编辑"
-      v-model:visible="visible"
-      :scrollHeight="400"
-      :options="options"
-      :on-change="handleChange"
-      :on-success="handleSuccess"
-     >
+    <model-form title="编辑" v-model:visible="visible" :scrollHeight="400" :options="options" :on-change="handleChange"
+      :on-success="handleSuccess">
       <template #uploadArea>
         <el-button size="small" type="primary">点击上传</el-button>
       </template>
@@ -29,7 +23,7 @@
 
 <script lang="ts" setup>
 import { ref } from "vue"
-import { FormOptions } from '@/components/basic/form/src/types/types'
+import { FormOptions } from '@/components/custom/form/src/types/types'
 import { ElMessage } from 'element-plus'
 const visible = ref<boolean>(false)
 
@@ -46,7 +40,7 @@ const Confirm = (form: any) => {
   const validate = form.validate()
   const model = form.getFormData()
   validate((valid: any) => {
-    if(valid){
+    if (valid) {
       ElMessage.success('验证成功')
       console.log(model);
       visible.value = false
@@ -70,7 +64,7 @@ const options: FormOptions[] = [
       },
       {
         min: 2,
-        max:6,
+        max: 6,
         message: '用户名在2-6位置之间',
         trigger: 'blur'
       }
@@ -90,9 +84,9 @@ const options: FormOptions[] = [
         message: '密码不能为空',
         trigger: 'blur'
       },
-       {
+      {
         min: 6,
-        max:10,
+        max: 10,
         message: '密码长度6-10位置之间',
         trigger: 'blur'
       }
@@ -108,7 +102,7 @@ const options: FormOptions[] = [
     placeholder: '请选择职位',
     prop: 'role',
     label: '职位',
-    attrs:{
+    attrs: {
       style: {
         width: '100%',
       },
@@ -168,7 +162,7 @@ const options: FormOptions[] = [
       }
     ]
   },
-   {
+  {
     type: 'radio-group',
     value: '',
     prop: 'gender',
@@ -202,7 +196,7 @@ const options: FormOptions[] = [
     type: 'upload',
     label: '上传',
     prop: 'pic',
-    uploadAttrs:{
+    uploadAttrs: {
       action: 'https://jsonplaceholder.typicode.com/posts/',
       multiple: true,
       limit: 3

@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table-box card">
     <select-city @selectCity="changeData" @selectCityByProvince="changeData1"></select-city>
   </div>
 </template>

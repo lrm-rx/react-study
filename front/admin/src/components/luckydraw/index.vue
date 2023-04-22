@@ -1,12 +1,6 @@
 <template>
   <div class="luckydraw">
-    <div class="luckydraw_top">
-      <img src="@/assets/luckydraw/wt.png" alt="">
-    </div>
-
-    <div class="luckdraw_cont">
-      <!-- <div class="dot" v-for="(item, index) in dots" :key="index" :class="{ isred: item.isred }"
-        :style="`top:${item.top}vw;left:${item.left}vw`"></div> -->
+    <div class="luckdraw_container">
       <div class="luckdraw_list">
         <div class="row">
           <div class="row_gift" :class="{ row_gift_isactive: item.active }" v-for="item in list.slice(0, 3)"
@@ -30,7 +24,6 @@
             <img :src="item.img" alt="">
           </div>
         </div>
-
         <div class="luckdraw_mask" v-if="isMask"></div>
       </div>
     </div>
@@ -157,169 +150,11 @@ watchEffect(() => {
   }
 })
 
-//边缘闪烁点
-
-interface Dot {
-  isred: boolean
-  top: number
-  left: number
-}
-
-const dots = ref<Dot[]>([
-  {
-    isred: true,
-    top: 8,
-    left: 2
-  },
-  {
-    isred: false,
-    top: 7,
-    left: 15
-  },
-  {
-    isred: true,
-    top: 7,
-    left: 30
-  },
-  {
-    isred: false,
-    top: 7,
-    left: 45
-  },
-  {
-    isred: true,
-    top: 7,
-    left: 60
-  },
-  {
-    isred: false,
-    top: 7,
-    left: 75
-  },
-
-  {
-    isred: true,
-    top: 7,
-    left: 89
-  },
-  {
-    isred: false,
-    top: 20,
-    left: 90.6
-  },
-  {
-    isred: true,
-    top: 35,
-    left: 90.6
-  },
-  {
-    isred: false,
-    top: 50,
-    left: 90.6
-  },
-  {
-    isred: true,
-    top: 65,
-    left: 90.6
-  },
-  {
-    isred: false,
-    top: 80,
-    left: 90.6
-  },
-  {
-    isred: true,
-    top: 95,
-    left: 90.6
-  },
-  {
-    isred: false,
-    top: 103,
-    left: 90
-  },
-  {
-    isred: true,
-    top: 104.6,
-    left: 75
-  },
-  {
-    isred: false,
-    top: 104.6,
-    left: 60
-  },
-  {
-    isred: true,
-    top: 104.6,
-    left: 45
-  },
-  {
-    isred: false,
-    top: 104.6,
-    left: 30
-  },
-  {
-    isred: true,
-    top: 104.6,
-    left: 15
-  },
-  {
-    isred: false,
-    top: 103.6,
-    left: 2
-  },
-  {
-    isred: true,
-    top: 90,
-    left: 0.5
-  },
-  {
-    isred: false,
-    top: 75,
-    left: 0.5
-  },
-  {
-    isred: true,
-    top: 60,
-    left: 0.5
-  },
-  {
-    isred: false,
-    top: 45,
-    left: 0.5
-  },
-  {
-    isred: true,
-    top: 32,
-    left: 0.5
-  },
-  {
-    isred: false,
-    top: 19,
-    left: 0.5
-  },
-])
-
-// setInterval(() => {
-//   dots.value.forEach((item) => {
-//     item.isred = !item.isred
-//   })
-// }, 500)
 </script>
 
 <style lang="scss" scoped>
 .luckydraw {
-  overflow: hidden;
-
-  .luckydraw_top {
-    display: flex;
-    justify-content: center;
-
-    img {
-      width: 350px;
-    }
-  }
-
-  .luckdraw_cont {
+  .luckdraw_container {
     background: url('../../assets/luckydraw/bg.png') no-repeat;
     background-size: 100% auto;
     width: 350px;

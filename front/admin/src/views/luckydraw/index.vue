@@ -1,5 +1,5 @@
 <template>
-  <div class="lucky-draw table-box">
+  <div class="table-box card">
     <LuckyDraw @start="start" @animationOver="animationOver" :id="prizeId" />
   </div>
 </template>
@@ -22,12 +22,4 @@ const animationOver = (id: number) => {
   alert(`中奖id:${id}`)
 }
 </script>
-<style lang="scss" scoped>
-.lucky-draw {
-  padding-top: 50px;
-  font-size: 16px;
-  background: #2d8fff;
-  box-sizing: border-box;
-  background-size: 100% auto;
-}
-</style>
+<style lang="scss" scoped></style>

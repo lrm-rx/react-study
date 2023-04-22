@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table-box card">
     <select-area @change="changeData"></select-area>
     <select-area-four class="select-area-four" @change="changeData1"></select-area-four>
   </div>
@@ -19,7 +19,7 @@ const changeData = (data: SelectData) => {
   console.log(data);
 }
 
-const changeData1 = (data:any) => {
+const changeData1 = (data: any) => {
   console.log(data);
 }
 </script>

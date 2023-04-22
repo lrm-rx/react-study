@@ -1,9 +1,6 @@
 <template>
-  <div>
+  <div class="table-box card">
     <select-time @startChange="startChange" @endChange="endChange" />
-  </div>
-  <div style="margin-top: 20px;">
-    <select-date @startChange="dateStartChange" @endChange="dateEndChange" />
   </div>
 </template>
 
@@ -34,6 +31,4 @@ const dateEndChange = (val: dateEndValue) => {
 }
 </script>
 
-<style lang="scss" scoped>
-
-</style>
+<style lang="scss" scoped></style>

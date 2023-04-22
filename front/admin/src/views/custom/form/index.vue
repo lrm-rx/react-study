@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="table-box card">
     <rm-form ref="form" label-width="100px" :options='options' @on-change="handleChange"
       @before-upload="handleBeforeUpload" @on-preview="handlePreview" @on-remove="handleRemove"
       @before-remove="beforeRemove" @on-success="handleSuccess" @on-exceed="handleExceed">

@@ -1,5 +1,5 @@
 <template>
-  <div class="rm-notification">
+  <div class="rm-notification table-box card">
     <rm-notification :value="10">
       <template #default>
         <rm-list @clickItem="clickItem" @clickAction="clickAction" :list="list" :actions="actions"></rm-list>
@@ -10,7 +10,7 @@
 
 <script setup lang="ts">
 import { list, actions } from './data'
-import { IActionOptions, IListItem } from '@/components/list/src/stypes';
+import { IActionOptions, IListItem } from '@/components/custom/list/src/types';
 export interface IReturnDataType {
   index: Number,
   item: IActionOptions | IListItem
@@ -26,7 +26,8 @@ const clickAction = (data: IReturnDataType) => {
 <style lang="scss" scoped>
 .rm-notification {
   display: flex;
-  justify-content: center;
-  padding: 10px 0;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 20px;
 }
 </style>

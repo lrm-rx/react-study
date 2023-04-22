@@ -1,8 +1,9 @@
 <template>
-  <div>
+  <div class="table-box card">
     <pro-table isEditRow v-model:editRowIndex="editRowIndex" :data="sourceTabeData" :options="options"
-      elementLoadingText="正在努力加载中..." @confirm="check" @cancel="close" editIcon="Edit" pagination v-model:currentPage="current" v-model:pageSize="pageSize" :total="total"
-      paginationAlign="center" @sizeChange="handleSizeChange" @currentChange="handleCurrentChange">
+      elementLoadingText="正在努力加载中..." @confirm="check" @cancel="close" editIcon="Edit" pagination
+      v-model:currentPage="current" v-model:pageSize="pageSize" :total="total" paginationAlign="center"
+      @sizeChange="handleSizeChange" @currentChange="handleCurrentChange">
       <template #date="{ scope }">
         <el-icon-timer></el-icon-timer>
         {{ scope.row.date }}
@@ -39,7 +40,7 @@
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
-import { TableOptions } from '@/components/basic/table/src/types';
+import { TableOptions } from '@/components/custom/table/src/types';
 interface ISourceTabeData {
   date: string,
   name: string,

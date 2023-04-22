@@ -44,6 +44,9 @@ import errorHandler from "@/utils/errorHandler";
 import Prism from "prismjs";
 // highlight code
 import "prismjs/components/prism-json";
+import { toLine } from "./utils/index";
+import RmUI from "./components/custom";
+import "./mock";
 
 VMdEditor.use(vuepressTheme, {
   Prism,
@@ -54,8 +57,6 @@ app.config.errorHandler = errorHandler;
 // 加载插件
 loadPlugins(app);
 
-import { toLine } from "./utils/index";
-import RmUI from "./components/custom";
 // el-icon-xxx
 for (const i in ElementPlusIconsVue) {
   if (Object.prototype.hasOwnProperty.call(ElementPlusIconsVue, i)) {

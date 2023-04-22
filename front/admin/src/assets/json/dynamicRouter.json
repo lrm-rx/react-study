@@ -161,7 +161,7 @@
         },
         {
           "path": "/custom/selectarea",
-          "name": "selectcity",
+          "name": "selectarea",
           "component": "/custom/selectArea/index",
           "meta": {
             "icon": "document",
