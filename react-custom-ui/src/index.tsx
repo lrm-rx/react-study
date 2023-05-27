@@ -11,7 +11,7 @@ const root = ReactDOM.createRoot(
 );
 root.render(
   <React.StrictMode>
-    <Button className="my-button">1111</Button>
+    <Button backgroundColor="red">1111</Button>
   </React.StrictMode>
 );
 
