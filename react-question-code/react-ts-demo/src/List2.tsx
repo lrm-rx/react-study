@@ -1,5 +1,5 @@
 import React, { FC, useState, useEffect } from 'react'
-import produce from 'immer'
+import { produce } from 'immer'
 import QuestionCard from './components/QuestionCard'
 
 // 组件是一个函数（执行返回 JSX 片段），组件初次渲染执行这个函数

@@ -1,6 +1,5 @@
 import React from 'react'
-import logo from './logo.svg'
-import './App.css'
+// import './App.css'
 // import List1 from './List1'
 // import StateDemo1 from './StateDemo1'
 // import StateDemo2 from './StateDemo2'
