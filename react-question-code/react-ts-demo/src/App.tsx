@@ -1,12 +1,20 @@
 import React from 'react'
 import logo from './logo.svg'
 import './App.css'
-import List1 from './List1'
+// import List1 from './List1'
+// import StateDemo1 from './StateDemo1'
+// import StateDemo2 from './StateDemo2'
+// import List2 from './List2'
+import ImmerDemo from './ImmerDemo'
 
 function App() {
   return (
     <>
-      <List1 />
+      {/* <List1 /> */}
+      {/* <StateDemo1 /> */}
+      {/* <StateDemo2 /> */}
+      {/* <List2 /> */}
+      <ImmerDemo />
     </>
   )
 }
