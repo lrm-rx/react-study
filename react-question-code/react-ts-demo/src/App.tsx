@@ -8,7 +8,8 @@ import React from 'react'
 // import UseRefDemo from './UseRefDemo'
 // import UseMemoDemo from './UseMemoDemo'
 // import UseCallbackDemo from './UseCallbackDemo'
-import ClosureTrap from './ClosureTrap'
+// import ClosureTrap from './ClosureTrap'
+import StyledComponentsDemo from './StyledComponentsDemo'
 // import useTitle from './hooks/useTitle'
 // import useMouse from './hooks/useMouse'
 // import useGetInfo from './hooks/useGetInfo'
@@ -33,7 +34,8 @@ function App() {
       {/* <UseRefDemo /> */}
       {/* <UseMemoDemo /> */}
       {/* <UseCallbackDemo /> */}
-      <ClosureTrap />
+      {/* <ClosureTrap /> */}
+      <StyledComponentsDemo />
     </>
   )
 }
