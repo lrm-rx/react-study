@@ -1,4 +1,4 @@
-import React, { Children } from 'react'
+import React from 'react'
 import { createBrowserRouter } from 'react-router-dom'
 
 import MainLayout from '../layouts/MainLayout'
@@ -72,3 +72,8 @@ const router = createBrowserRouter([
 ])
 
 export default router
+
+export const HOME_PATHNAME = '/'
+export const LOGIN_PATHNAME = '/login'
+export const REGISTER_PATHNAME = '/register'
+export const MANAGE_INDEX_PATHNAME = '/manage/list'
