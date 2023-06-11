@@ -1,9 +1,11 @@
 import React, { FC, useState } from 'react'
+import { Typography, Empty } from 'antd'
 import { useSearchParams } from 'react-router-dom'
 import { useTitle } from 'ahooks'
 import QuestionCard from '../../components/QuestionCard'
 import styles from './common.module.scss'
 
+const { Title } = Typography
 const rawQuestionList = [
   {
     _id: 'q1',
@@ -49,19 +51,20 @@ const List: FC = () => {
     <>
       <div className={styles.header}>
         <div className={styles.left}>
-          <h3>我的问卷</h3>
+          <Title level={3}>我的问卷</Title>
         </div>
         <div className={styles.right}>搜索</div>
       </div>
       <div className={styles.content}>
         {/* 问卷列表 */}
+        {questionList.length === 0 && <Empty description="暂无数据" />}
         {questionList.length > 0 &&
           questionList.map(q => {
             const { _id } = q
             return <QuestionCard key={_id} {...q} />
           })}
       </div>
-      <div className={styles.footer}>footer</div>
+      <div className={styles.footer}>加载更多</div>
     </>
   )
 }

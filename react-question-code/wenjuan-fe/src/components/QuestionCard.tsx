@@ -1,5 +1,5 @@
 import React, { FC } from 'react'
-import { Button, Space, Divider, Tag, Popconfirm } from 'antd'
+import { Button, Space, Divider, Tag, Popconfirm, Modal, message } from 'antd'
 import { useNavigate, Link } from 'react-router-dom'
 import {
   EditOutlined,
@@ -8,8 +8,11 @@ import {
   StarFilled,
   CopyOutlined,
   DeleteOutlined,
+  ExclamationCircleOutlined,
 } from '@ant-design/icons'
 import styles from './QuestionCard.module.scss'
+
+const { confirm } = Modal
 
 type PropsType = {
   _id: string
@@ -24,7 +27,18 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
   const { _id, title, createdAt, answerCount, isPublished, isStar } = props
   const nav = useNavigate()
   function duplicate() {
-    alert('执行复制')
+    message.success('复制成功!')
+  }
+  function del() {
+    confirm({
+      title: '确定删除该问卷?',
+      icon: <ExclamationCircleOutlined />,
+      okText: '确定',
+      cancelText: '取消',
+      onOk: () => {
+        message.success('删除成功!')
+      },
+    })
   }
   return (
     <div className={styles.container}>
@@ -83,7 +97,7 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
                 复制
               </Button>
             </Popconfirm>
-            <Button type="text" size="small" icon={<DeleteOutlined />}>
+            <Button type="text" size="small" icon={<DeleteOutlined />} onClick={del}>
               删除
             </Button>
           </Space>
