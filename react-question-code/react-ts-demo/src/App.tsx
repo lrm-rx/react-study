@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, ChangeEvent } from 'react'
 // import './App.css'
 // import List1 from './List1'
 // import StateDemo1 from './StateDemo1'
@@ -9,11 +9,12 @@ import React from 'react'
 // import UseMemoDemo from './UseMemoDemo'
 // import UseCallbackDemo from './UseCallbackDemo'
 // import ClosureTrap from './ClosureTrap'
-import StyledComponentsDemo from './StyledComponentsDemo'
+// import StyledComponentsDemo from './StyledComponentsDemo'
 // import useTitle from './hooks/useTitle'
 // import useMouse from './hooks/useMouse'
 // import useGetInfo from './hooks/useGetInfo'
 // import { useTitle } from 'ahooks'
+import FormElemsDemo from './FormElemsDemo'
 
 function App() {
   // useTitle('page app66')
@@ -35,7 +36,8 @@ function App() {
       {/* <UseMemoDemo /> */}
       {/* <UseCallbackDemo /> */}
       {/* <ClosureTrap /> */}
-      <StyledComponentsDemo />
+      {/* <StyledComponentsDemo /> */}
+      <FormElemsDemo />
     </>
   )
 }
