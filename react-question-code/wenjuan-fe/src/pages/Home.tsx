@@ -1,4 +1,4 @@
-import React, { FC } from 'react'
+import React, { FC, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Button, Typography } from 'antd'
 import styles from './Home.module.scss'
@@ -8,13 +8,13 @@ const { Title, Paragraph } = Typography
 
 const Home: FC = () => {
   const nav = useNavigate()
-  // function clickHandler() {
-  //   // nav('/login?b=30')
-  //   nav({
-  //     pathname: '/login',
-  //     search: 'b=20',
-  //   })
-  // }
+
+  useEffect(() => {
+    fetch('/api/test')
+      .then(res => res.json())
+      .then(data => console.log('data', data))
+  }, [])
+
   return (
     <div className={styles.container}>
       <div className={styles.info}>
