@@ -14,7 +14,8 @@ import React, { useState, ChangeEvent } from 'react'
 // import useMouse from './hooks/useMouse'
 // import useGetInfo from './hooks/useGetInfo'
 // import { useTitle } from 'ahooks'
-import FormElemsDemo from './FormElemsDemo'
+// import FormElemsDemo from './FormElemsDemo'
+import FormikDemo from './FormikDemo'
 
 function App() {
   // useTitle('page app66')
@@ -26,6 +27,7 @@ function App() {
       {/* <p>x: {x}</p>
       <p>y: {y}</p> */}
       <p>--------------</p>
+
       {/* <p>{loading ? '加载中' : info}</p> */}
       {/* <List1 /> */}
       {/* <StateDemo1 /> */}
@@ -37,7 +39,8 @@ function App() {
       {/* <UseCallbackDemo /> */}
       {/* <ClosureTrap /> */}
       {/* <StyledComponentsDemo /> */}
-      <FormElemsDemo />
+      {/* <FormElemsDemo /> */}
+      <FormikDemo />
     </>
   )
 }
