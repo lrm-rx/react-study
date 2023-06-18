@@ -33,8 +33,8 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
     confirm({
       title: '确定删除该问卷?',
       icon: <ExclamationCircleOutlined />,
-      okText: '确定',
-      cancelText: '取消',
+      // okText: '确定',
+      // cancelText: '取消',
       onOk: () => {
         message.success('删除成功!')
       },
@@ -89,8 +89,8 @@ const QuestionCard: FC<PropsType> = (props: PropsType) => {
             </Button>
             <Popconfirm
               title="确定复制该问卷?"
-              okText="确定"
-              cancelText="取消"
+              // okText="确定"
+              // cancelText="取消"
               onConfirm={duplicate}
             >
               <Button type="text" size="small" icon={<CopyOutlined />}>

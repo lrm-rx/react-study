@@ -1,5 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import { ConfigProvider } from 'antd'
+import zhCN from 'antd/locale/zh_CN'
 import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
@@ -7,8 +9,11 @@ import reportWebVitals from './reportWebVitals'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   // <React.StrictMode>
-  <App />
+  // <App />
   // </React.StrictMode>
+  <ConfigProvider locale={zhCN}>
+    <App />
+  </ConfigProvider>
 )
 
 // If you want to start measuring performance in your app, pass a function

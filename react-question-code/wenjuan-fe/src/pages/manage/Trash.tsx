@@ -1,39 +1,14 @@
 import React, { FC, useState } from 'react'
 import { useTitle } from 'ahooks'
-import { Typography, Empty, Table, Tag, Space, Button, Modal, message } from 'antd'
+import { Typography, Empty, Table, Tag, Space, Button, Modal, message, Spin } from 'antd'
 import { ExclamationCircleOutlined } from '@ant-design/icons'
 import ListSearch from '../../components/ListSearch'
+import ListPage from '../../components/ListPage'
+import useLoadQuestionListData from '../../hooks/useLoadQuestionListData'
 import styles from './common.module.scss'
 
 const { Title } = Typography
 const { confirm } = Modal
-
-const rawQuestionList = [
-  {
-    _id: 'q1',
-    title: '问卷1',
-    isPublished: false,
-    isStar: true,
-    answerCount: 6,
-    createdAt: '5月10日 14:25',
-  },
-  {
-    _id: 'q2',
-    title: '问卷2',
-    isPublished: true,
-    isStar: false,
-    answerCount: 999,
-    createdAt: '5月20日 13:14',
-  },
-  {
-    _id: 'q3',
-    title: '问卷3',
-    isPublished: false,
-    isStar: true,
-    answerCount: 15,
-    createdAt: '4月15日 15:25',
-  },
-]
 
 const tableColumns = [
   {
@@ -60,7 +35,8 @@ const tableColumns = [
 
 const Trash: FC = () => {
   useTitle('小灰灰问卷 - 回收站')
-  const [questionList, setQuestionList] = useState(rawQuestionList)
+  const { data = {}, loading } = useLoadQuestionListData({ isDeleted: true })
+  const { list = [], total = 0 } = data
 
   const [selectIds, setSelectIds] = useState<string[]>([])
 
@@ -68,8 +44,8 @@ const Trash: FC = () => {
     confirm({
       title: '确定删除该问卷?',
       icon: <ExclamationCircleOutlined />,
-      okText: '确定',
-      cancelText: '取消',
+      // okText: '确定',
+      // cancelText: '取消',
       onOk: () => {
         message.success('删除成功!')
       },
@@ -89,7 +65,7 @@ const Trash: FC = () => {
         </Space>
       </div>
       <Table
-        dataSource={rawQuestionList}
+        dataSource={list}
         columns={tableColumns}
         pagination={false}
         rowKey={q => q._id}
@@ -114,10 +90,17 @@ const Trash: FC = () => {
         </div>
       </div>
       <div className={styles.content}>
-        {questionList.length === 0 && <Empty description="暂无数据" />}
-        {questionList.length > 0 && TableElem}
+        {loading && (
+          <div style={{ textAlign: 'center' }}>
+            <Spin />
+          </div>
+        )}
+        {!loading && list.length === 0 && <Empty description="暂无数据" />}
+        {!loading && list.length > 0 && TableElem}
       </div>
-      <div className={styles.footer}>分页</div>
+      <div className={styles.footer}>
+        <ListPage total={total} />
+      </div>
     </>
   )
 }
