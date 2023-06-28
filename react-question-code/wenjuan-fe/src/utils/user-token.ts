@@ -9,6 +9,6 @@ export function getToken() {
   return localStorage.getItem(KEY) || ''
 }
 
-export function removeToekn() {
+export function removeToken() {
   localStorage.removeItem(KEY)
 }
