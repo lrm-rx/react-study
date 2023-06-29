@@ -15,7 +15,10 @@ import React, { useState, ChangeEvent } from 'react'
 // import useGetInfo from './hooks/useGetInfo'
 // import { useTitle } from 'ahooks'
 // import FormElemsDemo from './FormElemsDemo'
-import FormikDemo from './FormikDemo'
+// import FormikDemo from './FormikDemo'
+// import ContextDemo from './ContextDemo'
+// import CountReducer from './CountReducer'
+import HomePageDemo3 from './homePageDemo/Demo3'
 
 function App() {
   // useTitle('page app66')
@@ -26,7 +29,7 @@ function App() {
       <p>App page</p>
       {/* <p>x: {x}</p>
       <p>y: {y}</p> */}
-      <p>--------------</p>
+      {/* <p>--------------</p> */}
 
       {/* <p>{loading ? '加载中' : info}</p> */}
       {/* <List1 /> */}
@@ -40,7 +43,10 @@ function App() {
       {/* <ClosureTrap /> */}
       {/* <StyledComponentsDemo /> */}
       {/* <FormElemsDemo /> */}
-      <FormikDemo />
+      {/* <FormikDemo /> */}
+      {/* <ContextDemo /> */}
+      {/* <CountReducer /> */}
+      <HomePageDemo3 />
     </>
   )
 }
