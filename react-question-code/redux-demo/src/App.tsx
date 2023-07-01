@@ -1,5 +1,6 @@
 import React from 'react';
 import Count from './pages/Count';
+import TodoList from './pages/TodoList'
 
 function App() {
   return (
@@ -8,6 +9,7 @@ function App() {
         Redux demo
       </h1>
       <Count />
+      <TodoList />
     </>
   );
 }
