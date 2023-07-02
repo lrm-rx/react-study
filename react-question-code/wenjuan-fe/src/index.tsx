@@ -2,7 +2,9 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import { ConfigProvider } from 'antd'
 import zhCN from 'antd/locale/zh_CN'
-import './index.css'
+// import './index.css'
+import { Provider } from 'react-redux'
+import store from './store'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
@@ -12,7 +14,9 @@ root.render(
   // <App />
   // </React.StrictMode>
   <ConfigProvider locale={zhCN}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ConfigProvider>
 )
 
