@@ -1,27 +1,40 @@
-// import { useState, useEffect } from 'react'
+import { useEffect } from 'react'
 import { useParams } from 'react-router-dom'
 import { useRequest } from 'ahooks'
+import { useDispatch } from 'react-redux'
 import { getQuestionService } from '../services/question'
+import { resetComponents } from '../store/componentsReducer'
 
 function useLoadQuestionData() {
+  const dispatch = useDispatch()
   const { id = '' } = useParams()
-  //   const [loading, setLoading] = useState(true)
-  //   const [questionData, setQuestionData] = useState({})
-  //   useEffect(() => {
-  //     async function fn() {
-  //       const data = await getQuestionService(id)
-  //       setQuestionData(data)
-  //       setLoading(false)
-  //     }
-  //     fn()
-  //   }, [])
-  //   return { loading, questionData }
 
-  async function load() {
-    return await getQuestionService(id)
-  }
-  const { loading, data, error } = useRequest(load)
-  return { loading, data, error }
+  // ajax 加载
+  const { data, loading, error, run } = useRequest(
+    async (id: string) => {
+      if (!id) throw new Error('没有问卷id')
+      const data = await getQuestionService(id)
+      return data
+    },
+    {
+      manual: true,
+    }
+  )
+  // 根据获取的 data 设置 redux store
+  useEffect(() => {
+    if (!data) return
+
+    const { title = '', componentList = [] } = data
+    // 把componentList存储到 redux store 中
+    dispatch(resetComponents({ componentList }))
+  }, [data])
+
+  // 判断id变化, 执行 ajax加载问卷数据
+  useEffect(() => {
+    run(id)
+  }, [id])
+
+  return { loading, error }
 }
 
 export default useLoadQuestionData
