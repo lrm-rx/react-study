@@ -25,8 +25,14 @@ function useLoadQuestionData() {
     if (!data) return
 
     const { title = '', componentList = [] } = data
+    // 获取默认的 selectedId
+    let selectedId = ''
+    if (componentList.length > 0) {
+      selectedId = componentList[0].fe_id // 默认选中每一个组件
+    }
+
     // 把componentList存储到 redux store 中
-    dispatch(resetComponents({ componentList }))
+    dispatch(resetComponents({ componentList, selectedId }))
   }, [data])
 
   // 判断id变化, 执行 ajax加载问卷数据
