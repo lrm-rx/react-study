@@ -49,7 +49,7 @@ const EditCanvas: FC<PropsType> = ({ loading }) => {
           [selectedClassName]: fe_id === selectedId,
         })
         return (
-          <div key={fe_id} className={wrapperClassName} onClick={(e) => handleClick(e, fe_id)}>
+          <div key={fe_id} className={wrapperClassName} onClick={e => handleClick(e, fe_id)}>
             <div className={styles.component}>{genComponent(c)}</div>
           </div>
         )

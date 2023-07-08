@@ -16,7 +16,7 @@
   height: 100%;
 
   .left {
-    width: 285px;
+    width: 295px;
     background-color: #fff;
     padding: 0 12px;
   }
@@ -27,14 +27,14 @@
     overflow: hidden;
 
     .canvas-wrapper {
-      position: absolute;
-      width: 400px;
-      height: 712px;
-      top: 50%;
-      left: 50%;
-      transform: translate(-50%, -50%);
-      overflow: auto;
-      box-shadow: 0 2px 10px #0000001f;
+        position: absolute;
+        width: 400px;
+        height: calc(100vh - 62px);
+        top: 50%;
+        left: 50%;
+        transform: translateX(-50%) translateY(-50%);
+        overflow: auto;
+        box-shadow: 0 2px 10px #0000001f;
     }
   }
 
