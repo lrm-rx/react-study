@@ -4,7 +4,9 @@ import useLoadQuestionData from '../../../hooks/useLoadQuestionData'
 import { changeSelectedId } from '../../../store/componentsReducer'
 import styles from './index.module.scss'
 import EditCanvas from './EditCanvas'
+import EditHeader from './EditHeader'
 import LeftPanel from './LeftPanel'
+import RightPanel from './RightPanel'
 
 const Edit: FC = () => {
   const dispatch = useDispatch()
@@ -16,7 +18,7 @@ const Edit: FC = () => {
 
   return (
     <div className={styles.container}>
-      <div style={{ backgroundColor: '#fff', height: '50px' }}>Header</div>
+      <EditHeader />
       <div className={styles['content-wrapper']}>
         <div className={styles.content}>
           <div className={styles.left}>
@@ -27,7 +29,9 @@ const Edit: FC = () => {
               <EditCanvas loading={loading} />
             </div>
           </div>
-          <div className={styles.right}>right</div>
+          <div className={styles.right}>
+            <RightPanel />
+          </div>
         </div>
       </div>
     </div>

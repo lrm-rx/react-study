@@ -5,11 +5,12 @@ import QuestionTitleConf, { QuestionTitlePropsType } from './QuestionTitle'
 // 统一,  各个组件的 prop type
 export type ComponentPropsType = QuestionInputPropsType & QuestionTitlePropsType
 
-// 统一, 组件的配置
+// 统一, 组件的配置 type
 export type ComponentConfType = {
   title: string
   type: string
   Component: FC<ComponentPropsType>
+  PropComponent: FC<ComponentPropsType>
   defaultProps: ComponentPropsType
 }
 
