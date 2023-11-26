@@ -6,6 +6,7 @@
     "ahooks",
     "antd",
     "Appstore",
+    "commitlint",
     "craco",
     "Elems",
     "Formik",
